@@ -1,4 +1,4 @@
-package io.kiosk.kiosk;
+package io.kiosk.kioskPrj;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
