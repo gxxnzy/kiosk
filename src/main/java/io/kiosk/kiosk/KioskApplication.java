@@ -10,4 +10,5 @@ public class KioskApplication {
 		SpringApplication.run(KioskApplication.class, args);
 	}
 
+
 }
