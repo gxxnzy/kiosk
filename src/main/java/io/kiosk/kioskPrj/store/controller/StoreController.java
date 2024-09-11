@@ -5,10 +5,12 @@ import io.kiosk.kioskPrj.store.service.StoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
 
 @Controller
+@RequestMapping("/store")
 public class StoreController {
 
     private final StoreService storeService;
@@ -17,10 +19,10 @@ public class StoreController {
         this.storeService = storeService;
     }
 
-    @GetMapping("/store")
+    @GetMapping("/main")
     public String storepage(Model model) {
 
-        String storeName = "건대점";
+        String storeName = "혜화점";
         List<OrderDetails> orderDetails = storeService.getOrderDetailsByStoreName(storeName);
 
 
