@@ -37,7 +37,7 @@ public class SecurityConfig {
             .anyRequest().permitAll()
         );
         http.formLogin(form -> form
-            .loginPage("/LoginForm")
+            .loginPage("/loginForm")
             .loginProcessingUrl("/login")
             .successHandler((request, response, authentication) -> {
                 // Role-based redirection
@@ -66,9 +66,9 @@ public class SecurityConfig {
         return (request, response, authException) -> {
             String uri = request.getRequestURI();
             if (uri.startsWith("/admin")) {
-                response.sendRedirect("/LoginForm"); // Redirect to admin login page
+                response.sendRedirect("/loginForm"); // Redirect to admin login page
             } else if (uri.startsWith("/store") || uri.startsWith("/kiosk")) {
-                response.sendRedirect("/LoginForm"); // Redirect to kiosk login page
+                response.sendRedirect("/loginForm"); // Redirect to kiosk login page
             }
         };
     }
