@@ -9,22 +9,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("admin/")
 public class AdminMainController {
 
-    @GetMapping("adminMainForm")
+    @GetMapping("adminMain")
     public String adminMain() {
         return "admin/adminMainForm";
     }
 
-    @PostMapping("menuForm")
+    @PostMapping("menu")
     public String menuForm() {
         return "admin/menuForm";
     }
 
-    @PostMapping("storeForm")
+    @PostMapping("store")
     public String storeForm() {
         return "admin/storeForm";
     }
 
-    @PostMapping("adForm")
+    @PostMapping("ad")
     public String adForm() {
         return "admin/adForm";
     }
