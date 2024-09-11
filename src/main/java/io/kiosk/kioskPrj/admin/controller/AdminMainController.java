@@ -1,32 +1,32 @@
 package io.kiosk.kioskPrj.admin.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("admin/")
-public class AdminController {
+public class AdminMainController {
 
-    @GetMapping("adminMainForm")
+    @GetMapping("adminMain")
     public String adminMain() {
         return "admin/adminMainForm";
     }
 
-    @PostMapping("menuForm")
-    public String menuForm(Model model) {
+    @PostMapping("menu")
+    public String menuForm() {
         return "admin/menuForm";
     }
 
-    @PostMapping("storeForm")
+    @PostMapping("store")
     public String storeForm() {
         return "admin/storeForm";
     }
 
-    @PostMapping("adForm")
+    @PostMapping("ad")
     public String adForm() {
         return "admin/adForm";
     }
+
 }
