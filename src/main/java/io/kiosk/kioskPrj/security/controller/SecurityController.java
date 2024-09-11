@@ -43,13 +43,13 @@ public class SecurityController {
         list.add(role);
         return list;
     }
-    @GetMapping("/LoginForm")
+    @GetMapping("/loginForm")
     public String loginForm(){
         return "main/loginForm";
     }
-    @GetMapping("/joinform")
+    @GetMapping("/joinForm")
     public String joinForm(){
-        return "joinForm";
+        return "main/joinForm";
     }
     @GetMapping("/kiosk/kiosk")
     public @ResponseBody String user(){
@@ -57,13 +57,14 @@ public class SecurityController {
     }
     @PostMapping("/join")
     public String join(User user){
-        user.setRole("ROLE_USER");
+        user.setRole("ROLE_KIOSK");
         String rawPassword = user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassword);
-        System.out.println(user);
+        user.setEnabled(1);
         userRepository.save(user);
-        return "redirect:/loginform";
+        System.out.println(user);
+        return "redirect:/loginForm";
     }
     @GetMapping("/role")
     @Secured("ROLE_STORE")
