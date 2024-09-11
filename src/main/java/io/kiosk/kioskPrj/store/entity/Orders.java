@@ -4,18 +4,22 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+
 @Entity
 @Table(name = "orders")
 @Getter @Setter
-public class order {
+public class Orders {
 
-    @Id @Column(name = "order_name")
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "order_id") // 테이블의 컬럼명과 일치시킴
+    private int orderId;
 
     @Column(name = "store_name", nullable = false)
-    private String storeName; // 스토어 이름
+    private String storeName;
 
     @Column(name = "kiosks_num")
-    private Integer kiosksNum; // 키오스크 번호
+    private Integer kiosksNum; // Integer로 변경하여 nullable 허용
+
+
 }

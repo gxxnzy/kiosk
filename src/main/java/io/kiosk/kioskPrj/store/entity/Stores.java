@@ -9,7 +9,7 @@ import lombok.Setter;
 @Entity
 @Table(name = "stores")
 @Getter @Setter
-public class stores {
+public class Stores {
 
     @Id
     private String storeId;
@@ -20,7 +20,7 @@ public class stores {
     private String address; // 가게 위치
     private int dailySales; // 당일 판매량
 
-    public stores() {
+    public Stores() {
 
     }
 }

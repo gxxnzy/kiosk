@@ -40,7 +40,6 @@
 </head>
 <body>
 
-
 <div class="header">
     <h2>당일 판매량</h2>
     <a href="/store/loginform" class="logout">로그아웃</a>
@@ -48,6 +47,7 @@
 
 <hr>
 
+<!-- 주문 내역 테이블 -->
 <table>
     <thead>
     <tr>
@@ -57,29 +57,21 @@
     </tr>
     </thead>
     <tbody>
-
-    <tr>
-        <td>불고기 버거</td>
-        <td>50</td>
-        <td>₩250,000</td>
-    </tr>
-    <tr>
-        <td>치즈 피자</td>
-        <td>30</td>
-        <td>₩300,000</td>
-    </tr>
-    <tr>
-        <td>감자튀김</td>
-        <td>80</td>
-        <td>₩160,000</td>
-    </tr>
+    <!-- 서버에서 전달된 orderDetails 리스트를 출력합니다. -->
+    <c:forEach var="detail" items="${orderDetails}">
+        <tr>
+            <td><c:out value="${detail.menuName}"/></td>
+            <td><c:out value="${detail.quantity}"/></td>
+            <td>₩<c:out value="${detail.quantity * detail.quantityPrice}"/></td>
+        </tr>
+    </c:forEach>
     </tbody>
 </table>
 
 <hr>
 
 <div class="total">
-    <h3>총 판매 금액: ₩710,000</h3>
+    <h3>총 판매 금액: ₩<c:out value="${dailySales}"/></h3>
 </div>
 
 </body>
