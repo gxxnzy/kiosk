@@ -10,22 +10,33 @@
     <script>
       $(document).ready(function() {
         let allMenus = JSON.parse('${menusJson}');
+        let allCategories = JSON.parse('${categoryJson}');
         let cart = [];  // 장바구니 배열
 
         // 카테고리 목록 동적으로 생성
-        let categories = [...new Set(allMenus.map(menu => menu.categoryName))]; // 중복 제거된 카테고리
         let categoryList = $("#category-list");
+        let menuSectionTitle = $("#menu-section-title");
+        let menuSectionInfo = $("#menu-section-info");
 
-        categories.forEach(function(category) {
-          categoryList.append("<li><button onclick='filterMenus(\"" + category + "\")'>" + category + "</button></li>");
+        allCategories.forEach(function(category) {
+          categoryList.append(
+              "<li>" +
+              "<button onclick='filterMenus(\"" + category.categoryName + "\", \"" + category.categoryInfo + "\")'>" +
+              category.categoryName +
+              "</button>"  +
+              "</li>"
+          );
         });
-
         // 카테고리 클릭 시 해당 메뉴 필터링하여 표시
-        window.filterMenus = function(category) {
+        window.filterMenus = function(categoryName, categoryInfo) {
           let menuList = $("#menu-list");
           menuList.empty();
 
-          let filteredMenus = allMenus.filter(menu => menu.categoryName === category);
+          // 메뉴 섹션에 카테고리 이름과 정보를 표시
+          menuSectionTitle.text(categoryName);
+          menuSectionInfo.text(categoryInfo);
+
+          let filteredMenus = allMenus.filter(menu => menu.categoryName === categoryName);
 
           filteredMenus.forEach(function(menu) {
             menuList.append(
@@ -38,7 +49,10 @@
             );
           });
         }
-
+        if (allCategories.length > 0) {
+          let firstCategory = allCategories[0];  // 첫 번째 카테고리 가져오기
+          filterMenus(firstCategory.categoryName, firstCategory.categoryInfo);
+        }
         // 장바구니에 메뉴 추가
         window.addToCart = function(menuId) {
           let found = cart.find(item => item.menuId === menuId);
@@ -51,27 +65,7 @@
           updateCartDisplay();
         }
 
-        // 장바구니에서 수량 줄이기
-        window.decreaseQuantity = function(menuId) {
-          let found = cart.find(item => item.menuId === menuId);
-          if (found && found.quantity > 1) {
-            found.quantity -= 1;  // 수량 감소
-          } else {
-            cart = cart.filter(item => item.menuId !== menuId);  // 수량이 1이면 장바구니에서 제거
-          }
-          updateCartDisplay();
-        }
-
-        // 장바구니에서 수량 추가하기
-        window.increaseQuantity = function(menuId) {
-          let found = cart.find(item => item.menuId === menuId);
-          if (found) {
-            found.quantity += 1;  // 수량 증가
-          }
-          updateCartDisplay();
-        }
-
-        // 장바구니 업데이트
+        // 장바구니 업데이트 함수
         function updateCartDisplay() {
           let cartList = $("#cart-list");
           cartList.empty();
@@ -90,7 +84,6 @@
               );
               total += item.menuPrice * item.quantity;
             });
-            // 총 금액 표시
             cartList.append("<p>Total: " + total + "원</p>");
             $("#cart-section").show(); // 장바구니 섹션 보이기
           } else {
@@ -100,6 +93,8 @@
 
         updateCartDisplay();
       });
+
+
     </script>
 </head>
 <body>
@@ -112,7 +107,8 @@
 
     <!-- 메뉴 섹션 -->
     <div id="menu-section">
-        <h2>Menus</h2>
+        <h2 id="menu-section-title">Menus</h2> <!-- 선택된 카테고리 이름을 표시 -->
+        <p id="menu-section-info" style="font-size: 12px; color: gray;"></p> <!-- 선택된 카테고리 정보를 표시 -->
         <div id="menu-list"></div>
     </div>
 
@@ -122,5 +118,6 @@
         <div id="cart-list"></div>
     </div>
 </div>
+
 </body>
 </html>
