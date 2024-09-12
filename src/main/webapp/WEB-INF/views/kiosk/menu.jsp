@@ -94,10 +94,10 @@
             cartList.append("<p>Total: " + total + "원</p>");
             $("#cart-section").show(); // 장바구니 섹션 보이기
           } else {
-            cartList.append("<p>The cart is empty.</p>");
-            $("#cart-section").hide(); // 장바구니 섹션 숨기기
+            $("#cart-section").hide(); // 장바구니가 비어있을 때 숨기기
           }
         }
+
         updateCartDisplay();
       });
     </script>
