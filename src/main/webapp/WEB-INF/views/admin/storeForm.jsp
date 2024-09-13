@@ -10,28 +10,71 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+      body {
+        text-align: center;
+      }
+
+      table {
+        margin: 0 auto;
+        border-collapse: collapse;
+      }
+    </style>
+    <!-- jQuery-->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+      // ==================================================
+      // 화면 초기화
+      // ==================================================
+      $(document).ready(function() {
+        $("#init").click(function() {
+          //alert("init()");
+          $("#id").val("");
+          $("#name").val("");
+          $("#address").val("");
+          $("#sex0").prop("checked", true);
+        });
+      });
+    </script>
 </head>
 <body>
 
 <h1>Store List</h1>
 
-<form action="searchStoreList" method="get">
-    <label for="storeId">매장 아이디:</label>
-    <input type="text" id="storeId" name="storeId"/>
+<form action="searchStoreList" method="post">
+    <fieldset>
+        <legend>&nbsp;검색 조건&nbsp;</legend>
+        <table>
+            <tr>
+                <th>지점명</th>
+                <td>
+                    <input type="text" name="storeName" id="storeName">
+                </td>
 
-    <label for="storeName">지점명:</label>
-    <input type="text" id="storeName" name="storeName"/>
-
-    <label for="roadAddress">도로명 주소:</label>
-    <input type="text" id="roadAddress" name="roadAddress"/>
-
-    <label for="storeStatus">상태:</label>
-    <input type="text" id="storeStatus" name="storeStatus"/>
-
-    <label for="storeOpenDate">오픈 날짜:</label>
-    <input type="date" id="storeOpenDate" name="storeOpenDate"/>
-
-    <input type="submit" value="검색"/>
+            </tr>
+            <tr>
+                <th>상태</th>
+                <td>
+                    <select name="storeStatus" id="storeStatus">
+                        <option value="">전체</option> <!-- 선택하지 않으면 모든 상태 -->
+                        <option value="영업중">영업중</option>
+                        <option value="폐점">폐점</option>
+                    </select>
+                </td>
+                <th>정렬 기준</th>
+                <td>
+                    <select name="sortOrder" id="sortOrder">
+                        <option value="asc">오래된 순</option>
+                        <option value="desc">최근 순</option>
+                    </select>
+                </td>
+                <td rowspan="2">
+                    <input type="submit" value="검색" >
+                    <input type="button" id="init" value="취소" onclick="init()" >
+                </td>
+            </tr>
+        </table>
+    </fieldset>
 </form>
 
 <table border="1">
@@ -50,12 +93,15 @@
         <tr>
             <td>${store.storeId}</td>
             <td>${store.storeName}</td>
-            <td>${store.roadAddress} ${store.storeAddress1} ${store.storeAddress2}</td>
+            <td>${store.roadAddress}</td>
             <td>${store.storeStatus}</td>
             <td>${store.storeOpenDate}</td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
+<form action="createStore" method="get">
+    <button type="submit" class="button">지점 추가</button>
+</form>
 </body>
 </html>
