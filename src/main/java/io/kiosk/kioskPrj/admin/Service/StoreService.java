@@ -5,5 +5,5 @@ import java.util.List;
 
 public interface StoreService {
 
-    public List<Store> getAllStores();
+    List<Store> getAllStores();
 }

@@ -14,14 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("admin/")
 public class AdminMainController {
 
-/*    private final StoreService storeService;
-
-    @Autowired
-    public StoreController(StoreService storeService) {
-        this.storeService = storeService;
-    }*/
-
-    @Autowired
+    //@Autowired
     @GetMapping("adminMain")
     public String adminMain() {
         return "admin/adminMainForm";
@@ -35,13 +28,6 @@ public class AdminMainController {
     @PostMapping("/menuResult")
     public String menuResult() {
         return "admin/menuForm";
-    }
-
-    @GetMapping("store")
-    public String storeForm(Model model) {
-/*        List<Store> stores = storeService.getAllStores();
-        model.addAttribute("stores", stores);*/
-        return "admin/storeForm";
     }
 
     @GetMapping("ad")
