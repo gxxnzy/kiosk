@@ -47,7 +47,7 @@ public class SecurityConfig {
                 } else if (role.equals("ROLE_KIOSK")) {
                     response.sendRedirect("/kiosk/menu");
                 } else if (role.equals("ROLE_STORE")) {
-                    response.sendRedirect("/kiosk/kiosk");
+                    response.sendRedirect("/store/main");
                 }
             })
             .permitAll()
