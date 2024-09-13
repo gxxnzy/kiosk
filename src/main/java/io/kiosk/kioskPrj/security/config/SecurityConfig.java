@@ -45,7 +45,7 @@ public class SecurityConfig {
                 if (role.equals("ROLE_ADMIN")) {
                     response.sendRedirect("/admin/adminMain");
                 } else if (role.equals("ROLE_KIOSK")) {
-                    response.sendRedirect("/kiosk/kiosk");
+                    response.sendRedirect("/kiosk/menu");
                 } else if (role.equals("ROLE_STORE")) {
                     response.sendRedirect("/kiosk/kiosk");
                 }
