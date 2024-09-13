@@ -1,11 +1,14 @@
 package io.kiosk.kioskPrj.store.controller;
 
 import io.kiosk.kioskPrj.store.entity.OrderDetails;
+import io.kiosk.kioskPrj.store.entity.Stores;
 import io.kiosk.kioskPrj.store.service.StoreService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -20,13 +23,24 @@ public class StoreController {
     }
 
     @GetMapping("/main")
-    public String storepage(Model model) {
+    public String storePage(Model model) {
+        List<Stores> allStores = storeService.getAllStores();
+        model.addAttribute("stores", allStores);
+        return "store";
+    }
 
-        String storeName = "혜화점";
+    @PostMapping("/sales")
+    public String getSalesByStoreName(@RequestParam("storeName") String storeName, Model model) {
         List<OrderDetails> orderDetails = storeService.getOrderDetailsByStoreName(storeName);
-
+        int totalSales = storeService.getTotalSalesByStoreName(storeName);
 
         model.addAttribute("orderDetails", orderDetails);
+        model.addAttribute("totalSales", totalSales);
+        model.addAttribute("selectedStore", storeName); // 선택된 지점 추가
+
+        List<Stores> allStores = storeService.getAllStores();
+        model.addAttribute("stores", allStores); // 지점 목록 추가
+
         return "store";
     }
 

@@ -18,7 +18,7 @@ public class Stores {
     private String storeName; // 가게 이름
     private String password; // 비밀번호
     private String address; // 가게 위치
-    private int dailySales; // 당일 판매량
+ //   private Integer dailySales; // 당일 판매량
 
     public Stores() {
 

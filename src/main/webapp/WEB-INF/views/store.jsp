@@ -1,78 +1,83 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <title>당일 판매량</title>
+    <title>Store Sales</title>
     <style>
-        body {
+        h1 {
             text-align: center;
         }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
         table {
-            margin: 0 auto;
+            width: 100%;
             border-collapse: collapse;
-            width: 80%;
+            margin-top: 20px;
         }
         th, td {
-            border: 1px solid black;
-            padding: 8px;
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
         }
         th {
-            background-color: #f2f2f2;
+            background-color: #f4f4f4;
         }
-        .total {
-            text-align: right;
-            margin-right: 20%;
+        form {
+            margin-bottom: 20px;
+            text-align: right; /* Align form elements to the right */
         }
-        .header {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 60px;
+        .total-sales {
+            text-align: right; /* Align total sales to the right */
+            margin-top: 20px;
         }
         .logout {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
+            display: inline-block;
+            margin-left: 20px;
+            text-decoration: none;
+            color: #007BFF;
         }
     </style>
 </head>
 <body>
-
-<div class="header">
-    <h2>당일 판매량</h2>
-    <a href="/store/loginform" class="logout">로그아웃</a>
-</div>
-
+<h1>점포 관리</h1>
+<form action="/store/sales" method="post">
+    <select name="storeName" id="storeName">
+        <c:forEach var="store" items="${stores}">
+            <option value="${store.storeName}" <c:if test="${store.storeName eq selectedStore}">selected</c:if>>
+                    ${store.storeName}
+            </option>
+        </c:forEach>
+    </select>
+    <input type="submit" value="선택">
+    <a href="/logout" class="logout">로그아웃</a> <!-- Logout link -->
+</form>
 <hr>
-
-<!-- 주문 내역 테이블 -->
 <table>
     <thead>
     <tr>
         <th>메뉴 이름</th>
-        <th>판매 수량</th>
-        <th>판매 금액</th>
+        <th>주문 수</th>
+        <th>가격</th>
     </tr>
     </thead>
     <tbody>
-    <!-- 서버에서 전달된 orderDetails 리스트를 출력합니다. -->
     <c:forEach var="detail" items="${orderDetails}">
         <tr>
             <td><c:out value="${detail.menuName}"/></td>
-            <td><c:out value="${detail.quantity}"/></td>
-            <td>₩<c:out value="${detail.quantity * detail.quantityPrice}"/></td>
+            <td><c:out value="${detail.quantity}개"/></td>
+            <td><c:out value="${detail.quantityPrice}원"/></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-
 <hr>
-
-<div class="total">
-    <h3>총 판매 금액: ₩<c:out value="${dailySales}"/></h3>
+<div class="total-sales">
+    <c:if test="${not empty totalSales}">
+        <h2>총 결제 금액 <c:out value="${selectedStore}"/>: ${totalSales}원</h2>
+    </c:if>
 </div>
-
 </body>
 </html>

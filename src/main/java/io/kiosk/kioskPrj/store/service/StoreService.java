@@ -12,7 +12,7 @@ import java.util.List;
 public class StoreService {
 
     private final OrderdetailsRepository orderdetailsRepository;
-    private final StoresRepository storesRepository; // 새로운 레포지토리 추가
+    private final StoresRepository storesRepository;
 
     public StoreService(OrderdetailsRepository orderdetailsRepository, StoresRepository storesRepository) {
         this.orderdetailsRepository = orderdetailsRepository;
@@ -23,8 +23,14 @@ public class StoreService {
         return orderdetailsRepository.findByStoreName(storeName);
     }
 
+    public int getTotalSalesByStoreName(String storeName) {
+        List<OrderDetails> orderDetails = getOrderDetailsByStoreName(storeName);
+        return orderDetails.stream()
+                .mapToInt(detail -> detail.getQuantity() * detail.getQuantityPrice())
+                .sum();
+    }
+
     public List<Stores> getAllStores() {
         return storesRepository.findAll();
     }
 }
-
