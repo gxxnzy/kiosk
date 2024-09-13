@@ -1,6 +1,6 @@
 package io.kiosk.kioskPrj.kiosk.repository;
 
-import io.kiosk.kioskPrj.kiosk.model.Menu;
+import io.kiosk.kioskPrj.common.model.Menu;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 
