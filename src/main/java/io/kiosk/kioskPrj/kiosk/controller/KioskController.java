@@ -10,12 +10,12 @@ import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
 import io.kiosk.kioskPrj.kiosk.service.MenuService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/kiosk")
@@ -23,6 +23,7 @@ public class KioskController {
     private final MenuRepository menuRepository;
     private final ObjectMapper objectMapper;
     private final CategoryRepository categoryRepository;
+
     public KioskController(MenuRepository menuRepository, ObjectMapper objectMapper, CategoryRepository categoryRepository){
         this.menuRepository = menuRepository;
         this.objectMapper = objectMapper;
@@ -39,6 +40,18 @@ public class KioskController {
         model.addAttribute("categoryJson",categoryJson);
         System.out.println(user);
         return "kiosk/menu";
+    }
+    @PostMapping("/checkout")
+    public String checkout(@RequestParam("cartData") String cartData, Model model) throws JsonProcessingException {
+
+        // 장바구니 데이터를 파싱
+        List<Map<String, Object>> cart = objectMapper.readValue(cartData, List.class);
+
+        // 모델에 장바구니 데이터를 추가
+        model.addAttribute("cartItems", cart);
+
+        // 주문 내역 페이지로 이동
+        return "kiosk/checkout";
     }
 //    @GetMapping("/menu2")
 //    public String menu2(Model model) throws JsonProcessingException {
