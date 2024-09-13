@@ -51,10 +51,12 @@ public class AdminStoreController {
     }
 
     @PostMapping("createStore")
-    public String createStore(Store store) {
+    public String createStore(Store store,Model model) {
         log.info("createStore:" + store);
         store.setStoreStatus("영업중");
         storeService.saveStore(store);
+        List<Store> stores = storeService.getAllStores();
+        model.addAttribute("stores", stores);
         return "admin/storeForm";
     }
 
