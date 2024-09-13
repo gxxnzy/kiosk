@@ -1,6 +1,6 @@
 package io.kiosk.kioskPrj.kiosk.service;
 
-import io.kiosk.kioskPrj.kiosk.model.Menu;
+import io.kiosk.kioskPrj.common.model.Menu;
 import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
 import java.util.ArrayList;
 import java.util.List;

@@ -3,8 +3,8 @@ package io.kiosk.kioskPrj.kiosk.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.kiosk.kioskPrj.kiosk.model.Category;
-import io.kiosk.kioskPrj.kiosk.model.Menu;
+import io.kiosk.kioskPrj.common.model.Category;
+import io.kiosk.kioskPrj.common.model.Menu;
 import io.kiosk.kioskPrj.kiosk.repository.CategoryRepository;
 import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
 import io.kiosk.kioskPrj.kiosk.service.MenuService;
