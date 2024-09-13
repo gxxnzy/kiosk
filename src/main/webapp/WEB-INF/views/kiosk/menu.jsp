@@ -90,6 +90,23 @@
             $("#cart-section").hide(); // 장바구니가 비어있을 때 숨기기
           }
         }
+        window.decreaseQuantity = function(menuId) {
+          let found = cart.find(item => item.menuId === menuId);
+          if (found && found.quantity > 1) {
+            found.quantity -= 1;  // 수량 감소
+          } else {
+            cart = cart.filter(item => item.menuId !== menuId);  // 수량이 1이면 장바구니에서 제거
+          }
+          updateCartDisplay();
+        }
+        // 장바구니에서 수량 추가하기
+        window.increaseQuantity = function(menuId) {
+          let found = cart.find(item => item.menuId === menuId);
+          if (found) {
+            found.quantity += 1;  // 수량 증가
+          }
+          updateCartDisplay();
+        }
           // 주문하기 버튼 클릭 시 장바구니 데이터를 전송
           $("form#cart-form").on("submit", function(event) {
               event.preventDefault(); // 폼의 기본 동작을 막음
