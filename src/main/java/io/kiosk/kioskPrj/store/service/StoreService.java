@@ -33,4 +33,8 @@ public class StoreService {
     public List<Store> getAllStores() {
         return storesRepository.findAll();
     }
+
+    public Store getStoreById(String storeId) {
+        return storesRepository.findById(storeId).orElse(null);
+    }
 }

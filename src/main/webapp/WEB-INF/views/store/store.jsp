@@ -39,19 +39,18 @@
             text-decoration: none;
             color: #007BFF;
         }
+        .store-name {
+            display: inline-block;
+            margin-right: 20px; /* Add space between store name and logout link */
+        }
     </style>
 </head>
 <body>
 <h1>점포 관리</h1>
 <form action="/store/sales" method="post">
-    <select name="storeName" id="storeName">
-        <c:forEach var="store" items="${stores}">
-            <option value="${store.storeName}" <c:if test="${store.storeName eq selectedStore}">selected</c:if>>
-                    ${store.storeName}
-            </option>
-        </c:forEach>
-    </select>
-    <input type="submit" value="선택">
+    <c:if test="${not empty selectedStore}">
+        <span class="store-name">현재 지점: ${selectedStore}</span> <!-- Display selected store name -->
+    </c:if>
     <a href="/logout" class="logout">로그아웃</a> <!-- Logout link -->
 </form>
 <hr>
@@ -76,9 +75,8 @@
 <hr>
 <div class="total-sales">
     <c:if test="${not empty totalSales}">
-        <h2>총 결제 금액 <c:out value="${selectedStore}"/>: ${totalSales}원</h2>
+        <h2>총 결제 금액 : ${totalSales}원</h2>
     </c:if>
 </div>
-<a href="reset"><button>카테고리 메뉴 초기화</button></a>
 </body>
 </html>
