@@ -8,6 +8,12 @@ import io.kiosk.kioskPrj.common.model.Menu;
 import io.kiosk.kioskPrj.kiosk.repository.CategoryRepository;
 import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
 import io.kiosk.kioskPrj.kiosk.service.MenuService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -42,24 +48,24 @@ public class KioskController {
         return "kiosk/menu";
     }
     @PostMapping("/checkout")
-    public String checkout(@RequestParam("cartData") String cartData, Model model) throws JsonProcessingException {
-
-        // 장바구니 데이터를 파싱
-        List<Map<String, Object>> cart = objectMapper.readValue(cartData, List.class);
-
-        // 모델에 장바구니 데이터를 추가
-        model.addAttribute("cartItems", cart);
-
-        // 주문 내역 페이지로 이동
-        return "kiosk/checkout";
+    public String checkout(@CookieValue(value = "cart", defaultValue = "") String cartCookie, Model model) throws Exception {
+        String user = SecurityContextHolder.getContext().getAuthentication().getName();
+        // 쿠키가 존재하면 디코딩 및 파싱, 그렇지 않으면 빈 배열 처리
+        if (!cartCookie.isEmpty()) {
+            String decodedCart = URLDecoder.decode(cartCookie, "UTF-8");  // 쿠키 값을 디코딩
+            List<Map<String, Object>> cart = objectMapper.readValue(decodedCart, List.class);
+            int totalAmount = 0;
+            for (Map<String, Object> item : cart) {
+                int price = ((Number) item.get("menuPrice")).intValue();
+                int quantity = ((Number) item.get("quantity")).intValue();
+                totalAmount += price * quantity;
+            }
+            model.addAttribute("cartItems", cart);
+            model.addAttribute("totalAmount", totalAmount);
+            model.addAttribute("user",user);
+        } else {
+            model.addAttribute("cartItems", new ArrayList<>());  // 빈 장바구니
+        }
+        return "kiosk/checkout";  // checkout.jsp로 이동
     }
-//    @GetMapping("/menu2")
-//    public String menu2(Model model) throws JsonProcessingException {
-//        String user = SecurityContextHolder.getContext().getAuthentication().getName();
-//        List<Menu> list = menuRepository.findByMenuActive(1);
-//        String menusJson = objectMapper.writeValueAsString(list);
-//        model.addAttribute("menusJson", menusJson);
-//        System.out.println(user);
-//        return "kiosk/menu2";
-//    }
 }
