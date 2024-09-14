@@ -1,7 +1,7 @@
 package io.kiosk.kioskPrj.store.service;
 
-import io.kiosk.kioskPrj.store.entity.OrderDetails;
-import io.kiosk.kioskPrj.store.entity.Stores;
+import io.kiosk.kioskPrj.common.model.OrderDetails;
+import io.kiosk.kioskPrj.common.model.Store;
 import io.kiosk.kioskPrj.store.repository.OrderdetailsRepository;
 import io.kiosk.kioskPrj.store.repository.StoresRepository; // 새로운 레포지토리 추가
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class StoreService {
                 .sum();
     }
 
-    public List<Stores> getAllStores() {
+    public List<Store> getAllStores() {
         return storesRepository.findAll();
     }
 }

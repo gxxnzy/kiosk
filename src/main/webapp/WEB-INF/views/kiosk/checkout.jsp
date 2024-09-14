@@ -1,14 +1,29 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Order Summary</title>
+    <title>Checkout</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
 </head>
 <body>
 <h1>주문 내역서</h1>
-
+<h2>${kiosks.storeName}</h2>
+<h3>${kiosks.kioskNum}번 테이블</h3>
 <div class="order-summary">
     <c:forEach var="item" items="${cartItems}">
         <div class="order-item">
@@ -26,6 +41,6 @@
         </div>
     </c:if>
 </div>
-<button class="back-button" onclick="history.back()">뒤로가기</button>
+<a href="/kiosk/menu">Go Back</a>
 </body>
 </html>

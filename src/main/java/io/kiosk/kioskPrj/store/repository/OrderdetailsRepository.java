@@ -1,6 +1,6 @@
 package io.kiosk.kioskPrj.store.repository;
 
-import io.kiosk.kioskPrj.store.entity.OrderDetails;
+import io.kiosk.kioskPrj.common.model.OrderDetails;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

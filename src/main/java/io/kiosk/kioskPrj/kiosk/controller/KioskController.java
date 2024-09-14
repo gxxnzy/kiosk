@@ -1,14 +1,11 @@
 package io.kiosk.kioskPrj.kiosk.controller;
 
-import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.web.util.WebUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kiosk.kioskPrj.common.model.Category;
 import io.kiosk.kioskPrj.common.model.Menu;
 import io.kiosk.kioskPrj.kiosk.repository.CategoryRepository;
 import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
-import io.kiosk.kioskPrj.kiosk.service.MenuService;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
@@ -48,7 +45,7 @@ public class KioskController {
         System.out.println(user);
         return "kiosk/menu";
     }
-    @PostMapping("/details")
+    @PostMapping("/checkout")
     public String checkout(@CookieValue(value = "cartData", defaultValue = "") String cartDataCookie, HttpServletResponse response, Model model) throws JsonProcessingException, UnsupportedEncodingException {
         List<Map<String, Object>> cart = new ArrayList<>();
 
@@ -79,7 +76,7 @@ public class KioskController {
         response.addCookie(cartDataCookieNew);
 
 
-        return "kiosk/details";
+        return "kiosk/checkout";
     }
 
 
