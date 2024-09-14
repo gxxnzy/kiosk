@@ -49,60 +49,43 @@ public class KioskController {
         return "kiosk/menu";
     }
     @PostMapping("/details")
-    public String checkout(@RequestParam(value = "cartData", required = false) String cartData, Model model) throws JsonProcessingException {
+    public String checkout(@CookieValue(value = "cartData", defaultValue = "") String cartDataCookie, HttpServletResponse response, Model model) throws JsonProcessingException, UnsupportedEncodingException {
         List<Map<String, Object>> cart = new ArrayList<>();
 
-        if (cartData != null && !cartData.isEmpty()) {
-            cart = objectMapper.readValue(cartData, List.class);
+
+        if (!cartDataCookie.isEmpty()) {
+            String decodedCartData = URLDecoder.decode(cartDataCookie, "UTF-8");
+            cart = objectMapper.readValue(decodedCartData, List.class);
         }
 
+        // 총 결제 금액 계산
         int totalAmount = 0;
-
         for (Map<String, Object> item : cart) {
             int price = ((Number) item.get("menuPrice")).intValue();
             int quantity = ((Number) item.get("quantity")).intValue();
             totalAmount += price * quantity;
         }
 
+        // 모델에 장바구니 데이터와 총 결제 금액 추가
         model.addAttribute("cartItems", cart);
         model.addAttribute("totalAmount", totalAmount);
 
+
+        String encodedCartData = URLEncoder.encode(objectMapper.writeValueAsString(cart), "UTF-8");
+        // 새로운 쿠키 생성
+        Cookie cartDataCookieNew = new Cookie("cartData", encodedCartData);
+        cartDataCookieNew.setMaxAge(60); // 60초 동안 유지
+        cartDataCookieNew.setPath("/");
+        response.addCookie(cartDataCookieNew);
+
+
         return "kiosk/details";
     }
 
-    @GetMapping("/details")
-    public String showDetails(Model model, HttpServletRequest request) throws JsonProcessingException, UnsupportedEncodingException {
-        // 쿠키에서 장바구니 데이터를 읽어오기
-        Cookie[] cookies = request.getCookies();
-        String cartData = null;
 
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if ("cart".equals(cookie.getName())) {
-                    // URL 디코딩
-                    cartData = URLDecoder.decode(cookie.getValue(), "UTF-8");
-                    break;
-                }
-            }
-        }
 
-        // 쿠키에 저장된 장바구니 데이터가 있으면 처리
-        if (cartData != null) {
-            List<Map<String, Object>> cart = objectMapper.readValue(cartData, List.class);
-            int totalAmount = 0;
 
-            for (Map<String, Object> item : cart) {
-                int price = ((Number) item.get("menuPrice")).intValue();
-                int quantity = ((Number) item.get("quantity")).intValue();
-                totalAmount += price * quantity;
-            }
 
-            model.addAttribute("cartItems", cart);
-            model.addAttribute("totalAmount", totalAmount);
-        }
-        System.out.println("쿠키 데이터: " + cartData);
-        return "kiosk/details";
-    }
 
 
 //    @GetMapping("/menu2")
