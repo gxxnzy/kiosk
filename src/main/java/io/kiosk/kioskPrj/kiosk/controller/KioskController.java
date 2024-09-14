@@ -1,6 +1,7 @@
 package io.kiosk.kioskPrj.kiosk.controller;
 
-
+import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.util.WebUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kiosk.kioskPrj.common.model.Category;
@@ -8,10 +9,16 @@ import io.kiosk.kioskPrj.common.model.Menu;
 import io.kiosk.kioskPrj.kiosk.repository.CategoryRepository;
 import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
 import io.kiosk.kioskPrj.kiosk.service.MenuService;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,18 +48,63 @@ public class KioskController {
         System.out.println(user);
         return "kiosk/menu";
     }
-    @PostMapping("/checkout")
-    public String checkout(@RequestParam("cartData") String cartData, Model model) throws JsonProcessingException {
+    @PostMapping("/details")
+    public String checkout(@RequestParam(value = "cartData", required = false) String cartData, Model model) throws JsonProcessingException {
+        List<Map<String, Object>> cart = new ArrayList<>();
 
-        // 장바구니 데이터를 파싱
-        List<Map<String, Object>> cart = objectMapper.readValue(cartData, List.class);
+        if (cartData != null && !cartData.isEmpty()) {
+            cart = objectMapper.readValue(cartData, List.class);
+        }
 
-        // 모델에 장바구니 데이터를 추가
+        int totalAmount = 0;
+
+        for (Map<String, Object> item : cart) {
+            int price = ((Number) item.get("menuPrice")).intValue();
+            int quantity = ((Number) item.get("quantity")).intValue();
+            totalAmount += price * quantity;
+        }
+
         model.addAttribute("cartItems", cart);
+        model.addAttribute("totalAmount", totalAmount);
 
-        // 주문 내역 페이지로 이동
-        return "kiosk/checkout";
+        return "kiosk/details";
     }
+
+    @GetMapping("/details")
+    public String showDetails(Model model, HttpServletRequest request) throws JsonProcessingException, UnsupportedEncodingException {
+        // 쿠키에서 장바구니 데이터를 읽어오기
+        Cookie[] cookies = request.getCookies();
+        String cartData = null;
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("cart".equals(cookie.getName())) {
+                    // URL 디코딩
+                    cartData = URLDecoder.decode(cookie.getValue(), "UTF-8");
+                    break;
+                }
+            }
+        }
+
+        // 쿠키에 저장된 장바구니 데이터가 있으면 처리
+        if (cartData != null) {
+            List<Map<String, Object>> cart = objectMapper.readValue(cartData, List.class);
+            int totalAmount = 0;
+
+            for (Map<String, Object> item : cart) {
+                int price = ((Number) item.get("menuPrice")).intValue();
+                int quantity = ((Number) item.get("quantity")).intValue();
+                totalAmount += price * quantity;
+            }
+
+            model.addAttribute("cartItems", cart);
+            model.addAttribute("totalAmount", totalAmount);
+        }
+        System.out.println("쿠키 데이터: " + cartData);
+        return "kiosk/details";
+    }
+
+
 //    @GetMapping("/menu2")
 //    public String menu2(Model model) throws JsonProcessingException {
 //        String user = SecurityContextHolder.getContext().getAuthentication().getName();
