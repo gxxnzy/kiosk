@@ -22,7 +22,8 @@
 </head>
 <body>
 <h1>주문 내역서</h1>
-<h2>${user}</h2>
+<h2>${kiosks.storeName}</h2>
+<h3>${kiosks.kioskNum}번 테이블</h3>
 <div class="order-summary">
     <c:forEach var="item" items="${cartItems}">
         <div class="order-item">
