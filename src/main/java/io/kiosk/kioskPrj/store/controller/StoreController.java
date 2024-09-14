@@ -26,7 +26,7 @@ public class StoreController {
     public String storePage(Model model) {
         List<Store> allStores = storeService.getAllStores();
         model.addAttribute("stores", allStores);
-        return "store";
+        return "store/store";
     }
 
     @PostMapping("/sales")
@@ -41,11 +41,12 @@ public class StoreController {
         List<Store> allStores = storeService.getAllStores();
         model.addAttribute("stores", allStores); // 지점 목록 추가
 
-        return "store";
+        return "store/store";
     }
 
     @GetMapping("/store/loginform")
     public String loginform() {
         return "loginform";
     }
+
 }

@@ -79,5 +79,6 @@
         <h2>총 결제 금액 <c:out value="${selectedStore}"/>: ${totalSales}원</h2>
     </c:if>
 </div>
+<a href="reset"><button>카테고리 메뉴 초기화</button></a>
 </body>
 </html>
