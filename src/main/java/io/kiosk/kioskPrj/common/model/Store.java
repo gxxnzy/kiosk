@@ -8,14 +8,14 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name="stores")
+@Table(name = "stores")
 public class Store {
 
     @Id
-    @Column(name = "store_id")
+    //@Column(name = "store_id")
     private String storeId;
 
-    @Column(name = "store_name")
+    //@Column(name = "store_name")
     private String storeName;
 
     @Column(name = "road_address")

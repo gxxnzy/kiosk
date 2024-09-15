@@ -1,7 +1,7 @@
 package io.kiosk.kioskPrj.security.config.auth;
 
 
-import io.kiosk.kioskPrj.security.model.User;
+import io.kiosk.kioskPrj.common.model.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.springframework.security.core.GrantedAuthority;

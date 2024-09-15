@@ -1,7 +1,7 @@
 package io.kiosk.kioskPrj.security.config.auth;
 
 
-import io.kiosk.kioskPrj.security.model.User;
+import io.kiosk.kioskPrj.common.model.User;
 import io.kiosk.kioskPrj.security.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
