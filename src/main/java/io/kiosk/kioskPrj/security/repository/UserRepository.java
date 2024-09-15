@@ -1,6 +1,6 @@
 package io.kiosk.kioskPrj.security.repository;
 
-import io.kiosk.kioskPrj.security.model.User;
+import io.kiosk.kioskPrj.common.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 //@Repository 상속 없이 ioc 가능 JpaRepository 상속해서 자동 bean 등록
