@@ -1,7 +1,7 @@
 package io.kiosk.kioskPrj.security.controller;
 
 
-import io.kiosk.kioskPrj.security.model.User;
+import io.kiosk.kioskPrj.common.model.User;
 import io.kiosk.kioskPrj.security.repository.UserRepository;
 import java.util.ArrayList;
 import java.util.Collection;

@@ -1,4 +1,5 @@
-package io.kiosk.kioskPrj.security.model;
+package io.kiosk.kioskPrj.common.model;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,14 +10,11 @@ import lombok.Data;
 
 @Entity
 @Data
-@Table(name = "users")
-public class User {
+@Table(name = "kiosks")
+public class Kiosks {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private String username;
-    private String password;
-    private String role;
-    private int enabled;
-
+    private String kioskId;
+    private String storeName;
+    private String kioskNum;
 }

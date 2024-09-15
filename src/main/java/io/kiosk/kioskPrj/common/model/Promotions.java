@@ -1,4 +1,4 @@
-package io.kiosk.kioskPrj.kiosk.model;
+package io.kiosk.kioskPrj.common.model;
 
 
 import jakarta.persistence.Entity;
