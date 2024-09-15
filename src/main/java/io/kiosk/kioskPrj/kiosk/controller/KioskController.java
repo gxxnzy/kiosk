@@ -11,6 +11,7 @@ import io.kiosk.kioskPrj.kiosk.repository.CategoryRepository;
 import io.kiosk.kioskPrj.kiosk.repository.KiosksRepository;
 import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
 import io.kiosk.kioskPrj.kiosk.repository.PromotionsRepository;
+import io.kiosk.kioskPrj.kiosk.service.CategoryService;
 import io.kiosk.kioskPrj.kiosk.service.MenuService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,6 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,29 +34,47 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/kiosk")
 public class KioskController {
-    private final MenuRepository menuRepository;
+
+    private final CacheManager cacheManager;
+    private final MenuService menuService;
     private final ObjectMapper objectMapper;
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
     private final KiosksRepository kiosksRepository;
     private final PromotionsRepository promotionsRepository;
 
-    public KioskController(MenuRepository menuRepository, ObjectMapper objectMapper, CategoryRepository categoryRepository, KiosksRepository kiosksRepository, PromotionsRepository promotionsRepository){
-        this.menuRepository = menuRepository;
+    public KioskController(CacheManager cacheManager, MenuService menuService, ObjectMapper objectMapper, CategoryService categoryService, KiosksRepository kiosksRepository, PromotionsRepository promotionsRepository){
+        this.cacheManager = cacheManager;
+        this.menuService = menuService;
         this.objectMapper = objectMapper;
-        this.categoryRepository = categoryRepository;
+        this.categoryService = categoryService;
         this.kiosksRepository = kiosksRepository;
         this.promotionsRepository = promotionsRepository;
     }
+    // 메뉴 데이터를 캐시에서 불러오거나 새로 조회
+    @Cacheable(value = "menusCache")
+    public List<Menu> getCachedMenus() {
+        return menuService.getActiveMenus();
+    }
+
+    // 카테고리 데이터를 캐시에서 불러오거나 새로 조회
+    @Cacheable(value = "categoryCache")
+    public List<Category> getCachedCategories() {
+        return categoryService.selectAll();
+    }
+    @GetMapping("/reset")
+    public String reset(){
+        cacheManager.getCache("menusCache").clear();
+        cacheManager.getCache("categoryCache").clear();
+        return "redirect:/kiosk/menu";
+    }
     @GetMapping("/menu")
     public String menu(Model model) throws JsonProcessingException {
-        String user = SecurityContextHolder.getContext().getAuthentication().getName();
-        List<Menu> list = menuRepository.findByMenuActive(1);
+        List<Menu> list = getCachedMenus();
         String menusJson = objectMapper.writeValueAsString(list);
-        List<Category> list1 = categoryRepository.findAll();
+        List<Category> list1 = getCachedCategories();
         String categoryJson = objectMapper.writeValueAsString(list1);
         model.addAttribute("menusJson", menusJson);
         model.addAttribute("categoryJson",categoryJson);
-        System.out.println(user);
         return "kiosk/menu";
     }
     @PostMapping("/checkout")
