@@ -1,6 +1,6 @@
 package io.kiosk.kioskPrj.kiosk.repository;
 
-import io.kiosk.kioskPrj.kiosk.model.Promotions;
+import io.kiosk.kioskPrj.common.model.Promotions;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
