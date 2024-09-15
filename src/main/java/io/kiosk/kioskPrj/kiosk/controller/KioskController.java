@@ -1,29 +1,20 @@
 package io.kiosk.kioskPrj.kiosk.controller;
 
-
+import io.kiosk.kioskPrj.common.model.Kiosks;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kiosk.kioskPrj.common.model.Category;
 import io.kiosk.kioskPrj.common.model.Menu;
-import io.kiosk.kioskPrj.kiosk.model.Kiosks;
-import io.kiosk.kioskPrj.kiosk.model.Promotions;
-import io.kiosk.kioskPrj.kiosk.repository.CategoryRepository;
+import io.kiosk.kioskPrj.common.model.Promotions;
 import io.kiosk.kioskPrj.kiosk.repository.KiosksRepository;
-import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
 import io.kiosk.kioskPrj.kiosk.repository.PromotionsRepository;
 import io.kiosk.kioskPrj.kiosk.service.CategoryService;
 import io.kiosk.kioskPrj.kiosk.service.MenuService;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import io.kiosk.kioskPrj.common.model.Kiosks;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
