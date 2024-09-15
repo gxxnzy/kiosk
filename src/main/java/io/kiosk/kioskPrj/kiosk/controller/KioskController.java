@@ -5,11 +5,16 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.kiosk.kioskPrj.common.model.Category;
 import io.kiosk.kioskPrj.common.model.Menu;
+import io.kiosk.kioskPrj.common.model.Orders;
 import io.kiosk.kioskPrj.common.model.Promotions;
+import io.kiosk.kioskPrj.common.model.Store;
 import io.kiosk.kioskPrj.kiosk.repository.KiosksRepository;
 import io.kiosk.kioskPrj.kiosk.repository.PromotionsRepository;
 import io.kiosk.kioskPrj.kiosk.service.CategoryService;
 import io.kiosk.kioskPrj.kiosk.service.MenuService;
+import io.kiosk.kioskPrj.kiosk.service.OrderService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +23,7 @@ import io.kiosk.kioskPrj.common.model.Kiosks;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -32,14 +38,16 @@ public class KioskController {
     private final CategoryService categoryService;
     private final KiosksRepository kiosksRepository;
     private final PromotionsRepository promotionsRepository;
+    private final OrderService orderService;
 
-    public KioskController(CacheManager cacheManager, MenuService menuService, ObjectMapper objectMapper, CategoryService categoryService, KiosksRepository kiosksRepository, PromotionsRepository promotionsRepository){
+    public KioskController(CacheManager cacheManager, MenuService menuService, ObjectMapper objectMapper, CategoryService categoryService, KiosksRepository kiosksRepository, PromotionsRepository promotionsRepository,OrderService orderService){
         this.cacheManager = cacheManager;
         this.menuService = menuService;
         this.objectMapper = objectMapper;
         this.categoryService = categoryService;
         this.kiosksRepository = kiosksRepository;
         this.promotionsRepository = promotionsRepository;
+        this.orderService = orderService;
     }
     // 메뉴 데이터를 캐시에서 불러오거나 새로 조회
     @Cacheable(value = "menusCache")
@@ -95,6 +103,27 @@ public class KioskController {
         List<Promotions> promotionsList = promotionsRepository.findActivePromotionsBetweenDates();
         System.out.println(promotionsList);
         model.addAttribute("promotionsList", promotionsList);
+        return "kiosk/kioskAd";
+    }
+    @PostMapping("/order")
+    public String order(@CookieValue(value = "cart", defaultValue = "") String cartCookie, HttpServletResponse response) throws Exception{
+        if (cartCookie.isEmpty()){
+            return "redirect:/kiosk/menu";
+        }else{
+            String kioskId = SecurityContextHolder.getContext().getAuthentication().getName();
+            Kiosks kiosks = kiosksRepository.findAllByKioskId(kioskId);
+            String storeName = kiosks.getStoreName();
+            int kioskNum = kiosks.getKioskNum();
+            String decodedCart = URLDecoder.decode(cartCookie, "UTF-8");  // 쿠키 값을 디코딩
+            List<Map<String, Object>> cartItem = objectMapper.readValue(decodedCart, List.class);
+            Orders orders =orderService.saveOrderAndDetails(storeName,kioskNum,cartItem);
+            Cookie cookie = new Cookie("cart",null);
+            cookie.setPath("/");
+            cookie.setMaxAge(0);
+            response.addCookie(cookie);
+            System.out.println(cartItem);
+            System.out.println(orders);
+        }
         return "kiosk/kioskAd";
     }
 }

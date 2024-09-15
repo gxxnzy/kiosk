@@ -192,7 +192,6 @@
         <h2>Cart</h2>
         <div id="cart-list"></div>
         <form id="cart-form" action="checkout" method="post">
-            <input type="hidden" name="cartData">
             <button type="submit">주문하기</button>
         </form>
     </div>
