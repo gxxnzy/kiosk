@@ -10,12 +10,15 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryService {
+
     private final CategoryRepository categoryRepository;
-    public CategoryService (CategoryRepository categoryRepository){
+
+    public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
+
     @Cacheable(value = "categoryCache")
-    public List<Category> selectAll(){
+    public List<Category> selectAll() {
         return categoryRepository.findAll();
     }
 

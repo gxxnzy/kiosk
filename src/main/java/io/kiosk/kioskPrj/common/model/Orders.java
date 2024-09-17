@@ -1,10 +1,10 @@
 package io.kiosk.kioskPrj.common.model;
 
 import jakarta.persistence.*;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.time.LocalDate;
+import org.hibernate.annotations.CreationTimestamp;
 
 
 @Entity
@@ -23,9 +23,12 @@ public class Orders {
     @Column(name = "kiosks_num")
     private Integer kiosksNum; // Integer로 변경하여 nullable 허용
 
+    @CreationTimestamp
     @Column(name = "order_time")
-    private LocalDate orderTime; // Java의 LocalDate 타입 사용
+    private LocalDateTime orderTime;
 
     @Column(name = "pay_status")
-    private Integer payStatus; // 결제 상태를 나타내는 Integer 타입
+    private int payStatus;
+
+
 }
