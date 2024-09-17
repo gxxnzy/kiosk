@@ -44,6 +44,20 @@
             text-decoration: none;
             color: #007BFF;
         }
+        .btn-select {
+            display: inline-block;
+            padding: 5px 10px;
+            font-size: 14px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn-select:hover {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
@@ -55,21 +69,31 @@
     <a href="/logout" class="logout">로그아웃</a>
 </form>
 <hr>
-<table>
-    <thead>
-    <tr>
-        <th>키오스크 ID</th>
-        <th>키오스크 번호</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="kiosk" items="${kiosksList}">
+
+<!-- 결제 완료 상태가 아닌 주문을 리스트 -->
+<c:if test="${not empty unpaidOrders}">
+    <h2>미결제 주문</h2>
+    <table>
+        <thead>
         <tr>
-            <td><c:out value="${kiosk.kioskId}"/></td>
-            <td><c:out value="${kiosk.kioskNum}"/></td>
+            <th>주문 ID</th>
+            <th>키오스크 번호</th>
+            <th>선택하기</th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach var="order" items="${unpaidOrders}">
+            <tr>
+                <td><c:out value="${order.orderId}"/></td>
+                <td><c:out value="${order.kiosksNum}"/></td>
+                <td>
+                    <a href="<c:url value='/store/kioskDetails?kioskNum=${order.kiosksNum}&storeName=${selectedStore}'/>" class="btn-select">상세 보기</a>
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
+</c:if>
+
 </body>
 </html>

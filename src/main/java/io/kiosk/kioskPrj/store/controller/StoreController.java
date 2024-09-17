@@ -1,10 +1,12 @@
 package io.kiosk.kioskPrj.store.controller;
+
 import io.kiosk.kioskPrj.common.model.Kiosks;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import io.kiosk.kioskPrj.common.model.Orders;
 import io.kiosk.kioskPrj.common.model.OrderDetails;
 import io.kiosk.kioskPrj.common.model.Store;
 import io.kiosk.kioskPrj.store.service.StoreService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/store")
@@ -26,20 +29,30 @@ public class StoreController {
 
     @GetMapping("/main")
     public String storePage(Model model) {
-        // 로그인한 사용자 정보 가져오기
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeId = authentication.getName(); // store_id로 사용자의 store_id를 가져옴
+        String storeId = authentication.getName();
 
-        // store_id를 통해 store 정보를 조회
         Store store = storeService.getStoreById(storeId);
         if (store != null) {
-            List<OrderDetails> orderDetails = storeService.getOrderDetailsByStoreName(store.getStoreName());
-            int totalSales = storeService.getTotalSalesByStoreName(store.getStoreName());
+            // 결제 완료 상태가 된 주문 상세 정보 가져오기
+            List<OrderDetails> paidOrderDetails = storeService.getOrderDetailsByStoreName(store.getStoreName())
+                    .stream()
+                    .filter(detail -> detail.getOrder().getPayStatus() == 1) // 결제 완료 상태
+                    .collect(Collectors.toList());
 
-            model.addAttribute("orderDetails", orderDetails);
-            model.addAttribute("totalSales", totalSales);
+            // 총 결제 금액 계산 - 이거 두번 곱해짐;
+            // int totalPaidSales = paidOrderDetails.stream()
+            //        .mapToInt(detail -> detail.getQuantity() * detail.getQuantityPrice())
+            //        .sum();
+
+            int totalPaidSales = paidOrderDetails.stream()
+                    .mapToInt(detail -> detail.getQuantityPrice()) // 이미 계산된 가격을 사용
+                    .sum();
+
+            model.addAttribute("orderDetails", paidOrderDetails);
+            model.addAttribute("totalSales", totalPaidSales);
             model.addAttribute("selectedStore", store.getStoreName());
-            model.addAttribute("stores", List.of(store)); // 현재 선택된 점포만을 전달
+            model.addAttribute("stores", List.of(store));
         }
 
         return "store/store";
@@ -55,7 +68,7 @@ public class StoreController {
         model.addAttribute("selectedStore", storeName);
 
         List<Store> allStores = storeService.getAllStores();
-        model.addAttribute("stores", allStores); // 지점 목록 추가
+        model.addAttribute("stores", allStores);
 
         return "store/store";
     }
@@ -65,21 +78,47 @@ public class StoreController {
         return "loginform";
     }
 
-    // 새로운 메서드 추가
     @GetMapping("/payment")
     public String paymentPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String storeId = authentication.getName(); // Store ID로 storeName을 가져오거나 직접 전달받을 수 있음
+        String storeId = authentication.getName();
 
-        // Store 정보를 조회하는 로직 필요
-        Store store = storeService.getStoreById(storeId); // 이 메서드를 StoreService에 추가
+        Store store = storeService.getStoreById(storeId);
         if (store != null) {
             List<Kiosks> kiosksList = storeService.getKiosksByStoreName(store.getStoreName());
+
+            // 결제 완료 상태가 아닌 주문만 가져오기
+            List<Orders> unpaidOrders = storeService.getUnpaidOrdersByStoreName(store.getStoreName());
             model.addAttribute("kiosksList", kiosksList);
+            model.addAttribute("unpaidOrders", unpaidOrders);
             model.addAttribute("selectedStore", store.getStoreName());
         }
 
-        return "store/payment"; // payment.jsp 파일로 이동
+        return "store/payment";
+    }
+
+    @GetMapping("/kioskDetails")
+    public String getKioskDetails(@RequestParam("kioskNum") int kioskNum,
+                                  @RequestParam("storeName") String storeName,
+                                  Model model) {
+        // 해당 키오스크 번호와 스토어 이름에 대한 주문을 가져옵니다.
+        List<Orders> orders = storeService.getOrdersByKioskNumAndStoreName(kioskNum, storeName);
+
+        // 주문 ID를 기준으로 상세 정보를 조회합니다.
+        List<OrderDetails> orderDetailsList = orders.stream()
+                .flatMap(order -> storeService.getOrderDetailsByOrderId(order.getOrderId()).stream())
+                .collect(Collectors.toList());
+
+        model.addAttribute("orderDetailsList", orderDetailsList);
+        model.addAttribute("kioskNum", kioskNum);
+        model.addAttribute("storeName", storeName);
+
+        return "store/kioskDetails";
+    }
+    @PostMapping("/updatePaymentStatus")
+    public String updatePaymentStatus(@RequestParam("orderIds") List<Integer> orderIds, Model model) {
+        storeService.updatePaymentStatusForOrders(orderIds);
+        return "redirect:/store/payment";
     }
 
 
