@@ -3,8 +3,8 @@ package io.kiosk.kioskPrj.kiosk.service;
 
 import io.kiosk.kioskPrj.common.model.OrderDetails;
 import io.kiosk.kioskPrj.common.model.Orders;
+import io.kiosk.kioskPrj.kiosk.repository.OrderDetailsRepository;
 import io.kiosk.kioskPrj.kiosk.repository.OrdersRepository;
-import io.kiosk.kioskPrj.store.repository.OrderdetailsRepository;
 import java.util.List;
 import java.util.Map;
 import org.springframework.stereotype.Service;
@@ -12,14 +12,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class OrderService {
+
     private final OrdersRepository ordersRepository;
-    private final OrderdetailsRepository orderdetailsRepository;
-    public OrderService(OrdersRepository ordersRepository, OrderdetailsRepository orderdetailsRepository){
+    private final OrderDetailsRepository orderdetailsRepository;
+
+    public OrderService(OrdersRepository ordersRepository,
+        OrderDetailsRepository orderdetailsRepository) {
         this.ordersRepository = ordersRepository;
         this.orderdetailsRepository = orderdetailsRepository;
     }
+
     @Transactional
-    public Orders saveOrderAndDetails(String storeName, Integer kioskNum, List<Map<String, Object>> cartItems) {
+    public Orders saveOrderAndDetails(String storeName, Integer kioskNum,
+        List<Map<String, Object>> cartItems) {
         // Orders 객체 생성 및 저장
         Orders order = new Orders();
         order.setStoreName(storeName);
@@ -33,10 +38,17 @@ public class OrderService {
             orderDetails.setOrder(savedOrder);
             orderDetails.setMenuName((String) item.get("menuName"));
             orderDetails.setQuantity((Integer) item.get("quantity"));
-            orderDetails.setQuantityPrice((Integer) item.get("menuPrice") * (Integer) item.get("quantity"));
+            orderDetails.setQuantityPrice(
+                (Integer) item.get("menuPrice") * (Integer) item.get("quantity"));
             orderdetailsRepository.save(orderDetails);
         }
 
         return savedOrder;  // 저장된 order 반환
+    }
+
+    public List<Object[]> findOrderDetailsWithOrderTimeByStoreNameKiosksNumAndPayStatus(
+        String storeName, Integer kioskNum, int payStatus) {
+        return orderdetailsRepository.findOrderDetailsWithOrderTimeByStoreNameKiosksNumAndPayStatus(
+            storeName, kioskNum, payStatus);
     }
 }
