@@ -11,10 +11,13 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MenuService {
+
     private final MenuRepository menuRepository;
-    public MenuService(MenuRepository menuRepository){
+
+    public MenuService(MenuRepository menuRepository) {
         this.menuRepository = menuRepository;
     }
+
     @Cacheable(value = "menusCache")  // 캐시 저장
     public List<Menu> getActiveMenus() {
         return menuRepository.findByMenuActive(1);

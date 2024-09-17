@@ -16,5 +16,5 @@ public class Kiosks {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String kioskId;
     private String storeName;
-    private String kioskNum;
+    private int kioskNum;
 }

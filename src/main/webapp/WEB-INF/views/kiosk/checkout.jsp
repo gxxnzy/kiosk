@@ -41,6 +41,8 @@
         </div>
     </c:if>
 </div>
-<a href="/kiosk/menu">Go Back</a>
+<form action="/kiosk/order" method="post">
+    <button type="submit">주문 완료</button></a>
+</form>
 </body>
 </html>

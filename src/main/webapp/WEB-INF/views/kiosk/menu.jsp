@@ -12,7 +12,6 @@
         let allMenus = JSON.parse('${menusJson}');
         let allCategories = JSON.parse('${categoryJson}');
         // 쿠키에서 장바구니 데이터 불러오기
-        // 쿠키에서 장바구니 데이터를 불러오는 함수
         function loadCartFromCookie() {
           const cookies = document.cookie.split(';'); // 쿠키들을 세미콜론으로 구분하여 배열로 변환
           let cartCookie = null;
@@ -38,19 +37,24 @@
           updateCartDisplay();  // 쿠키에서 가져온 장바구니 데이터를 UI에 반영
         }
 
-        // 카테고리 목록 동적으로 생성
-        let categoryList = $("#category-list");
+
         let menuSectionTitle = $("#menu-section-title");
         let menuSectionInfo = $("#menu-section-info");
 
         // 카테고리 클릭 시 해당 메뉴 필터링하여 표시
-        window.filterMenus = function(categoryName, categoryInfo) {
+        window.filterMenus = function(categoryName, categoryInfo, button) {
           let menuList = $("#menu-list");
           menuList.empty();
 
           // 메뉴 섹션에 카테고리 이름과 정보를 표시
-          menuSectionTitle.text(categoryName);
-          menuSectionInfo.text(categoryInfo);
+          $("#menu-section-title").text(categoryName);
+          $("#menu-section-info").text(categoryInfo);
+
+          // 모든 카테고리 버튼에서 active 클래스 제거
+          $("#category-list button").removeClass("active");
+
+          // 클릭된 버튼에 active 클래스 추가
+          $(button).addClass("active");
 
           let filteredMenus = allMenus.filter(menu => menu.categoryName === categoryName);
 
@@ -59,28 +63,30 @@
                 "<div class='menu-item'>" +
                 "<img src='" + menu.menuImage + "' alt='" + menu.menuName + "' />" +
                 "<h3>" + menu.menuName + "</h3>" +
-                "<p>Price: " + menu.menuPrice + "원</p>" +
-                "<button onclick='addToCart(" + menu.menuId + ")'>Add to Cart</button>" +
+                "<p>" + menu.menuPrice + "원</p>" +
+                "<button onclick='addToCart(" + menu.menuId + ")'>담기</button>" +
                 "</div>"
             );
           });
         }
 
         // 카테고리 목록 동적으로 생성
+        let categoryList = $("#category-list");
+
         allCategories.forEach(function(category) {
           categoryList.append(
               "<li>" +
-              "<button onclick='filterMenus(\"" + category.categoryName + "\", \"" + category.categoryInfo + "\")'>" +
+              "<button onclick='filterMenus(\"" + category.categoryName + "\", \"" + category.categoryInfo + "\", this)'>" +
               category.categoryName +
-              "</button>"  +
+              "</button>" +
               "</li>"
           );
         });
 
         // 첫 번째 카테고리 자동 선택
         if (allCategories.length > 0) {
-          let firstCategory = allCategories[0];  // 첫 번째 카테고리 가져오기
-          filterMenus(firstCategory.categoryName, firstCategory.categoryInfo);
+          let firstCategory = allCategories[0];
+          filterMenus(firstCategory.categoryName, firstCategory.categoryInfo, $("#category-list button").first());
         }
 
         // 장바구니에 메뉴 추가
@@ -106,11 +112,11 @@
             cart.forEach(function(item) {
               cartList.append(
                   "<div class='cart-item'>" +
-                  "<h4>" + item.menuName + "</h4>" +
-                  "<p>Price: " + item.menuPrice + "원 (Total: " + (item.menuPrice * item.quantity) + "원)</p>" +
-                  "<button onclick='decreaseQuantity(" + item.menuId + ")'>Remove one</button>" +
-                  "<span> Quantity: " + item.quantity + " </span>" +
-                  "<button onclick='increaseQuantity(" + item.menuId + ")'>Add one</button>" +
+                  "<h3>" + item.menuName + "</h3>" +
+                  "<p>가격: " + item.menuPrice + "원 (총: " + (item.menuPrice * item.quantity) + "원)</p>" +
+                  "<button onclick='decreaseQuantity(" + item.menuId + ")'>빼기</button>" +
+                  "<span> 수량: " + item.quantity + " </span>" +
+                  "<button onclick='increaseQuantity(" + item.menuId + ")'>추가</button>" +
                   "</div>"
               );
               total += item.menuPrice * item.quantity;
@@ -122,13 +128,10 @@
           }
         }
 
-
-
         // 쿠키에 장바구니 데이터 저장
         function saveCartToCookie(cart) {
-          document.cookie = "cart=" + encodeURIComponent(JSON.stringify(cart)) + "; path=/; max-age=30";  // 쿠키 만료 시간을 1분(60초)으로 설정
+          document.cookie = "cart=" + encodeURIComponent(JSON.stringify(cart)) + "; path=/; max-age=60";  // 쿠키 만료 시간을 1분(60초)으로 설정
         }
-
 
         // 장바구니에서 수량 감소
         window.decreaseQuantity = function(menuId) {
@@ -176,14 +179,18 @@
 <div id="kiosk-container">
     <!-- 카테고리 섹션 -->
     <div id="category-section">
-        <h2>Categories</h2>
+        <h1>${kiosk.storeName}</h1>
+        <h2>${kiosk.kioskNum}번 테이블</h2>
         <ul id="category-list"></ul>
+        <div class="order-history-button-container">
+            <a href="orderHistory"><button>주문 내역</button></a>
+        </div>
     </div>
 
     <!-- 메뉴 섹션 -->
     <div id="menu-section">
         <h2 id="menu-section-title">Menus</h2> <!-- 선택된 카테고리 이름을 표시 -->
-        <p id="menu-section-info" style="font-size: 12px; color: gray;"></p> <!-- 선택된 카테고리 정보를 표시 -->
+        <p id="menu-section-info" style="font-size: 15px; color: gray;"></p> <!-- 선택된 카테고리 정보를 표시 -->
         <div id="menu-list"></div>
     </div>
 
@@ -192,7 +199,6 @@
         <h2>Cart</h2>
         <div id="cart-list"></div>
         <form id="cart-form" action="checkout" method="post">
-            <input type="hidden" name="cartData">
             <button type="submit">주문하기</button>
         </form>
     </div>
