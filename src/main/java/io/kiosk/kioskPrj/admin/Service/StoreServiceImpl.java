@@ -32,6 +32,11 @@ public class StoreServiceImpl implements StoreService {
         storeRepository.save(store);
     }
 
+    @Override
+    public Store getStoreById(String storeId) {
+        return storeRepository.findById(storeId).orElse(null);
+    }
+
 //    @Override
 //    public List<Store> searchStoresByName(String storeName) {
 //        if (storeName != null && !storeName.isEmpty()) {

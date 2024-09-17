@@ -29,9 +29,9 @@
       $(document).ready(function() {
         $("#init").click(function() {
           //alert("init()");
-          $("#id").val("");
-          $("#name").val("");
-          $("#address").val("");
+          $("#storeName").val("");
+          $("#storeStatus").val("");
+          $("#sortOrder").val("asc");
           $("#sex0").prop("checked", true);
         });
       });
@@ -48,7 +48,7 @@
             <tr>
                 <th>지점명</th>
                 <td>
-                    <input type="text" name="storeName" id="storeName">
+                    <input type="text" name="storeName" id="storeName" value="${storeName}">
                 </td>
 
             </tr>
@@ -56,21 +56,21 @@
                 <th>상태</th>
                 <td>
                     <select name="storeStatus" id="storeStatus">
-                        <option value="">전체</option> <!-- 선택하지 않으면 모든 상태 -->
-                        <option value="영업중">영업중</option>
-                        <option value="폐점">폐점</option>
+                        <option value="" ${storeStatus == '' ? 'selected' : ''}>전체</option> <!-- 선택하지 않으면 모든 상태 -->
+                        <option value="영업중" ${storeStatus == '영업중' ? 'selected' : ''}>영업중</option>
+                        <option value="폐점" ${storeStatus == '폐점' ? 'selected' : ''}>폐점</option>
                     </select>
                 </td>
                 <th>정렬 기준</th>
                 <td>
                     <select name="sortOrder" id="sortOrder">
-                        <option value="asc">오래된 순</option>
-                        <option value="desc">최근 순</option>
+                        <option value="asc" ${sortOrder == 'asc' ? 'selected' : ''}>오래된 순</option>
+                        <option value="desc" ${sortOrder == 'desc' ? 'selected' : ''}>최근 순</option>
                     </select>
                 </td>
                 <td rowspan="2">
                     <input type="submit" value="검색" >
-                    <input type="button" id="init" value="취소" onclick="init()" >
+                    <input type="button" id="init" value="초기화" onclick="init()" >
                 </td>
             </tr>
         </table>
@@ -92,7 +92,7 @@
     <c:forEach var="store" items="${stores}">
         <tr>
             <td>${store.storeId}</td>
-            <td>${store.storeName}</td>
+            <td><a href="storeDetail/${store.storeId}">${store.storeName}</a></td>
             <td>${store.roadAddress}</td>
             <td>${store.storeStatus}</td>
             <td>${store.storeOpenDate}</td>

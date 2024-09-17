@@ -21,10 +21,10 @@ public class Store {
    // @Column(name = "road_address")
     private String roadAddress;
 
-   // @Column(name = "address1")
+    @Column(name = "address1")
     private String storeAddress1;
 
-   // @Column(name = "address2")
+    @Column(name = "address2")
     private String storeAddress2;
 
    // @Column(name = "store_status")

@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,6 +43,10 @@ public class AdminStoreController {
         Sort sort = Sort.by(direction, "storeOpenDate");
         List<Store> stores = storeService.searchStores(storeName,storeStatus,sort);
         model.addAttribute("stores", stores);
+        model.addAttribute("storeName", storeName);
+        model.addAttribute("storeStatus", storeStatus);
+        model.addAttribute("sortOrder", sortOrder);
+
         return "admin/storeForm";
     }
 
@@ -58,6 +63,14 @@ public class AdminStoreController {
         List<Store> stores = storeService.getAllStores();
         model.addAttribute("stores", stores);
         return "admin/storeForm";
+    }
+
+    @GetMapping("storeDetail/{storeId}")
+    public String storeDetail(@PathVariable String storeId, Model model) {
+        Store store = storeService.getStoreById(storeId);
+        log.info("store():"+store);
+        model.addAttribute("store", store);
+        return "admin/storeDetail";
     }
 
 }

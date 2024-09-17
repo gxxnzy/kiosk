@@ -14,4 +14,6 @@ public interface StoreService {
     List<Store> searchStores(String storeName, String storeStatus, Sort sort);
 
     void saveStore(Store store);
+
+    Store getStoreById(String storeId);
 }
