@@ -12,28 +12,27 @@ import lombok.Data;
 public class Store {
 
     @Id
-    //@Column(name = "store_id")
     private String storeId;
 
-    //@Column(name = "store_name")
+
     private String storeName;
 
-   // @Column(name = "road_address")
+
     private String roadAddress;
 
-   // @Column(name = "address1")
+    @Column(name = "address1")
     private String storeAddress1;
 
-   // @Column(name = "address2")
+    @Column(name = "address2")
     private String storeAddress2;
 
-   // @Column(name = "store_status")
+
     private String storeStatus;
 
-    //@Column(name = "store_open_date")
+
     private String storeOpenDate;
 
-   // @Column(name = "store_phonenumber")
+    @Column(name = "store_phonenumber")
     private String storePhonenumber;
 
 }

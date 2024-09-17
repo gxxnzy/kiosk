@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Store Sales</title>
+    <title>Payment Management</title>
     <style>
         h1 {
             text-align: center;
@@ -25,12 +25,8 @@
         th {
             background-color: #f4f4f4;
         }
-        form {
-            margin-bottom: 20px;
-            text-align: right; /* Align form elements to the right */
-        }
         .total-sales {
-            text-align: right; /* Align total sales to the right */
+            text-align: right;
             margin-top: 20px;
         }
         .logout {
@@ -41,7 +37,7 @@
         }
         .store-name {
             display: inline-block;
-            margin-right: 20px; /* Add space between store name and logout link */
+            margin-right: 20px;
         }
         .nav-links {
             margin-left: 20px;
@@ -51,37 +47,29 @@
     </style>
 </head>
 <body>
-<h1>점포 관리 /<a href="/store/payment" class="nav-links">결제 관리</a></h1>
-<form action="/store/sales" method="post">
+<h1>결제 관리 / <a href="/store/main" class="nav-links">점포 관리</a></h1>
+<form action="/store/payment" method="get">
     <c:if test="${not empty selectedStore}">
-        <span class="store-name">현재 지점: ${selectedStore}</span> <!-- Display selected store name -->
+        <span class="store-name">현재 지점: ${selectedStore}</span>
     </c:if>
-    <a href="/logout" class="logout">로그아웃</a> <!-- Logout link -->
+    <a href="/logout" class="logout">로그아웃</a>
 </form>
 <hr>
 <table>
     <thead>
     <tr>
-        <th>메뉴 이름</th>
-        <th>주문 수</th>
-        <th>가격</th>
+        <th>키오스크 ID</th>
+        <th>키오스크 번호</th>
     </tr>
     </thead>
     <tbody>
-    <c:forEach var="detail" items="${orderDetails}">
+    <c:forEach var="kiosk" items="${kiosksList}">
         <tr>
-            <td><c:out value="${detail.menuName}"/></td>
-            <td><c:out value="${detail.quantity}개"/></td>
-            <td><c:out value="${detail.quantityPrice}원"/></td>
+            <td><c:out value="${kiosk.kioskId}"/></td>
+            <td><c:out value="${kiosk.kioskNum}"/></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<hr>
-<div class="total-sales">
-    <c:if test="${not empty totalSales}">
-        <h2>총 결제 금액 : ${totalSales}원</h2>
-    </c:if>
-</div>
 </body>
 </html>

@@ -1,4 +1,5 @@
 package io.kiosk.kioskPrj.store.controller;
+import io.kiosk.kioskPrj.common.model.Kiosks;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import io.kiosk.kioskPrj.common.model.OrderDetails;
@@ -63,4 +64,23 @@ public class StoreController {
     public String loginform() {
         return "loginform";
     }
+
+    // 새로운 메서드 추가
+    @GetMapping("/payment")
+    public String paymentPage(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String storeId = authentication.getName(); // Store ID로 storeName을 가져오거나 직접 전달받을 수 있음
+
+        // Store 정보를 조회하는 로직 필요
+        Store store = storeService.getStoreById(storeId); // 이 메서드를 StoreService에 추가
+        if (store != null) {
+            List<Kiosks> kiosksList = storeService.getKiosksByStoreName(store.getStoreName());
+            model.addAttribute("kiosksList", kiosksList);
+            model.addAttribute("selectedStore", store.getStoreName());
+        }
+
+        return "store/payment"; // payment.jsp 파일로 이동
+    }
+
+
 }
