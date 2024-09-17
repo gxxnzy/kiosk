@@ -73,6 +73,10 @@ public class StoreService {
     public List<Orders> getOrdersByKioskNumAndStoreName(int kioskNum, String storeName) {
         return ordersRepository.findByKioskNumAndStoreName(kioskNum, storeName);
     }
+
+    public List<OrderDetails> searchMenuByKeyword(String storeName, String keyword) {
+        return orderdetailsRepository.findByStoreNameAndMenuNameContaining(storeName, keyword);
+    }
 }
 
 

@@ -5,83 +5,202 @@
 <head>
     <title>Store Sales</title>
     <style>
-        h1 {
-            text-align: center;
-        }
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+        }
+        header .nav-links {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            margin-right: 20px;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            margin: 20px 0;
         }
         th, td {
-            padding: 10px;
+            padding: 15px;
             text-align: left;
             border: 1px solid #ddd;
         }
         th {
-            background-color: #f4f4f4;
+            background-color: #007BFF;
+            color: white;
         }
-        form {
+        tbody tr:hover {
+            background-color: #f1f1f1;
+        }
+        .btn-select, .btn-logout {
+            display: inline-block;
+            padding: 8px 16px;
+            font-size: 14px;
+            color: white;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-left: 10px;
+            text-align: center;
+        }
+        .btn-select {
+            background-color: #28a745;
+        }
+        .btn-select:hover {
+            background-color: #218838;
+        }
+        .btn-logout {
+            background-color: #dc3545;
+        }
+        .btn-logout:hover {
+            background-color: #c82333;
+        }
+        .search-form {
             margin-bottom: 20px;
-            text-align: right; /* Align form elements to the right */
+            display: flex;
+            justify-content: flex-end;
+        }
+        .search-form input[type="text"] {
+            padding: 8px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            margin-right: 10px;
+        }
+        .search-form input[type="submit"] {
+            padding: 8px 16px;
+            font-size: 14px;
+            color: white;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .search-form input[type="submit"]:hover {
+            background-color: #0056b3;
         }
         .total-sales {
-            text-align: right; /* Align total sales to the right */
+            text-align: right;
             margin-top: 20px;
         }
-        .logout {
-            display: inline-block;
-            margin-left: 20px;
-            text-decoration: none;
-            color: #007BFF;
+        .no-results {
+            color: #dc3545; /* Red color for error message */
+            text-align: center;
+            font-size: 18px;
+            margin-top: 20px;
         }
         .store-name {
-            display: inline-block;
-            margin-right: 20px; /* Add space between store name and logout link */
-        }
-        .nav-links {
-            margin-left: 20px;
-            text-decoration: none;
-            color: #007BFF;
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
         }
     </style>
 </head>
 <body>
-<h1>점포 관리 /<a href="/store/payment" class="nav-links">결제 관리</a></h1>
-<form action="/store/sales" method="post">
+<header>
+    <h1>판매량 확인</h1>
+    <div>
+        <a href="/store/payment" class="nav-links">결제 관리</a>
+        <a href="/logout" class="btn-logout">로그아웃</a>
+    </div>
+</header>
+<div class="container">
     <c:if test="${not empty selectedStore}">
-        <span class="store-name">현재 지점: ${selectedStore}</span> <!-- Display selected store name -->
+        <span class="store-name">현재 지점: ${selectedStore}</span>
     </c:if>
-    <a href="/logout" class="logout">로그아웃</a> <!-- Logout link -->
-</form>
-<hr>
-<table>
-    <thead>
-    <tr>
-        <th>메뉴 이름</th>
-        <th>주문 수</th>
-        <th>가격</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="detail" items="${orderDetails}">
-        <tr>
-            <td><c:out value="${detail.menuName}"/></td>
-            <td><c:out value="${detail.quantity}개"/></td>
-            <td><c:out value="${detail.quantityPrice}원"/></td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
-<hr>
-<div class="total-sales">
-    <c:if test="${not empty totalSales}">
-        <h2>총 결제 금액 : ${totalSales}원</h2>
+
+    <!-- 검색 폼 추가 -->
+    <form action="/store/search" method="get" class="search-form">
+        <input type="text" name="keyword" placeholder="메뉴 검색..." />
+        <input type="submit" value="검색" />
+    </form>
+
+    <hr>
+
+    <!-- 검색 결과 표시 -->
+    <c:choose>
+        <c:when test="${not empty searchResults}">
+            <h2>검색 결과</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>메뉴 이름</th>
+                    <th>주문 수</th>
+                    <th>가격</th>
+                </tr>
+                </thead>
+                <tbody>
+                <c:forEach var="result" items="${searchResults}">
+                    <tr>
+                        <td><c:out value="${result.menuName}"/></td>
+                        <td><c:out value="${result.quantity}개"/></td>
+                        <td><c:out value="${result.quantityPrice}원"/></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </c:when>
+        <c:otherwise>
+            <c:if test="${param.keyword != null and param.keyword != ''}">
+                <div class="no-results">
+                    검색 결과가 존재하지 않습니다.
+                </div>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
+
+    <!-- 전체 주문 내역 테이블 -->
+    <c:if test="${empty searchResults and (param.keyword == null or param.keyword == '')}">
+        <h2>전체 주문 내역</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>메뉴 이름</th>
+                <th>주문 수</th>
+                <th>가격</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="detail" items="${orderDetails}">
+                <tr>
+                    <td><c:out value="${detail.menuName}"/></td>
+                    <td><c:out value="${detail.quantity}개"/></td>
+                    <td><c:out value="${detail.quantityPrice}원"/></td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
     </c:if>
+
+    <hr>
+    <div class="total-sales">
+        <c:if test="${not empty totalSales}">
+            <h2>총 결제 금액 : ${totalSales}원</h2>
+        </c:if>
+    </div>
 </div>
 </body>
 </html>

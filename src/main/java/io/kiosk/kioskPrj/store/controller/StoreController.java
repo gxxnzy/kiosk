@@ -104,14 +104,20 @@ public class StoreController {
         // 해당 키오스크 번호와 스토어 이름에 대한 주문을 가져옵니다.
         List<Orders> orders = storeService.getOrdersByKioskNumAndStoreName(kioskNum, storeName);
 
-        // 주문 ID를 기준으로 상세 정보를 조회합니다.
+        // 주문 ID를 기준으로 상세 정보를 조회하고, 결제 상태가 0인 것만 필터링합니다.
         List<OrderDetails> orderDetailsList = orders.stream()
                 .flatMap(order -> storeService.getOrderDetailsByOrderId(order.getOrderId()).stream())
+                .filter(detail -> detail.getOrder().getPayStatus() == 0) // 결제 상태가 0인 것만 필터링
                 .collect(Collectors.toList());
+
+        int totalAmount = orderDetailsList.stream()
+                .mapToInt(OrderDetails::getQuantityPrice)
+                .sum(); // 총 결제 금액 계산
 
         model.addAttribute("orderDetailsList", orderDetailsList);
         model.addAttribute("kioskNum", kioskNum);
         model.addAttribute("storeName", storeName);
+        model.addAttribute("totalAmount", totalAmount); // 총액을 모델에 추가
 
         return "store/kioskDetails";
     }
@@ -121,5 +127,22 @@ public class StoreController {
         return "redirect:/store/payment";
     }
 
+    @GetMapping("/search")
+    public String search(@RequestParam("keyword") String keyword, Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String storeId = authentication.getName();
+        Store store = storeService.getStoreById(storeId);
 
+        if (store != null) {
+            if (keyword == null || keyword.trim().isEmpty()) {
+                model.addAttribute("error", "검색어를 입력해주세요.");
+            } else {
+                List<OrderDetails> searchResults = storeService.searchMenuByKeyword(store.getStoreName(), keyword);
+                model.addAttribute("searchResults", searchResults);
+            }
+            model.addAttribute("selectedStore", store.getStoreName());
+        }
+
+        return "store/store";
+    }
 }
