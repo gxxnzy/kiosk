@@ -72,21 +72,26 @@ public class KioskController {
     public String reset() {
         cacheManager.getCache("menusCache").clear();
         cacheManager.getCache("categoryCache").clear();
-        return "redirect:/kiosk/menu";
+        return "redirect:/store/main";
     }
-
     @GetMapping("/menu")
-    public String menu(Model model) throws JsonProcessingException {
+    public String menu(Model model) {
         String longInId = SecurityContextHolder.getContext().getAuthentication().getName();
         Kiosks kiosks = kiosksRepository.findAllByKioskId(longInId);
-        List<Menu> list = getCachedMenus();
-        String menusJson = objectMapper.writeValueAsString(list);
-        List<Category> list1 = getCachedCategories();
-        String categoryJson = objectMapper.writeValueAsString(list1);
-        model.addAttribute("menusJson", menusJson);
-        model.addAttribute("categoryJson", categoryJson);
         model.addAttribute("kiosk", kiosks);
-        return "kiosk/menu";
+        return "kiosk/menu";  // JSP 페이지로 이동
+    }
+
+    @GetMapping("/api/menus")
+    @ResponseBody
+    public List<Menu> getMenus() {
+        return getCachedMenus();
+    }
+
+    @GetMapping("/api/categories")
+    @ResponseBody
+    public List<Category> getCategories() {
+        return getCachedCategories();
     }
 
     @PostMapping("/checkout")
@@ -116,7 +121,6 @@ public class KioskController {
     @GetMapping("/kioskAd")
     public String kioskAd(Model model) {
         List<Promotions> promotionsList = promotionsRepository.findActivePromotionsBetweenDates();
-        System.out.println(promotionsList);
         model.addAttribute("promotionsList", promotionsList);
         return "kiosk/kioskAd";
     }

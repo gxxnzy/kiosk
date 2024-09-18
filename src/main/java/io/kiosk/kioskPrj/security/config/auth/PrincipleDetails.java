@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 //user 타입 => userDetail 타입
 //Security session 에는 Authentication 객체만 가능 => user 정보는 UserDetails(PrincipleDetails) 타입
 public class PrincipleDetails implements UserDetails {
+
     private User user;
 
     public PrincipleDetails(User user) {
@@ -59,6 +60,9 @@ public class PrincipleDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
+        if(user.getEnabled() == 0){
+            return false;
+        }
         return true;
     }
 }
