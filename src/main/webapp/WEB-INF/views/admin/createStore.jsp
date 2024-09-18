@@ -53,6 +53,12 @@
       </td>
     </tr>
     <tr>
+      <th>비밀번호</th>
+      <td>
+        <input type="text" name="password" required>
+      </td>
+    </tr>
+    <tr>
       <th>도로명 주소</th>
       <td>
         <input type="text" name="roadAddress" required>

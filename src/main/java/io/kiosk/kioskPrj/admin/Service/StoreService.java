@@ -2,7 +2,7 @@ package io.kiosk.kioskPrj.admin.Service;
 
 import io.kiosk.kioskPrj.common.model.Kiosks;
 import io.kiosk.kioskPrj.common.model.Store;
-import java.util.HashMap;
+import io.kiosk.kioskPrj.common.model.User;
 import java.util.List;
 import org.springframework.data.domain.Sort;
 
@@ -19,4 +19,8 @@ public interface StoreService {
     Store getStoreById(String storeId);
 
     List<Kiosks> getKiosksByStoreName(String storeName);
+
+    void saveStoreAndUser(Store store, User user);
+
+    Kiosks createKiosksForStore(String storeId, String storeName);
 }
