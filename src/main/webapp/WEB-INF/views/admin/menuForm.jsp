@@ -1,71 +1,155 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: woori
-  Date: 2024-09-05
-  Time: 오후 3:03
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%><!-- JSTL -->
 
 <html>
 <head>
     <title>Menu</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f9f9f9;
+      }
+
+      h1 {
+        text-align: center;
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      fieldset {
+        border: 1px solid #ccc;
+        padding: 10px;
+        border-radius: 8px;
+      }
+
+      legend {
+        font-weight: bold;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      table, th, td {
+        border: 1px solid #ddd;
+      }
+
+      th, td {
+        padding: 10px;
+        text-align: left;
+      }
+
+      th {
+        background-color: #f4f4f4;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      input[type="submit"], input[type="reset"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        display: inline-block;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover, input[type="reset"]:hover{
+        background-color: #45a049;
+      }
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      select {
+        padding: 5px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+    </style>
 </head>
 <body>
 메뉴 조회
 <hr>
 <br>
-<form action="menuResult" method="post">
+<form action="searchMenu" method="post">
     <fieldset>
-        <legend>&nbsp;검색 조건&nbsp;</legend>
+        <legend>검색 조건</legend>
         <table>
             <tr>
                 <th>이름</th>
                 <td>
-                    <input type="text" name="name" value=${param.name} >
+                    <input type="text" name="menuName">
                 </td>
                 <th>카테고리</th>
                 <td>
                     <select name="category">
                         <option value="">--전체--</option>
-                        <option value="스테이크" <c:out value="${param.category == '스테이크' ? 'selected' : ''}"/>>스테이크</option>
-                        <option value="파스타" <c:out value="${param.category == '파스타' ? 'selected' : ''}"/>>파스타</option>
-                        <option value="리조또" <c:out value="${param.category == '리조또' ? 'selected' : ''}"/>>리조또</option>
-                        <option value="리조또" <c:out value="${param.category == '리조또' ? 'selected' : ''}"/>>리조또</option>
-                        <option value="사이드" <c:out value="${param.category == '사이드' ? 'selected' : ''}"/>>사이드</option>
-                        <option value="음료" <c:out value="${param.category == '음료' ? 'selected' : ''}"/>>음료</option>
+                        <option value="스테이크">스테이크</option>
+                        <option value="파스타">파스타</option>
+                        <option value="리조또">리조또</option>
+                        <option value="사이드">사이드</option>
+                        <option value="음료">음료</option>
                     </select>
                 </td>
             </tr>
             <tr>
-                <th>활성여부</th>
+                <th>판매 여부</th>
                 <td>
-                    <select name="active">
+                    <select name="menuActive">
                         <option value="">--전체--</option>
-                        <option value=판매 <c:out value="${param.active == '판매' ? 'selected' : ''}"/>>판매</option>
-                        <option value=미판매 <c:out value="${param.active == '미판매' ? 'selected' : ''}"/>>미판매</option>
+                        <option value="1">판매</option>
+                        <option value="0">미판매</option>
                     </select>
                 <td rowspan="2">
-                    <input type="submit" value="검색" >
-                    <input type="button" id="init" value="취소" onclick="init()" >
+                    <input type="submit" value="검색">
+                    <input type="reset" value="취소">
                 </td>
             </tr>
         </table>
     </fieldset>
-    <br>
-    <table>
-        <tr>
-            <th>번호</th>
-            <th>이름</th>
-            <th>가격</th>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>안심스테이크</td>
-            <td>40000원</td>
-        </tr>
-    </table>
 </form>
+<br>
+<table>
+    <tr>
+        <th>번호</th>
+        <th>카테고리</th>
+        <th>이름</th>
+        <th>가격</th>
+    </tr>
+    <c:forEach var="menu" items="${Menus}">
+        <tr>
+            <td>${menu.menuId}</td>
+            <td>${menu.categoryName}</td>
+            <td><a href="/admin/menuDetail?menuId=${menu.menuId}">${menu.menuName}</a></td>
+            <td>${menu.menuPrice}원</td>
+        </tr>
+    </c:forEach>
+</table>
+<table>
+    <tr>
+        <td>
+            <a href="menuInsert"><input type="submit" value="추가"></a>
+        </td>
+    </tr>
+</table>
 </body>
 </html>
