@@ -60,7 +60,7 @@ public class PrincipleDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        if(user.getEnabled() == 0){
+        if(user.getUserStatus() == 0){
             return false;
         }
         return true;
