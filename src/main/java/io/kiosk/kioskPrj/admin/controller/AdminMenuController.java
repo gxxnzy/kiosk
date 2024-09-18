@@ -13,7 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("admin/")
-public class MenuController {
+public class AdminMenuController {
 
     @Autowired
     private MenuService menuService;
