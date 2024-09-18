@@ -9,4 +9,5 @@ import org.springframework.data.repository.query.Param;
 public interface KiosksRepository extends JpaRepository<Kiosks,String> {
     public Kiosks findAllByKioskId(String kioskId);
     List<Kiosks> findByStoreName(String storeId);
+    int countByStoreName(String storeName);
 }

@@ -87,6 +87,12 @@
     </tbody>
 </table>
 
+<form action="createKiosk" method="post">
+    <input type="hidden" name="storeId" value="${store.storeId}">
+    <input type="hidden" name="storeName" value="${store.storeName}">
+    비밀번호 <input type="password" name="password" required>
+    <button type="submit" class="button">키오스크 추가</button>
+</form>
 <a href="../store">목록으로 돌아가기</a>
 </body>
 </html>
