@@ -1,6 +1,7 @@
 package io.kiosk.kioskPrj.admin.controller;
 
 import io.kiosk.kioskPrj.admin.Service.StoreService;
+import io.kiosk.kioskPrj.common.model.Kiosks;
 import io.kiosk.kioskPrj.common.model.Store;
 import java.util.HashMap;
 import java.util.List;
@@ -68,8 +69,11 @@ public class AdminStoreController {
     @GetMapping("storeDetail/{storeId}")
     public String storeDetail(@PathVariable String storeId, Model model) {
         Store store = storeService.getStoreById(storeId);
+        List<Kiosks> kiosks = storeService.getKiosksByStoreName(store.getStoreName());
         log.info("store():"+store);
+        log.info("kiosks():"+kiosks);
         model.addAttribute("store", store);
+        model.addAttribute("kiosks", kiosks);
         return "admin/storeDetail";
     }
 

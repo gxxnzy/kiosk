@@ -1,5 +1,6 @@
 package io.kiosk.kioskPrj.admin.Service;
 
+import io.kiosk.kioskPrj.common.model.Kiosks;
 import io.kiosk.kioskPrj.common.model.Store;
 import java.util.HashMap;
 import java.util.List;
@@ -16,4 +17,6 @@ public interface StoreService {
     void saveStore(Store store);
 
     Store getStoreById(String storeId);
+
+    List<Kiosks> getKiosksByStoreName(String storeName);
 }
