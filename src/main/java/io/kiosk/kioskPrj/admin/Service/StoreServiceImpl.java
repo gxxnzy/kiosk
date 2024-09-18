@@ -1,7 +1,9 @@
 package io.kiosk.kioskPrj.admin.Service;
 
+import io.kiosk.kioskPrj.common.model.Kiosks;
 import io.kiosk.kioskPrj.common.model.Store;
 import io.kiosk.kioskPrj.admin.repository.StoreRepository;
+import io.kiosk.kioskPrj.kiosk.repository.KiosksRepository;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.data.domain.Sort;
@@ -12,9 +14,11 @@ public class StoreServiceImpl implements StoreService {
 
 
     private final StoreRepository storeRepository;
+    private final KiosksRepository kiosksRepository;
 
-    public StoreServiceImpl(StoreRepository storeRepository) {
+    public StoreServiceImpl(StoreRepository storeRepository, KiosksRepository kiosksRepository) {
         this.storeRepository = storeRepository;
+        this.kiosksRepository = kiosksRepository;
     }
 
     @Override
@@ -35,6 +39,11 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Store getStoreById(String storeId) {
         return storeRepository.findById(storeId).orElse(null);
+    }
+
+    @Override
+    public List<Kiosks> getKiosksByStoreName(String storeName) {
+        return kiosksRepository.findByStoreName(storeName);
     }
 
 //    @Override

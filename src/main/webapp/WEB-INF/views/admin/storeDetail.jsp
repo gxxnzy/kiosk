@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <style>
@@ -65,6 +67,26 @@
         <td>${store.storePhonenumber}</td>
     </tr>
 </table>
+
+<h2>키오스크 현황</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>키오스크 아이디</th>
+        <th>키오스크 넘버</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="kiosk" items="${kiosks}">
+        <tr>
+            <td>${kiosk.kioskId}</td>
+            <td>${kiosk.kioskNum}</td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
 <a href="../store">목록으로 돌아가기</a>
 </body>
 </html>
