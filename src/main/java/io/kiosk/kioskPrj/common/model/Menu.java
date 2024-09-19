@@ -36,15 +36,6 @@ public class Menu {
     @Column(name = "category_name")
     private String categoryName;
 
-    @Column(name = "menu_active")
+    @Column(name = "menu_status")
     private int menuActive;
-
-    public Menu(String menuName, int menuPrice, String info, String menuImage, String categoryName) {
-        this.menuName = menuName;
-        this.menuPrice = menuPrice;
-        this.info = info;
-        this.menuImage = menuImage;
-        this.categoryName = categoryName;
-        this.menuActive = 1;
-    }
 }
