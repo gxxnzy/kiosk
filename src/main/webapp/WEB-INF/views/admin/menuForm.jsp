@@ -10,19 +10,11 @@
         margin: 20px;
         padding: 0;
         background-color: #f9f9f9;
+        text-align: center;
       }
 
       h1 {
         text-align: center;
-      }
-
-      .container {
-        max-width: 900px;
-        margin: 0 auto;
-        background-color: #ffffff;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
       }
 
       fieldset {
@@ -42,26 +34,26 @@
       }
 
       table, th, td {
-        border: 1px solid #ddd;
+        border: 1px solid dimgray;
       }
 
       th, td {
         padding: 10px;
-        text-align: left;
+        text-align: center;
       }
 
       th {
-        background-color: #f4f4f4;
+        background-color: #b8dde8;
       }
 
       tr:nth-child(even) {
         background-color: #f9f9f9;
       }
 
-      input[type="submit"], input[type="reset"], input[type="button"] {
-        background-color: #4CAF50;
+      input[type="submit"], input[type="reset"] {
+        background-color: #4c95af;
         color: white;
-        padding: 10px 20px;
+        padding: 10px 50px;
         margin: 5px;
         border: none;
         border-radius: 4px;
@@ -70,8 +62,17 @@
         cursor: pointer;
       }
 
-      input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"] {
-        background-color: #45a049;
+      input[type="text"], select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      input[type="submit"]:hover, input[type="reset"]:hover{
+        background-color: #4c95af;
       }
 
       a {
@@ -87,7 +88,7 @@
     </style>
 </head>
 <body>
-메뉴 조회
+<h2>메뉴 조회</h2>
 <hr>
 <br>
 <form action="searchMenu" method="post">
@@ -103,11 +104,9 @@
                 <td>
                     <select name="category">
                         <option value="">--전체--</option>
-                        <option value="스테이크">스테이크</option>
-                        <option value="파스타">파스타</option>
-                        <option value="리조또">리조또</option>
-                        <option value="사이드">사이드</option>
-                        <option value="음료">음료</option>
+                        <c:forEach var="category" items="${categories}">
+                            <option value="${category.categoryName}">${category.categoryName}</option>
+                        </c:forEach>
                     </select>
                 </td>
             </tr>
@@ -119,12 +118,9 @@
                         <option value="1">판매</option>
                         <option value="0">미판매</option>
                     </select>
-                <td rowspan="2">
+                <td colspan="2" style="text-align: center">
                     <input type="submit" value="검색">
                     <input type="reset" value="취소">
-                </td>
-                <td>
-                    <a href="reset" ><input type="button" value="키오스크 초기화"></a>
                 </td>
             </tr>
         </table>
@@ -147,12 +143,7 @@
         </tr>
     </c:forEach>
 </table>
-<table>
-    <tr>
-        <td>
-            <a href="menuInsert"><input type="submit" value="추가"></a>
-        </td>
-    </tr>
-</table>
+<a href="reset" ><input type="submit" value="키오스크 초기화"></a>
+<a href="menuInsert"><input type="submit" value="메뉴 추가"></a>
 </body>
 </html>

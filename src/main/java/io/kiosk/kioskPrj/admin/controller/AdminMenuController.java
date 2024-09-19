@@ -1,7 +1,9 @@
 package io.kiosk.kioskPrj.admin.controller;
 
 import io.kiosk.kioskPrj.admin.service.MenuService;
+import io.kiosk.kioskPrj.common.model.Category;
 import io.kiosk.kioskPrj.common.model.Menu;
+import io.kiosk.kioskPrj.kiosk.repository.CategoryRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
@@ -20,11 +22,17 @@ public class AdminMenuController {
     @Autowired
     private CacheManager cacheManager;
 
+    @Autowired
+    private CategoryRepository CategoryRepository;
+
+
     // 전체 메뉴 출력
     @GetMapping("menu")
     public String menu(Model model) {
         List<Menu> Menus = menuService.getAllMenus();
         model.addAttribute("Menus", Menus);
+        List<Category> categories = CategoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "admin/menuForm";
     }
 
@@ -36,6 +44,9 @@ public class AdminMenuController {
         @RequestParam(name = "menuActive", required = false, defaultValue = "") Integer menuActive,
         Model model) {
 
+        List<Category> categories = CategoryRepository.findAll();
+        model.addAttribute("categories", categories);
+
         List<Menu> menus = menuService.searchMenu(menuName, categoryName, menuActive);
         model.addAttribute("Menus", menus);
         return "admin/menuForm";
@@ -43,7 +54,9 @@ public class AdminMenuController {
 
     // 메뉴 추가 페이지 이동
     @GetMapping("menuInsert")
-    public String menuInsert() {
+    public String menuInsert(Model model) {
+        List<Category> categories = CategoryRepository.findAll();
+        model.addAttribute("categories", categories);
         return "admin/menuInsert";
     }
 
@@ -54,8 +67,8 @@ public class AdminMenuController {
         @RequestParam("menuName") String menuName,
         @RequestParam("menuPrice") int menuPrice,
         @RequestParam("info") String info,
-        @RequestParam("categoryName") String categoryName,
-        Model model) {
+        @RequestParam("category") String categoryName
+    ) {
 
         Menu menu = new Menu();
         menu.setMenuName(menuName);
