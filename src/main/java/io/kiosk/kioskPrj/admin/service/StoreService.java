@@ -23,4 +23,8 @@ public interface StoreService {
     void saveStoreAndUser(Store store, User user);
 
     Kiosks createKiosksForStore(String storeId, String storeName);
+
+    void deleteLastKiosk(String storeName);
+
+    void updateStore(Store store);
 }

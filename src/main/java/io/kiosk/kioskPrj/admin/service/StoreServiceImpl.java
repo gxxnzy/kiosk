@@ -81,6 +81,22 @@ public class StoreServiceImpl implements StoreService {
         return kiosk;
     }
 
+    @Override
+    @Transactional
+    public void deleteLastKiosk(String storeName) {
+        Kiosks lastKiosk = kiosksRepository.findTopByStoreNameOrderByKioskNumDesc(storeName);
+
+        if (lastKiosk != null) {
+            // 마지막 키오스크 삭제
+            kiosksRepository.delete(lastKiosk);
+            userService.deleteUserByUsername(lastKiosk.getKioskId());
+        }
+    }
+
+    @Override
+    public void updateStore(Store store) {
+        storeRepository.save(store);
+    }
 
 //    @Override
 //    public List<Store> searchStoresByName(String storeName) {
