@@ -13,16 +13,11 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class MenuServiceImpl implements MenuService {
 
-    private final AdminMenuRepository adminMenuRepository;
-
-    private final S3Service s3Service;
+    @Autowired
+    private AdminMenuRepository adminMenuRepository;
 
     @Autowired
-    public MenuServiceImpl(MenuRepository adminMenuRepository,
-        AdminMenuRepository adminMenuRepository1, S3Service s3Service) {
-        this.adminMenuRepository = adminMenuRepository1;
-        this.s3Service = s3Service;
-    }
+    private S3Service s3Service;
 
     // 모든 메뉴 조회
     @Override
