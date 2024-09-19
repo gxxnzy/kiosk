@@ -173,3 +173,75 @@ button {
 button:hover {
   background-color: #0056b3;
 }
+
+#menu-modal {
+  position: fixed;
+  width: 65%;
+  height: 65%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 20px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-info {
+  width: 50%;
+}
+
+.menu-image-container img {
+  width: 450px;
+  height: 450px;
+  border: 1px solid #ccc;
+}
+
+.modal-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.menu-price {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+.modal-footer #modal-menu-price {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 20px;
+  width: 300px;
+}
+
+.modal-footer button {
+  width: 200px;
+  height: 40px;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  margin-right: 20px;
+}
+
+.modal-footer #modal-close-button {
+  margin-left: 190px;
+}
+.modal-footer #modal-add-to-cart {
+  margin-right: 10px;
+}
