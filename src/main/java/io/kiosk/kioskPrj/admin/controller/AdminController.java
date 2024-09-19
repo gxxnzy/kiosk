@@ -13,8 +13,4 @@ public class AdminController {
         return "admin/adminMainForm";
     }
 
-    @GetMapping("ad")
-    public String adForm() {
-        return "admin/adForm";
-    }
 }
