@@ -38,6 +38,26 @@
     </div>
 
 </div>
+<div id="menu-modal" style="display:none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="header-info">
+                <h2 id="modal-menu-name">메뉴 이름</h2>
+                <p id="modal-menu-info">메뉴 설명</p>
+            </div>
+            <div class="menu-image-container">
+                <img id="modal-menu-image" src="" alt="Menu Image">
+            </div>
+        </div>
+        <div class="modal-footer">
+            <h2 id="modal-menu-price">30000원</h2>
+            <button id="modal-close-button">닫기</button>
+            <button id="modal-add-to-cart">장바구니 담기</button>
+        </div>
+
+    </div>
+</div>
+
 
 </body>
 </html>

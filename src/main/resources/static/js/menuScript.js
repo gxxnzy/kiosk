@@ -60,33 +60,65 @@ $(document).ready(function() {
     }
   }
 
-  // 카테고리 클릭 시 해당 메뉴 필터링하여 표시
+  // 카테고리 필터링 함수와 추가된 모달 기능
   window.filterMenus = function(categoryName, categoryInfo, button) {
     let menuList = $("#menu-list");
     menuList.empty();
-
-    // 메뉴 섹션에 카테고리 이름과 정보를 표시
     $("#menu-section-title").text(categoryName);
     $("#menu-section-info").text(categoryInfo);
-
-    // 모든 카테고리 버튼에서 active 클래스 제거
     $("#category-list button").removeClass("active");
-
-    // 클릭된 버튼에 active 클래스 추가
     $(button).addClass("active");
 
     let filteredMenus = allMenus.filter(menu => menu.categoryName === categoryName);
-
     filteredMenus.forEach(function(menu) {
       menuList.append(
           "<div class='menu-item'>" +
           "<img src='" + menu.menuImage + "' alt='" + menu.menuName + "' />" +
           "<h3>" + menu.menuName + "</h3>" +
           "<p>" + menu.menuPrice + "원</p>" +
-          "<button onclick='addToCart(" + menu.menuId + ")'>담기</button>" +
+          "<button onclick='openModal(" + menu.menuId + ")'>담기</button>" +
           "</div>"
       );
     });
+  }
+  let isModalOpen = false;
+
+// 모달 열기 함수
+  window.openModal = function(menuId) {
+    event.stopPropagation(); // 클릭 이벤트 전파 방지
+    selectedMenu = allMenus.find(menu => menu.menuId === menuId);
+    $("#modal-menu-name").text(selectedMenu.menuName);
+    $("#modal-menu-info").text(selectedMenu.info);
+    $("#modal-menu-price").text("가격 : " + selectedMenu.menuPrice + "원");
+    $("#modal-menu-image").attr("src", selectedMenu.menuImage);
+    $("#menu-modal").show();
+    isModalOpen = true; // 모달이 열렸음을 표시
+  }
+
+// 모달 닫기
+  $("#modal-close-button").click(function() {
+    $("#menu-modal").hide();
+    isModalOpen = false; // 모달이 닫혔음을 표시
+  });
+
+  $(window).on("click", function(event) {
+    // 모달이 열려있을 때만 외부 클릭 이벤트가 동작
+    if (isModalOpen && !$(event.target).closest("#menu-modal").length) {
+      $("#menu-modal").hide();
+      isModalOpen = false; // 모달이 닫혔음을 표시
+    }
+  });
+
+
+  // 모달에서 '담기' 버튼 클릭 시
+  $("#modal-add-to-cart").click(function() {
+    addToCart(selectedMenu.menuId);
+    $("#menu-modal").hide();
+  });
+
+  function updateQuantityDisplay() {
+    $("#quantity").text(quantity);
+    $("#modal-menu-price").text(selectedMenu.menuPrice * quantity + "원");
   }
 
   // 장바구니 관련 로직
@@ -182,6 +214,8 @@ $(document).ready(function() {
     $("input[name='cartData']").val(cartData);
     $(this).off("submit").submit();
   });
+
+
 
   fetchMenusAndCategories();
   updateCartDisplay();
