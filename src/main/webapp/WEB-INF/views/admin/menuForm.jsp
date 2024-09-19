@@ -58,7 +58,7 @@
         background-color: #f9f9f9;
       }
 
-      input[type="submit"], input[type="reset"] {
+      input[type="submit"], input[type="reset"], input[type="button"] {
         background-color: #4CAF50;
         color: white;
         padding: 10px 20px;
@@ -70,7 +70,7 @@
         cursor: pointer;
       }
 
-      input[type="submit"]:hover, input[type="reset"]:hover{
+      input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"] {
         background-color: #45a049;
       }
 
@@ -124,7 +124,7 @@
                     <input type="reset" value="취소">
                 </td>
                 <td>
-                    <a href="reset" ><input type="submit" value="키오스크 초기화"></a>
+                    <a href="reset" ><input type="button" value="키오스크 초기화"></a>
                 </td>
             </tr>
         </table>
