@@ -106,13 +106,23 @@ public class AdminStoreController {
         // 키오스크 자동 생성 로직 (storeId에 따라 kioskId를 자동 생성)
         Kiosks kiosk = storeService.createKiosksForStore(storeId,storeName);
 
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(password);
+
         User user = new User();
         user.setUsername(kiosk.getKioskId()); // Unique username for the kiosk
-        user.setPassword(password); // Password should be encoded in a real application
+        user.setPassword(encodedPassword); // Password should be encoded in a real application
         user.setRole("ROLE_KIOSK");
         user.setUserStatus(1);
         userService.saveUser(user);
 
+        return "redirect:/admin/storeDetail/" + storeId;
+    }
+
+    @PostMapping("storeDetail/deleteLastKiosk")
+    public String deleteLastKiosk(@RequestParam("storeId") String storeId,
+        @RequestParam("storeName") String storeName) {
+        storeService.deleteLastKiosk(storeName);
         return "redirect:/admin/storeDetail/" + storeId;
     }
 
