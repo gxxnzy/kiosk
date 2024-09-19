@@ -24,7 +24,7 @@ public class Orders {
     private Integer kiosksNum; // Integer로 변경하여 nullable 허용
 
     @CreationTimestamp
-    @Column(name = "order_time")
+    @Column(name = "created_at")
     private LocalDateTime orderTime;
 
     @Column(name = "pay_status")
