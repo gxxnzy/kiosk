@@ -84,8 +84,13 @@ public class AdminMenuController {
     // 상세 메뉴 보기
     @GetMapping("menuDetail")
     public String menuDetail(@RequestParam("menuId") int menuId, Model model) {
+        // menu 테이블에서 메뉴 정보 가져오기
         Menu menu = menuService.getById(menuId);
         model.addAttribute("menu", menu);
+
+        List<Category> categories = CategoryRepository.findAll();
+        model.addAttribute("categories", categories);
+
         return "admin/menuDetail";
     }
 
@@ -99,6 +104,7 @@ public class AdminMenuController {
         return "redirect:/admin/menu";
     }
 
+    // 메뉴 추가,수정 시 캐시 초기화
     @GetMapping("/reset")
     public String reset() {
         cacheManager.getCache("menusCache").clear();
