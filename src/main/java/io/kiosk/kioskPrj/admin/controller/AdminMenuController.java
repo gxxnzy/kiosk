@@ -29,8 +29,10 @@ public class AdminMenuController {
     // 전체 메뉴 출력
     @GetMapping("menu")
     public String menu(Model model) {
+
         List<Menu> Menus = menuService.getAllMenus();
         model.addAttribute("Menus", Menus);
+
         List<Category> categories = CategoryRepository.findAll();
         model.addAttribute("categories", categories);
         return "admin/menuForm";
@@ -55,6 +57,7 @@ public class AdminMenuController {
     // 메뉴 추가 페이지 이동
     @GetMapping("menuInsert")
     public String menuInsert(Model model) {
+
         List<Category> categories = CategoryRepository.findAll();
         model.addAttribute("categories", categories);
         return "admin/menuInsert";
@@ -67,8 +70,7 @@ public class AdminMenuController {
         @RequestParam("menuName") String menuName,
         @RequestParam("menuPrice") int menuPrice,
         @RequestParam("info") String info,
-        @RequestParam("category") String categoryName
-    ) {
+        @RequestParam("category") String categoryName) {
 
         Menu menu = new Menu();
         menu.setMenuName(menuName);
@@ -77,27 +79,25 @@ public class AdminMenuController {
         menu.setMenuActive(1);
         menu.setCategoryName(categoryName);
         menuService.saveMenu(menu, file);
-
         return "redirect:/admin/menu";
     }
 
     // 상세 메뉴 보기
     @GetMapping("menuDetail")
     public String menuDetail(@RequestParam("menuId") int menuId, Model model) {
-        // menu 테이블에서 메뉴 정보 가져오기
+
         Menu menu = menuService.getById(menuId);
         model.addAttribute("menu", menu);
 
         List<Category> categories = CategoryRepository.findAll();
         model.addAttribute("categories", categories);
-
         return "admin/menuDetail";
     }
 
     // 메뉴 수정
     @PostMapping("updateMenu")
     public String updateMenu(@ModelAttribute Menu menu) {
-        // 기존 메뉴 가져오기
+
         Menu existingMenu = menuService.getById(menu.getMenuId());
         menu.setMenuImage(existingMenu.getMenuImage());
         menuService.updateMenu(menu);
@@ -107,6 +107,7 @@ public class AdminMenuController {
     // 메뉴 추가,수정 시 캐시 초기화
     @GetMapping("/reset")
     public String reset() {
+
         cacheManager.getCache("menusCache").clear();
         cacheManager.getCache("categoryCache").clear();
         return "redirect:/admin/menu";
