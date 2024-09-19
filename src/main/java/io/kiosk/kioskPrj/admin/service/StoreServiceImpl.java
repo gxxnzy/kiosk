@@ -93,6 +93,11 @@ public class StoreServiceImpl implements StoreService {
         }
     }
 
+    @Override
+    public void updateStore(Store store) {
+        storeRepository.save(store);
+    }
+
 //    @Override
 //    public List<Store> searchStoresByName(String storeName) {
 //        if (storeName != null && !storeName.isEmpty()) {

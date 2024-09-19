@@ -7,4 +7,6 @@ public interface UserService {
     void saveUser(User user);
 
     void deleteUserByUsername(String kioskId);
+
+    void updatePassword(String storeName, String password);
 }

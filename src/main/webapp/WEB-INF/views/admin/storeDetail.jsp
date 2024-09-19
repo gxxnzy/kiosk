@@ -74,6 +74,11 @@
     </tr>
 </table>
 
+<form action="editStore" method="get">
+    <input type="hidden" name="storeId" value="${store.storeId}">
+    <button type="submit" class="btn btn-primary">매장 수정</button>
+</form>
+
 <h2>키오스크 현황</h2>
 
 <table>
