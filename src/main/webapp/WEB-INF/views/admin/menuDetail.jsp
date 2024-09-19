@@ -99,11 +99,9 @@
             <td>카테고리</td>
             <td>
                 <select name="categoryName">
-                    <option value="스테이크" ${menu.categoryName == '스테이크' ? 'selected' : ''}>스테이크</option>
-                    <option value="파스타" ${menu.categoryName == '파스타' ? 'selected' : ''}>파스타</option>
-                    <option value="필라프" ${menu.categoryName == '필라프' ? 'selected' : ''}>필라프</option>
-                    <option value="사이드" ${menu.categoryName == '사이드' ? 'selected' : ''}>사이드</option>
-                    <option value="음료" ${menu.categoryName == '음료' ? 'selected' : ''}>음료</option>
+                    <c:forEach var="category" items="${categories}">
+                        <option value="${category.categoryName}" ${menu.categoryName == category.categoryName ? 'selected' : ''}>${category.categoryName}</option>
+                    </c:forEach>
                 </select>
             </td>
         </tr>
