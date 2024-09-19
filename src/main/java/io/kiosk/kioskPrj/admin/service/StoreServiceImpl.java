@@ -1,11 +1,10 @@
-package io.kiosk.kioskPrj.admin.Service;
+package io.kiosk.kioskPrj.admin.service;
 
 import io.kiosk.kioskPrj.common.model.Kiosks;
 import io.kiosk.kioskPrj.common.model.Store;
 import io.kiosk.kioskPrj.admin.repository.StoreRepository;
 import io.kiosk.kioskPrj.common.model.User;
 import io.kiosk.kioskPrj.kiosk.repository.KiosksRepository;
-import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;

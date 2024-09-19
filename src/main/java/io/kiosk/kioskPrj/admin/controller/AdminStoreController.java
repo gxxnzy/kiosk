@@ -1,11 +1,10 @@
 package io.kiosk.kioskPrj.admin.controller;
 
-import io.kiosk.kioskPrj.admin.Service.StoreService;
-import io.kiosk.kioskPrj.admin.Service.UserService;
+import io.kiosk.kioskPrj.admin.service.StoreService;
+import io.kiosk.kioskPrj.admin.service.UserService;
 import io.kiosk.kioskPrj.common.model.Kiosks;
 import io.kiosk.kioskPrj.common.model.Store;
 import io.kiosk.kioskPrj.common.model.User;
-import java.util.HashMap;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
