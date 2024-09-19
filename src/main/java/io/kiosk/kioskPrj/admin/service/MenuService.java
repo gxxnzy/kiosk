@@ -2,6 +2,7 @@ package io.kiosk.kioskPrj.admin.service;
 
 import io.kiosk.kioskPrj.common.model.Menu;
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
 public interface MenuService {
 
@@ -9,10 +10,10 @@ public interface MenuService {
     List<Menu> getAllMenus();
 
     // 메뉴 추가
-    void saveMenu(Menu menu);
+    void saveMenu(Menu menu, MultipartFile file);
 
     // 조건 검색
-    List<Menu> searchMenu(String menuName, String categoryName, Integer active);
+    List<Menu> searchMenu(String menuName, String categoryName, Integer menuActive);
 
     // 상세 보기
     Menu getById(int menuId);

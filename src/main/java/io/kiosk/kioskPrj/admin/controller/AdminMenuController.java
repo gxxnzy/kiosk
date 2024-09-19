@@ -1,11 +1,10 @@
 package io.kiosk.kioskPrj.admin.controller;
 
 import io.kiosk.kioskPrj.admin.service.MenuService;
-import io.kiosk.kioskPrj.admin.service.S3Service;
 import io.kiosk.kioskPrj.common.model.Menu;
-import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +18,7 @@ public class AdminMenuController {
     private MenuService menuService;
 
     @Autowired
-    private S3Service s3Service;
+    private CacheManager cacheManager;
 
     // 전체 메뉴 출력
     @GetMapping("menu")
@@ -58,19 +57,14 @@ public class AdminMenuController {
         @RequestParam("categoryName") String categoryName,
         Model model) {
 
-        Menu menu = new Menu(menuName, menuPrice, info, null, categoryName);
+        Menu menu = new Menu();
+        menu.setMenuName(menuName);
+        menu.setMenuPrice(menuPrice);
+        menu.setInfo(info);
+        menu.setMenuActive(1);
+        menu.setCategoryName(categoryName);
+        menuService.saveMenu(menu, file);
 
-        try {
-            if (!file.isEmpty()) {
-                // 이미지 파일을 AWS S3에 업로드하고 URL을 가져오기
-                String imageUrl = s3Service.saveFile(file);
-                menu.setMenuImage(imageUrl);
-            }
-            menuService.saveMenu(menu);
-        } catch (IOException e) {
-            System.out.println("이미지 업로드 실패 : " + e.getMessage());
-            return "admin/menuInsert";
-        }
         return "redirect:/admin/menu";
     }
 
@@ -89,6 +83,13 @@ public class AdminMenuController {
         Menu existingMenu = menuService.getById(menu.getMenuId());
         menu.setMenuImage(existingMenu.getMenuImage());
         menuService.updateMenu(menu);
+        return "redirect:/admin/menu";
+    }
+
+    @GetMapping("/reset")
+    public String reset() {
+        cacheManager.getCache("menusCache").clear();
+        cacheManager.getCache("categoryCache").clear();
         return "redirect:/admin/menu";
     }
 }

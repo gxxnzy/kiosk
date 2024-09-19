@@ -123,6 +123,9 @@
                     <input type="submit" value="검색">
                     <input type="reset" value="취소">
                 </td>
+                <td>
+                    <a href="reset" ><input type="submit" value="키오스크 초기화"></a>
+                </td>
             </tr>
         </table>
     </fieldset>
