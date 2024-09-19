@@ -1,4 +1,4 @@
-package io.kiosk.kioskPrj.admin.Service;
+package io.kiosk.kioskPrj.admin.service;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;

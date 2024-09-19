@@ -1,7 +1,7 @@
 package io.kiosk.kioskPrj.admin.controller;
 
-import io.kiosk.kioskPrj.admin.Service.MenuService;
-import io.kiosk.kioskPrj.admin.Service.S3Service;
+import io.kiosk.kioskPrj.admin.service.MenuService;
+import io.kiosk.kioskPrj.admin.service.S3Service;
 import io.kiosk.kioskPrj.common.model.Menu;
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package io.kiosk.kioskPrj.admin.Service;
+package io.kiosk.kioskPrj.admin.service;
 
 import io.kiosk.kioskPrj.admin.repository.AdminMenuRepository;
 import io.kiosk.kioskPrj.common.model.Menu;
