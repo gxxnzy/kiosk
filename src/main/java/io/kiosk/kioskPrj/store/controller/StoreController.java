@@ -32,7 +32,7 @@ public class StoreController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeId = authentication.getName();
 
-        Store store = storeService.getStoreById(storeId);
+        Store store = storeService.getStoreById(storeId); // 스토어 아이디로 해당 스토어 정보 가져오기
         if (store != null) {
             // 결제 완료 상태가 된 주문 상세 정보 가져오기
             List<OrderDetails> paidOrderDetails = storeService.getOrderDetailsByStoreName(store.getStoreName())
@@ -49,10 +49,10 @@ public class StoreController {
                     .mapToInt(detail -> detail.getQuantityPrice()) // 이미 계산된 가격을 사용
                     .sum();
 
-            model.addAttribute("orderDetails", paidOrderDetails);
-            model.addAttribute("totalSales", totalPaidSales);
-            model.addAttribute("selectedStore", store.getStoreName());
-            model.addAttribute("stores", List.of(store));
+            model.addAttribute("orderDetails", paidOrderDetails); // 주문 상세 정보 모델 추가
+            model.addAttribute("totalSales", totalPaidSales); // 총 매출
+            model.addAttribute("selectedStore", store.getStoreName()); // 선택된 가게
+            model.addAttribute("stores", List.of(store)); // 가게 목록리스트
         }
 
         return "store/store";
