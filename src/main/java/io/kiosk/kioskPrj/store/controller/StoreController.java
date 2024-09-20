@@ -89,8 +89,15 @@ public class StoreController {
 
             // 결제 완료 상태가 아닌 주문만 가져오기
             List<Orders> unpaidOrders = storeService.getUnpaidOrdersByStoreName(store.getStoreName());
+
+            // 키오스크 번호 중복 제거
+            List<Integer> uniqueKioskNums = unpaidOrders.stream()
+                    .map(Orders::getKiosksNum)
+                    .distinct()
+                    .collect(Collectors.toList());
+
             model.addAttribute("kiosksList", kiosksList);
-            model.addAttribute("unpaidOrders", unpaidOrders);
+            model.addAttribute("unpaidOrders", uniqueKioskNums); // 중복 제거된 키오스크 번호만 추가
             model.addAttribute("selectedStore", store.getStoreName());
         }
 
@@ -100,22 +107,15 @@ public class StoreController {
     @GetMapping("/kioskDetails")
     public String getKioskDetails(@RequestParam("kioskNum") int kioskNum,
                                   @RequestParam("storeName") String storeName,
-                                  @RequestParam(value = "orderId", required = false) Integer orderId, // orderId 추가
                                   Model model) {
         // 해당 키오스크 번호와 스토어 이름에 대한 주문을 가져옵니다.
         List<Orders> orders = storeService.getOrdersByKioskNumAndStoreName(kioskNum, storeName);
 
-        // 주문 ID가 주어지면 해당 주문 ID에 대한 상세 정보를 조회합니다.
-        List<OrderDetails> orderDetailsList;
-        if (orderId != null) {
-            orderDetailsList = storeService.getOrderDetailsByOrderId(orderId); // 특정 주문 ID에 대한 상세 정보
-        } else {
-            // 주문 ID가 주어지지 않은 경우, 모든 주문의 상세 정보를 가져옵니다.
-            orderDetailsList = orders.stream()
-                    .flatMap(order -> storeService.getOrderDetailsByOrderId(order.getOrderId()).stream())
-                    .filter(detail -> detail.getOrder().getPayStatus() == 0) // 결제 상태가 0인 것만 필터링
-                    .collect(Collectors.toList());
-        }
+        // 주문 ID를 기준으로 상세 정보를 조회하고, 결제 상태가 0인 것만 필터링합니다.
+        List<OrderDetails> orderDetailsList = orders.stream()
+                .flatMap(order -> storeService.getOrderDetailsByOrderId(order.getOrderId()).stream())
+                .filter(detail -> detail.getOrder().getPayStatus() == 0) // 결제 상태가 0인 것만 필터링
+                .collect(Collectors.toList());
 
         int totalAmount = orderDetailsList.stream()
                 .mapToInt(OrderDetails::getQuantityPrice)

@@ -97,18 +97,16 @@
         <table>
             <thead>
             <tr>
-                <th>주문 ID</th>
                 <th>키오스크 번호</th>
                 <th>선택하기</th>
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="order" items="${unpaidOrders}">
+            <c:forEach var="kioskNum" items="${unpaidOrders}">
                 <tr>
-                    <td><c:out value="${order.orderId}"/></td>
-                    <td><c:out value="${order.kiosksNum}"/></td>
+                    <td><c:out value="${kioskNum}"/></td>
                     <td>
-                        <a href="<c:url value='/store/kioskDetails?kioskNum=${order.kiosksNum}&storeName=${selectedStore}&orderId=${order.orderId}'/>" class="btn-select">상세 보기</a>
+                        <a href="<c:url value='/store/kioskDetails?kioskNum=${kioskNum}&storeName=${selectedStore}'/>" class="btn-select">상세 보기</a>
                     </td>
                 </tr>
             </c:forEach>
