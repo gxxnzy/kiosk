@@ -40,19 +40,32 @@ public class StoreController {
                     .filter(detail -> detail.getOrder().getPayStatus() == 1) // 결제 완료 상태
                     .collect(Collectors.toList());
 
-            // 총 결제 금액 계산 - 이거 두번 곱해짐;
-            // int totalPaidSales = paidOrderDetails.stream()
-            //        .mapToInt(detail -> detail.getQuantity() * detail.getQuantityPrice())
-            //        .sum();
+            // 메뉴 이름에 따라 수량과 가격을 합산
+            List<OrderDetails> consolidatedDetails = paidOrderDetails.stream()
+                    .collect(Collectors.groupingBy(OrderDetails::getMenuName))
+                    .entrySet().stream()
+                    .map(entry -> {
+                        String menuName = entry.getKey();
+                        List<OrderDetails> details = entry.getValue();
+                        int totalQuantity = details.stream().mapToInt(OrderDetails::getQuantity).sum();
+                        int totalPrice = details.stream().mapToInt(OrderDetails::getQuantityPrice).sum();
+                        OrderDetails consolidated = new OrderDetails();
+                        consolidated.setMenuName(menuName);
+                        consolidated.setQuantity(totalQuantity);
+                        consolidated.setQuantityPrice(totalPrice);
+                        return consolidated;
+                    })
+                    .collect(Collectors.toList());
 
-            int totalPaidSales = paidOrderDetails.stream()
-                    .mapToInt(detail -> detail.getQuantityPrice()) // 이미 계산된 가격을 사용
+            // 총 결제 금액 계산
+            int totalPaidSales = consolidatedDetails.stream()
+                    .mapToInt(OrderDetails::getQuantityPrice)
                     .sum();
 
-            model.addAttribute("orderDetails", paidOrderDetails); // 주문 상세 정보 모델 추가
+            model.addAttribute("orderDetails", consolidatedDetails); // 합산된 주문 상세 정보 모델 추가
             model.addAttribute("totalSales", totalPaidSales); // 총 매출
             model.addAttribute("selectedStore", store.getStoreName()); // 선택된 가게
-            model.addAttribute("stores", List.of(store)); // 가게 목록리스트
+            model.addAttribute("stores", List.of(store)); // 가게 목록 리스트
         }
 
         return "store/store";
@@ -128,6 +141,7 @@ public class StoreController {
 
         return "store/kioskDetails";
     }
+
     @PostMapping("/updatePaymentStatus")
     public String updatePaymentStatus(@RequestParam("orderIds") List<Integer> orderIds, Model model) {
         storeService.updatePaymentStatusForOrders(orderIds);

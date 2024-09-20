@@ -75,6 +75,12 @@
         }
 
         /* 버튼 스타일 */
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* 버튼과 위 요소 간의 간격 */
+        }
+
         a button {
             width: 200px;
             height: 40px;
@@ -84,8 +90,7 @@
             border: none;
             cursor: pointer;
             color: white;
-            margin: 20px auto 0;
-            display: inline-block;
+            text-align: center;
         }
 
         a button:hover {
@@ -126,7 +131,10 @@
         </div>
     </c:if>
 
-    <a href="menu"><button>메뉴판</button></a>
+    <!-- 버튼을 중앙에 배치하는 컨테이너 -->
+    <div class="button-container">
+        <a href="menu"><button>메뉴판</button></a>
+    </div>
 </div>
 </body>
 </html>
