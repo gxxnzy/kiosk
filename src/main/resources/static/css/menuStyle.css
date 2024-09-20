@@ -15,9 +15,9 @@
 /* Styling for category section */
 #category-section {
   flex-basis: 15%; /* 카테고리 영역 너비 고정 */
-  background-color: #f0f0f0;
+  background-color: #fafafa;
   padding: 20px;
-  border-right: 1px solid #ccc;
+  border-right: 1px solid #000;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,21 +25,26 @@
   overflow-y: auto; /* 카테고리 스크롤 */
   height: 100vh;
 }
+
 /* 주문 내역 버튼을 하단에 위치시키는 컨테이너 */
 .order-history-button-container {
   margin-top: auto; /* 위쪽 공간을 자동으로 채워서 버튼을 하단으로 */
   padding-top: 20px;
   margin-bottom: 50px;
 }
+
 .order-history-button-container button{
   width: 200px;
   height: 40px;
   border-radius: 8px;
-  background-color: #f55b5b;
+  background-color: #bb2528;
+  color: white;
 }
+
 #category-section h2 {
   margin-top: 0;
   text-align: center;
+  color: #bb2528;
 }
 
 #category-list {
@@ -67,7 +72,7 @@
 
 /* 선택된 카테고리 버튼 스타일 */
 #category-list li button.active {
-  background-color: #f55b5b;
+  background-color: #bb2528;
   color: white;
   border-radius: 8px;
 }
@@ -88,6 +93,7 @@
 
 #menu-section-title {
   margin-top: 0;
+  color: #bb2528;
 }
 
 #menu-list {
@@ -123,18 +129,23 @@
   font-size: 20px;
   margin: 5px 0;
   text-align: left;
+  color: #333;
 }
 
 .menu-item p {
   font-size: 18px;
   text-align: left;
   margin: 5px 0;
+  color: #333;
 }
 
 .menu-item button {
   margin-top: 10px;
   width: 100px;
-  align-self: center; /* 버튼을 가운데 정렬 */
+  align-self: center;
+  background-color: #bb2528;
+  color: white;
+  border-radius: 4px;
 }
 
 /* Styling for cart section */
@@ -142,13 +153,14 @@
   flex-basis: 15%; /* 카트 섹션의 고정 너비 */
   padding: 20px;
   background-color: #f8f8f8;
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #000;
   overflow-y: auto; /* 카트 스크롤 */
   height: 100vh;
 }
 
 #cart-section h2 {
   margin-top: 0;
+  color: #bb2528;
 }
 
 .cart-item {
@@ -159,11 +171,12 @@
 .cart-item h4 {
   margin: 0 0 5px 0;
   font-size: 14px;
+  color: #333;
 }
 
 /* Button Styling */
 button {
-  background-color: #f55b5b;
+  background-color: #bb2528;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -203,8 +216,8 @@ button:hover {
 
 .menu-image-container img {
   border-radius: 8px;
-  width: 450px;
-  height: 450px;
+  width: 420px;
+  height: 420px;
   border: 1px solid #ccc;
 }
 
@@ -218,7 +231,9 @@ button:hover {
 .menu-price {
   font-size: 1.5em;
   font-weight: bold;
+  color: #333;
 }
+
 .modal-footer {
   display: flex;
   justify-content: space-between;
@@ -240,12 +255,282 @@ button:hover {
   height: 40px;
   padding: 10px 20px;
   font-size: 1.2em;
-  margin-right: 20px;
+  background-color: #bb2528;
+  color: white;
 }
 
 .modal-footer #modal-close-button {
   margin-left: 190px;
 }
+
+.modal-footer #modal-add-to-cart {
+  margin-right: 10px;
+}
+/* General styling for the entire kiosk container */
+#kiosk-container {
+  display: flex;
+  flex-direction: row;
+  font-family: Arial, sans-serif;
+  width: 100%;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  overflow: hidden; /* 전체 스크롤 방지 */
+}
+
+/* Styling for category section */
+#category-section {
+  flex-basis: 15%; /* 카테고리 영역 너비 고정 */
+  background-color: #fafafa;
+  padding: 20px;
+  border-right: 1px solid #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto; /* 카테고리 스크롤 */
+  height: 100vh;
+}
+
+/* 주문 내역 버튼을 하단에 위치시키는 컨테이너 */
+.order-history-button-container {
+  margin-top: auto; /* 위쪽 공간을 자동으로 채워서 버튼을 하단으로 */
+  padding-top: 20px;
+  margin-bottom: 50px;
+}
+
+.order-history-button-container button{
+  width: 200px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #bb2528;
+  color: white;
+}
+
+#category-section h2 {
+  margin-top: 0;
+  text-align: center;
+  color: #bb2528;
+}
+
+#category-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+#category-list li {
+  list-style: none;
+}
+
+#category-list li button {
+  width: 100%;
+  background: none;
+  border: none;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  color: #333;
+  border-bottom: 1px solid #ccc;
+  font-size: 20px;
+}
+
+/* 선택된 카테고리 버튼 스타일 */
+#category-list li button.active {
+  background-color: #bb2528;
+  color: white;
+  border-radius: 8px;
+}
+
+#category-list li button:hover {
+  background-color: #ffe5e5;
+}
+
+/* Styling for menu section */
+#menu-section {
+  flex-grow: 2; /* 메뉴 섹션이 카트에 맞춰 자동으로 크기 조정 */
+  padding: 20px;
+  background-color: #fff;
+  overflow-y: auto; /* 메뉴 스크롤 */
+  height: 100vh;
+  max-width: 75%; /* 메뉴 섹션이 75% 너비까지만 차지하게 설정 */
+}
+
+#menu-section-title {
+  margin-top: 0;
+  color: #bb2528;
+}
+
+#menu-list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3개의 열로 설정하여 양옆 간격 좁힘 */
+  column-gap: 10px; /* 양옆 간격을 10px로 설정 */
+  row-gap: 20px; /* 위아래 간격을 20px로 설정 */
+}
+
+.menu-item {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 10px;
+  background-color: #f9f9f9;
+  cursor: pointer;
+  width: 280px; /* 메뉴 아이템의 고정 너비 */
+  height: 330px; /* 메뉴 아이템의 고정 높이 */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu-item img {
+  border-radius: 8px;
+  width: 200px; /* 이미지 고정 너비 */
+  height: 200px; /* 이미지 고정 높이 */
+  object-fit: cover; /* 이미지를 상자에 맞게 자르기 */
+  margin-bottom: 10px;
+}
+
+.menu-item h3 {
+  font-size: 20px;
+  margin: 5px 0;
+  text-align: left;
+  color: #333;
+}
+
+.menu-item p {
+  font-size: 18px;
+  text-align: left;
+  margin: 5px 0;
+  color: #333;
+}
+
+.menu-item button {
+  margin-top: 10px;
+  width: 100px;
+  align-self: center;
+  background-color: #bb2528;
+  color: white;
+  border-radius: 4px;
+}
+
+/* Styling for cart section */
+#cart-section {
+  flex-basis: 15%; /* 카트 섹션의 고정 너비 */
+  padding: 20px;
+  background-color: #f8f8f8;
+  border-left: 1px solid #000;
+  overflow-y: auto; /* 카트 스크롤 */
+  height: 100vh;
+}
+
+#cart-section h2 {
+  margin-top: 0;
+  color: #bb2528;
+}
+
+.cart-item {
+  border-bottom: 1px solid #eee;
+  padding: 10px;
+}
+
+.cart-item h4 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Button Styling */
+button {
+  background-color: #bb2528;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+button:hover {
+  background-color: #ffe5e5;
+}
+
+#menu-modal {
+  border-radius: 8px;
+  position: fixed;
+  width: 65%;
+  height: 65%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 20px;
+  box-shadow: 0px 0px 15px rgba(0,0,0,0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-info {
+  width: 50%;
+}
+
+.menu-image-container img {
+  border-radius: 8px;
+  width: 420px;
+  height: 420px;
+  border: 1px solid #ccc;
+}
+
+.modal-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.menu-price {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  margin-top: auto;
+  width: 100%;
+}
+
+.modal-footer #modal-menu-price {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 20px;
+  width: 300px;
+}
+
+.modal-footer button {
+  width: 200px;
+  height: 40px;
+  padding: 10px 20px;
+  font-size: 1.2em;
+  background-color: #bb2528;
+  color: white;
+}
+
+.modal-footer #modal-close-button {
+  margin-left: 190px;
+}
+
 .modal-footer #modal-add-to-cart {
   margin-right: 10px;
 }
