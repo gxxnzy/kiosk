@@ -13,7 +13,7 @@
       }
 
       h1 {
-        color: #F87C7CFC;
+        color: rgba(2, 2, 2, 0.97);
         margin-bottom: 20px;
       }
 
