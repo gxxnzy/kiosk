@@ -18,8 +18,6 @@
         <ul id="category-list"></ul>
         <div class="order-history-button-container">
             <a href="orderHistory"><button>주문 내역</button></a>
-            <!-- 로그아웃 버튼 추가 -->
-            <a href="/logout"><button>로그아웃</button></a>
         </div>
     </div>
 

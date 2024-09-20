@@ -108,7 +108,7 @@
                     <td><c:out value="${order.orderId}"/></td>
                     <td><c:out value="${order.kiosksNum}"/></td>
                     <td>
-                        <a href="<c:url value='/store/kioskDetails?kioskNum=${order.kiosksNum}&storeName=${selectedStore}'/>" class="btn-select">상세 보기</a>
+                        <a href="<c:url value='/store/kioskDetails?kioskNum=${order.kiosksNum}&storeName=${selectedStore}&orderId=${order.orderId}'/>" class="btn-select">상세 보기</a>
                     </td>
                 </tr>
             </c:forEach>
