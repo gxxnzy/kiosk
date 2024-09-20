@@ -117,6 +117,7 @@
                 <td>${item[0].menuName}</td>
                 <td>${item[0].quantity}</td>
                 <td>${item[0].quantityPrice} 원</td>
+
                 <td>${fn:substring(item[1], 0, 19)}</td>
             </tr>
         </c:forEach>
