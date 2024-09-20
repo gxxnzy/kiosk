@@ -32,8 +32,8 @@ public class SecurityConfig {
         // Set up access control
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
             .requestMatchers("/").hasRole("ADMIN")
-            .requestMatchers("/kiosk/**").hasAnyRole("KIOSK", "STORE")
-            .requestMatchers("/store/**").hasRole("STORE")
+            .requestMatchers("/kiosk/**").hasAnyRole("KIOSK", "STORE", "ADMIN")
+            .requestMatchers("/store/**").hasAnyRole("STORE", "ADMIN")
             .requestMatchers("/admin/**").hasRole("ADMIN")
             .anyRequest().permitAll()
         );
