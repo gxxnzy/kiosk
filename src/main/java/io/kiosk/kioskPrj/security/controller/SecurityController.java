@@ -61,7 +61,7 @@ public class SecurityController {
         String rawPassword = user.getPassword();
         String encPassword = bCryptPasswordEncoder.encode(rawPassword);
         user.setPassword(encPassword);
-        user.setEnabled(1);
+        user.setUserStatus(1);
         userRepository.save(user);
         System.out.println(user);
         return "redirect:/loginForm";

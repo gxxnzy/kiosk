@@ -6,6 +6,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <html>
 <head>
     <style>
@@ -28,6 +30,12 @@
 
       th {
         background-color: #f2f2f2;
+      }
+
+      .button-group {
+        display: flex;
+        justify-content: center;
+        gap: 10px; /* 버튼 간격 */
       }
     </style>
     <title>Title</title>
@@ -65,6 +73,44 @@
         <td>${store.storePhonenumber}</td>
     </tr>
 </table>
+
+<form action="editStore" method="get">
+    <input type="hidden" name="storeId" value="${store.storeId}">
+    <button type="submit" class="btn btn-primary">매장 수정</button>
+</form>
+
+<h2>키오스크 현황</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>키오스크 아이디</th>
+        <th>키오스크 넘버</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="kiosk" items="${kiosks}">
+        <tr>
+            <td>${kiosk.kioskId}</td>
+            <td>${kiosk.kioskNum}</td>
+        </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
+<div class="button-group">
+    <form action="createKiosk" method="post">
+        <input type="hidden" name="storeId" value="${store.storeId}">
+        <input type="hidden" name="storeName" value="${store.storeName}">
+        비밀번호 <input type="password" name="password" required>
+        <button type="submit" class="button">키오스크 추가</button>
+    </form>
+    <form action="deleteLastKiosk" method="post">
+        <input type="hidden" name="storeId" value="${store.storeId}">
+        <input type="hidden" name="storeName" value="${store.storeName}">
+        <button type="submit" class="btn btn-danger">키오스크 삭제</button>
+    </form>
+</div>
 <a href="../store">목록으로 돌아가기</a>
 </body>
 </html>

@@ -31,6 +31,7 @@ public class SecurityConfig {
         http.csrf().disable();
         // Set up access control
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
+            .requestMatchers("/").hasRole("ADMIN")
             .requestMatchers("/kiosk/**").hasAnyRole("KIOSK", "STORE")
             .requestMatchers("/store/**").hasRole("STORE")
             .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -69,6 +70,8 @@ public class SecurityConfig {
                 response.sendRedirect("/loginForm"); // Redirect to admin login page
             } else if (uri.startsWith("/store") || uri.startsWith("/kiosk")) {
                 response.sendRedirect("/loginForm"); // Redirect to kiosk login page
+            } else{
+                response.sendRedirect("/loginForm");
             }
         };
     }
