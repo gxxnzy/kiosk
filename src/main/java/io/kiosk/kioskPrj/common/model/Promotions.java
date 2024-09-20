@@ -1,6 +1,7 @@
 package io.kiosk.kioskPrj.common.model;
 
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,5 +21,6 @@ public class Promotions {
     private LocalDate startDate;
     private LocalDate endDate;
     private String promotionImage;
-    private String promotionActive;
+    @Column(name = "promotion_status")
+    private int promotionActive;
 }
