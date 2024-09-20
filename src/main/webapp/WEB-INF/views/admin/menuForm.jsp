@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%><!-- JSTL -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %><!-- 숫자 포맷 -->
 
 <html>
 <head>
@@ -183,7 +184,8 @@
             <td>${menu.menuId}</td>
             <td>${menu.categoryName}</td>
             <td><a href="/admin/menuDetail?menuId=${menu.menuId}">${menu.menuName}</a></td>
-            <td>${menu.menuPrice}원</td>
+            <td><fmt:formatNumber value="${menu.menuPrice}" type="number"/>원</td>
+
         </tr>
     </c:forEach>
 </table>
