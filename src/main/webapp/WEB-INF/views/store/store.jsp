@@ -61,29 +61,23 @@
         tbody tr:hover {
             background-color: #e9ecef;
         }
-        .btn-select, .btn-logout {
-            display: inline-block;
-            padding: 8px 16px;
-            font-size: 14px;
-            color: white;
-            border-radius: 3px;
-            cursor: pointer;
-            text-decoration: none;
-            margin-left: 10px;
-            text-align: center;
-        }
-        .btn-select {
-            background-color: rgba(248, 124, 124, 0.99); /* 버튼 색상 변경 */
-        }
-        .btn-select:hover {
-            background-color: #ec0303; /* 버튼 호버 색상 변경 */
-        }
+
         .btn-logout {
             background-color: rgba(248, 124, 124, 0.99); /* 로그아웃 버튼도 통일 */
+            color: white;
+            padding: 8px 16px;
+            font-size: 14px;
+            border-radius: 3px;
+            text-align: center;
+            text-decoration: none;
+            margin-left: 10px;
+            cursor: pointer;
         }
+
         .btn-logout:hover {
             background-color: #ec0303; /* 로그아웃 버튼 호버 색상 변경 */
         }
+
         .search-form {
             margin-bottom: 20px;
             display: flex;

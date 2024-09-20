@@ -37,11 +37,13 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            min-height: 400px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-top: 20px;
         }
         th, td {
             padding: 15px;
@@ -52,8 +54,11 @@
             background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
             color: white;
         }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
         tbody tr:hover {
-            background-color: #f1f1f1;
+            background-color: #e9ecef;
         }
         .btn-select, .btn-logout {
             display: inline-block;
@@ -68,23 +73,21 @@
             margin-right: 10px;
             text-align: center;
         }
-        .btn-select:hover, .btn-logout:hover {
+        .btn-select:hover {
             background-color: #ec0303; /* 버튼 호버 색상 변경 */
         }
         .btn-logout {
-            background-color: #dc3545;
+            background-color: rgba(248, 124, 124, 0.99); /* 로그아웃 버튼도 통일 */
         }
         .btn-logout:hover {
-            background-color: #c82333;
+            background-color: #ec0303; /* 로그아웃 버튼 호버 색상 변경 */
         }
         .store-name {
             font-size: 18px;
             font-weight: bold;
             margin-bottom: 10px;
             display: block;
-
         }
-
         hr {
             border : 1px solid #F87C7CFC;
         }
