@@ -186,7 +186,7 @@ button {
 }
 
 button:hover {
-  background-color: #ffe5e5;
+  background-color: #ec0303;
 }
 
 /* Modal Styling */
@@ -258,6 +258,10 @@ button:hover {
   font-size: 1.2em;
   background-color: #F87C7CFC;
   color: white;
+}
+
+.modal-footer button:hover {
+  background-color: #ec0303;
 }
 
 .modal-footer #modal-close-button {
