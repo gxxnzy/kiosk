@@ -114,11 +114,10 @@
         <tbody>
         <c:forEach var="item" items="${orderList}">
             <tr>
-                <!-- 첫 번째 요소는 OrderDetails 객체 -->
                 <td>${item[0].menuName}</td>
                 <td>${item[0].quantity}</td>
                 <td>${item[0].quantityPrice} 원</td>
-                <!-- 두 번째 요소는 Order Time -->
+
                 <td>${fn:substring(item[1], 0, 19)}</td>
             </tr>
         </c:forEach>
@@ -127,11 +126,10 @@
 
     <c:if test="${not empty orderList}">
         <div class="order-summary">
-            <p><strong>결제 예정 금액:</strong> <c:out value="${totalPrice}"/> 원</p> <!-- 총 결제 금액 -->
+            <p><strong>결제 예정 금액:</strong> <c:out value="${totalPrice}"/> 원</p>
         </div>
     </c:if>
 
-    <!-- 버튼을 중앙에 배치하는 컨테이너 -->
     <div class="button-container">
         <a href="menu"><button>메뉴판</button></a>
     </div>

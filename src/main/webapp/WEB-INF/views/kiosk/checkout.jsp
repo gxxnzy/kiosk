@@ -7,13 +7,13 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #fff;
+        background-color: #f0f0f0;
         margin: 0;
         padding: 20px;
       }
 
       h1, h2, h3 {
-        color: #bb2528;
+        color: rgba(248, 124, 124, 0.99);
         text-align: center;
       }
 
@@ -22,10 +22,11 @@
         border: 1px solid #ddd;
         padding: 20px;
         border-radius: 8px;
-        background-color: #fafafa;
+        background-color: #fff;
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
       .order-item {
@@ -40,11 +41,11 @@
       }
 
       .order-item p strong {
-        color: #bb2528;
+        color: rgba(248, 124, 124, 0.99);
       }
 
       button {
-        background-color: #bb2528;
+        background-color: rgba(248, 124, 124, 0.99);
         color: white;
         border: none;
         padding: 10px 20px;
@@ -55,10 +56,11 @@
         width: 200px;
         margin: 20px auto 0 auto;
         text-align: center;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
       button:hover {
-        background-color: #ffe5e5;
+        background-color: #ec0303;
       }
 
       table {
@@ -77,14 +79,13 @@
       }
 
       th {
-        background-color: #f4f4f4;
-        color: #333;
+        background-color: rgba(248, 124, 124, 0.99);
+        color: white;
       }
 
       td {
         color: #333;
       }
-
     </style>
 </head>
 <body>

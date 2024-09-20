@@ -1,78 +1,107 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>아웃Back 로그인</title>
     <style>
-      #header{
-        background-color: #ffe5e5; /* 연한 빨간색 배경 */
-      }
       body {
-        background-color: #ffffff; /* 연한 빨간색 배경 */
+        background-color: #f0f0f0;
         font-family: Arial, sans-serif;
-        color: #a83c3c; /* 진한 빨간색 텍스트 */
-        text-align: center;
+        color: #a83c3c;
+        margin: 0;
+        padding: 0;
+        height: 90vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
 
-      h1 {
-        color: #990000; /* 더 짙은 빨간색 */
+      #header {
+        background-color: #F87C7CFC;
+        padding: 15px;
+        width: 100%;
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      #header h1 {
+        color: white;
+        margin: 0;
+      }
+
+      .content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
 
       form {
-        background-color: #ffffff; /* 연한 빨간색 박스 */
-        border: 2px solid #e60000;
+        background-color: white;
+        border: 2px solid #F87C7CFC;
         padding: 20px;
-        width: 300px;
-        margin: 0 auto;
+        width: 320px;
         border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        margin-bottom: 15px;
       }
 
       input {
-        width: 90%;
-        padding: 10px;
+        width: 100%;
+        padding: 12px;
         margin: 10px 0;
-        border: 1px solid #cc3333;
+        border: 1px solid #F87C7CFC;
         border-radius: 5px;
         box-sizing: border-box;
+        font-size: 16px;
       }
 
       button {
-        background-color: #cc3333; /* 버튼 빨간색 */
+        background-color: #F87C7CFC;
         color: white;
-        padding: 10px 20px;
+        padding: 12px 20px;
         border: none;
         border-radius: 5px;
         cursor: pointer;
+        width: 100%;
+        font-size: 16px;
       }
 
       button:hover {
-        background-color: #b32424; /* 버튼 호버 시 더 짙은 빨간색 */
+        background-color: #e76b6b;
       }
 
       a {
-        display: inline-block;
-        margin-top: 15px;
-        color: #a83c3c;
+        display: block;
+        margin-top: 10px;
+        color: #F87C7CFC;
         text-decoration: none;
+        text-align: center;
       }
 
       a:hover {
         text-decoration: underline;
       }
 
-      hr {
-        border: 1px solid #e60000;
-      }
     </style>
 </head>
 <body>
-<div id = "header">
-<h1>아웃Back</h1>
+
+<div id="header">
+    <h1>아웃Back</h1>
 </div>
-<form action="/login" method="post">
-    <input type="text" name="username" placeholder="Username"><br>
-    <input type="password" name="password" placeholder="Password"><br>
-    <button>로그인</button>
-</form>
-<a href="/joinForm">회원가입</a>
+
+<div class="content">
+    <form action="/login" method="post">
+        <input type="text" name="username" placeholder="아이디" required><br>
+        <input type="password" name="password" placeholder="비밀번호" required><br>
+        <button type="submit">로그인</button>
+    </form>
+
+    <a href="/joinForm">회원가입</a>
+</div>
+
 </body>
 </html>
