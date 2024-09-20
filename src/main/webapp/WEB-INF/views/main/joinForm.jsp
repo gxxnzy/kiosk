@@ -47,7 +47,7 @@
       }
 
       button:hover {
-        background-color: #e76b6b;
+        background-color: #ec0303;
       }
 
       h1 {
