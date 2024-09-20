@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,10 +13,11 @@
             background-color: #f4f4f4;
         }
         header {
-            background-color: #007BFF;
+            background-color: rgba(248, 124, 124, 0.99); /* 헤더 색상 변경 */
             color: white;
             padding: 10px 20px;
             text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             margin: 0;
@@ -28,8 +30,8 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative; /* Added to help position the button at the bottom */
-            min-height: 400px; /* Ensure enough space for the button at the bottom */
+            position: relative;
+            min-height: 400px;
         }
         table {
             width: 100%;
@@ -42,7 +44,7 @@
             border: 1px solid #ddd;
         }
         th {
-            background-color: #007BFF;
+            background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
             color: white;
         }
         tbody tr:nth-child(even) {
@@ -60,7 +62,7 @@
             padding: 10px 20px;
             font-size: 16px;
             color: white;
-            background-color: #28a745;
+            background-color: rgba(248, 124, 124, 0.99); /* 버튼 색상 변경 */
             border: none;
             border-radius: 3px;
             cursor: pointer;
@@ -68,11 +70,16 @@
             margin-top: 20px;
             text-align: center;
             position: absolute;
-            bottom: 20px; /* Position the button at the bottom of the container */
-            right: 20px; /* Align button to the right */
+            bottom: 20px;
+            right: 20px;
         }
         .btn-submit:hover {
-            background-color: #218838;
+            background-color: #ec0303; /* 버튼 호버 색상 변경 */
+        }
+        .store-name {
+            color: black; /* 현재 지점 글씨 색을 검은색으로 설정 */
+            font-weight: bold;
+            font-size: 18px;
         }
     </style>
 </head>
@@ -81,29 +88,55 @@
     <h1>테이블 ${kioskNum}번 키오스크 주문 내역</h1>
 </header>
 <div class="container">
+    <!-- 현재 지점 표시 -->
+    <c:if test="${not empty selectedStore}">
+        <div class="store-name">현재 지점: ${selectedStore}</div>
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/store/updatePaymentStatus" method="post">
         <table>
             <thead>
             <tr>
-                <th>주문 ID</th>
                 <th>메뉴 이름</th>
                 <th>수량</th>
                 <th>가격</th>
             </tr>
             </thead>
             <tbody>
-            <!-- orderDetailsList를 순회하여 주문 정보를 표시합니다 -->
+            <c:set var="processedMenus" value="" />
+            <c:set var="currentMenu" value="" />
+            <c:set var="currentQuantity" value="0" />
+            <c:set var="currentPrice" value="0" />
+
+            <!-- 메뉴별 수량과 가격을 합산 -->
             <c:forEach var="detail" items="${orderDetailsList}">
-                <tr>
-                    <td><c:out value="${detail.order.orderId}"/></td>
-                    <td><c:out value="${detail.menuName}"/></td>
-                    <td><c:out value="${detail.quantity}"/></td>
-                    <td><c:out value="${detail.quantityPrice}"/></td>
-                    <!-- 각 주문 ID를 hidden input으로 포함시킵니다 -->
-                    <c:if test="${not empty detail.order.orderId}">
-                        <input type="hidden" name="orderIds" value="${detail.order.orderId}"/>
-                    </c:if>
-                </tr>
+                <c:if test="${not fn:contains(processedMenus, detail.menuName)}">
+                    <!-- 메뉴 이름, 수량, 가격을 초기화 -->
+                    <c:set var="currentMenu" value="${detail.menuName}" />
+                    <c:set var="currentQuantity" value="0" />
+                    <c:set var="currentPrice" value="0" />
+
+                    <!-- 동일한 메뉴의 수량과 가격을 합산 -->
+                    <c:forEach var="sameMenuDetail" items="${orderDetailsList}">
+                        <c:if test="${sameMenuDetail.menuName == currentMenu}">
+                            <c:set var="currentQuantity" value="${currentQuantity + sameMenuDetail.quantity}" />
+                            <c:set var="currentPrice" value="${currentPrice + sameMenuDetail.quantityPrice}" />
+                        </c:if>
+                    </c:forEach>
+
+                    <!-- 합산된 메뉴 출력 -->
+                    <tr>
+                        <td><c:out value="${currentMenu}"/></td>
+                        <td><c:out value="${currentQuantity}"/></td>
+                        <td><c:out value="${currentPrice}"/></td>
+                    </tr>
+
+                    <!-- 처리된 메뉴를 기록 -->
+                    <c:set var="processedMenus" value="${processedMenus},${currentMenu}" />
+                </c:if>
+
+                <!-- 각 주문 ID를 hidden input으로 포함시킴 -->
+                <input type="hidden" name="orderIds" value="${detail.order.orderId}"/>
             </c:forEach>
             </tbody>
         </table>
@@ -116,4 +149,3 @@
 </div>
 </body>
 </html>
-

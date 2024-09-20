@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,12 +13,13 @@
             background-color: #f4f4f4;
         }
         header {
-            background-color: #007BFF;
+            background-color: rgba(248, 124, 124, 0.99); /* 헤더 색상 변경 */
             color: white;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             margin: 0;
@@ -36,11 +38,13 @@
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            min-height: 400px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 20px 0;
+            margin-top: 20px;
         }
         th, td {
             padding: 15px;
@@ -48,11 +52,14 @@
             border: 1px solid #ddd;
         }
         th {
-            background-color: #007BFF;
+            background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
             color: white;
         }
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
         tbody tr:hover {
-            background-color: #f1f1f1;
+            background-color: #e9ecef;
         }
         .btn-select, .btn-logout {
             display: inline-block;
@@ -66,16 +73,16 @@
             text-align: center;
         }
         .btn-select {
-            background-color: #28a745;
+            background-color: rgba(248, 124, 124, 0.99); /* 버튼 색상 변경 */
         }
         .btn-select:hover {
-            background-color: #218838;
+            background-color: #ec0303; /* 버튼 호버 색상 변경 */
         }
         .btn-logout {
-            background-color: #dc3545;
+            background-color: rgba(248, 124, 124, 0.99); /* 로그아웃 버튼도 통일 */
         }
         .btn-logout:hover {
-            background-color: #c82333;
+            background-color: #ec0303; /* 로그아웃 버튼 호버 색상 변경 */
         }
         .search-form {
             margin-bottom: 20px;
@@ -93,13 +100,13 @@
             padding: 8px 16px;
             font-size: 14px;
             color: white;
-            background-color: #007BFF;
+            background-color: rgba(248, 124, 124, 0.99); /* 검색 버튼 색상 변경 */
             border: none;
             border-radius: 3px;
             cursor: pointer;
         }
         .search-form input[type="submit"]:hover {
-            background-color: #0056b3;
+            background-color: #ec0303; /* 검색 버튼 호버 색상 변경 */
         }
         .total-sales {
             text-align: right;
@@ -116,6 +123,9 @@
             font-weight: bold;
             margin-bottom: 10px;
             display: block;
+        }
+        hr {
+            border : 1px solid #F87C7CFC;
         }
     </style>
 </head>
@@ -140,7 +150,7 @@
 
     <hr>
 
-    <!-- 검색 결과 표시 -->
+    <!-- 검색 결과 통합하여 표시 -->
     <c:choose>
         <c:when test="${not empty searchResults}">
             <h2>검색 결과</h2>
@@ -153,12 +163,36 @@
                 </tr>
                 </thead>
                 <tbody>
+                <c:set var="processedMenus" value="" />
+                <c:set var="currentMenu" value="" />
+                <c:set var="currentQuantity" value="0" />
+                <c:set var="currentPrice" value="0" />
+
                 <c:forEach var="result" items="${searchResults}">
-                    <tr>
-                        <td><c:out value="${result.menuName}"/></td>
-                        <td><c:out value="${result.quantity}개"/></td>
-                        <td><c:out value="${result.quantityPrice}원"/></td>
-                    </tr>
+                    <c:if test="${not fn:contains(processedMenus, result.menuName)}">
+                        <!-- 메뉴 이름, 수량, 가격 초기화 -->
+                        <c:set var="currentMenu" value="${result.menuName}" />
+                        <c:set var="currentQuantity" value="0" />
+                        <c:set var="currentPrice" value="0" />
+
+                        <!-- 동일한 메뉴의 수량과 가격을 누적 -->
+                        <c:forEach var="sameResult" items="${searchResults}">
+                            <c:if test="${sameResult.menuName == currentMenu}">
+                                <c:set var="currentQuantity" value="${currentQuantity + sameResult.quantity}" />
+                                <c:set var="currentPrice" value="${currentPrice + sameResult.quantityPrice}" />
+                            </c:if>
+                        </c:forEach>
+
+                        <!-- 합산된 메뉴 출력 -->
+                        <tr>
+                            <td><c:out value="${currentMenu}"/></td>
+                            <td><c:out value="${currentQuantity}개"/></td>
+                            <td><c:out value="${currentPrice}원"/></td>
+                        </tr>
+
+                        <!-- 처리된 메뉴 이름을 기록 -->
+                        <c:set var="processedMenus" value="${processedMenus},${currentMenu}" />
+                    </c:if>
                 </c:forEach>
                 </tbody>
             </table>

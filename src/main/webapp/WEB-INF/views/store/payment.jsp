@@ -12,12 +12,13 @@
             background-color: #f4f4f4;
         }
         header {
-            background-color: #007BFF;
+            background-color: rgba(248, 124, 124, 0.99); /* 헤더 색상 변경 */
             color: white;
             padding: 10px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
         header h1 {
             margin: 0;
@@ -48,7 +49,7 @@
             border: 1px solid #ddd;
         }
         th {
-            background-color: #007BFF;
+            background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
             color: white;
         }
         tbody tr:hover {
@@ -59,7 +60,7 @@
             padding: 8px 16px;
             font-size: 14px;
             color: white;
-            background-color: #28a745;
+            background-color: rgba(248, 124, 124, 0.99); /* 버튼 색상 변경 */
             border: none;
             border-radius: 3px;
             cursor: pointer;
@@ -68,13 +69,24 @@
             text-align: center;
         }
         .btn-select:hover, .btn-logout:hover {
-            background-color: #218838;
+            background-color: #ec0303; /* 버튼 호버 색상 변경 */
         }
         .btn-logout {
             background-color: #dc3545;
         }
         .btn-logout:hover {
             background-color: #c82333;
+        }
+        .store-name {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            display: block;
+
+        }
+
+        hr {
+            border : 1px solid #F87C7CFC;
         }
     </style>
 </head>
@@ -90,7 +102,7 @@
     <c:if test="${not empty selectedStore}">
         <span class="store-name">현재 지점: ${selectedStore}</span>
     </c:if>
-
+    <hr>
     <!-- 결제 완료 상태가 아닌 주문을 리스트 -->
     <c:if test="${not empty unpaidOrders}">
         <h2>미결제 주문</h2>
