@@ -40,7 +40,7 @@
       }
 
       a input[type="submit"]:hover {
-        background-color: #e76b6b;
+        background-color: #ec0303;
       }
 
       a input[type="submit"]:active {

@@ -83,7 +83,7 @@
         display: inline-block;
       }
 
-      input[type="submit"]:hover, input[type="reset"]:hover {
+      input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
         background-color: #ec0303;
       }
 
@@ -133,7 +133,6 @@
         </a>
     </h1>
 </div>
-
 <hr>
 <br>
 <form action="searchMenu" method="post">
