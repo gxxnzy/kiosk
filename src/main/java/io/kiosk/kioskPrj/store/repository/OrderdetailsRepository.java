@@ -14,6 +14,13 @@ public interface OrderdetailsRepository extends JpaRepository<OrderDetails, Inte
     // 특정 가게(storeName)에 대한 주문 상세 내역을 조회하는 쿼리
     @Query("SELECT od FROM OrderDetails od JOIN Orders o ON od.order.orderId = o.orderId WHERE o.storeName = :storeName")
     List<OrderDetails> findByStoreName(@Param("storeName") String storeName);
+
+    @Query("SELECT od FROM OrderDetails od WHERE od.order.orderId = :orderId")
+    List<OrderDetails> findByOrderId(@Param("orderId") int orderId);
+
+    // 메뉴 이름에 키워드를 포함하는 주문 조회 쿼리
+    @Query("SELECT d FROM OrderDetails d WHERE d.order.storeName = :storeName AND d.menuName LIKE %:menuName%")
+    List<OrderDetails> findByStoreNameAndMenuNameContaining(@Param("storeName") String storeName, @Param("menuName") String menuName);
 }
 
 

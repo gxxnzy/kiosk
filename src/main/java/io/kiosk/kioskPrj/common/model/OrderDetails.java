@@ -3,6 +3,7 @@ package io.kiosk.kioskPrj.common.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import java.time.LocalDate; // Date 타입을 위한 import 추가
 
 @Entity
 @Table(name = "order_details")
@@ -26,4 +27,7 @@ public class OrderDetails {
 
     @Column(name = "quantity_price")
     private Integer quantityPrice; // Integer로 변경하여 nullable 허용
+
+
+
 }
