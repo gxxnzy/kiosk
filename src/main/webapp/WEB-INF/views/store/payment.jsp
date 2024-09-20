@@ -97,7 +97,7 @@
 <header>
     <h1>결제 관리</h1>
     <div>
-        <a href="/store/main" class="nav-links">판매량 관리</a>
+        <a href="/store/main" class="btn-logout">판매량 관리</a>
         <a href="/logout" class="btn-logout">로그아웃</a>
     </div>
 </header>

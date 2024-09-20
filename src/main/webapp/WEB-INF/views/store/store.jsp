@@ -127,7 +127,7 @@
 <header>
     <h1>판매량 확인</h1>
     <div>
-        <a href="/store/payment" class="nav-links">결제 관리</a>
+        <a href="/store/payment" class="btn-logout">결제 관리</a>
         <a href="/logout" class="btn-logout">로그아웃</a>
     </div>
 </header>
