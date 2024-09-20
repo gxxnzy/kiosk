@@ -13,7 +13,8 @@
         text-align: center;
       }
 
-      h1 {
+      h1, h2 {
+        color: rgba(248, 124, 124, 0.99);
         text-align: center;
       }
 
@@ -21,10 +22,12 @@
         border: 1px solid #ccc;
         padding: 10px;
         border-radius: 8px;
+        background-color: #fafafa;
       }
 
       legend {
         font-weight: bold;
+        color: rgba(248, 124, 124, 0.99);
       }
 
       table {
@@ -34,7 +37,7 @@
       }
 
       table, th, td {
-        border: 1px solid dimgray;
+        border: 1px solid #ccc;
       }
 
       th, td {
@@ -43,23 +46,32 @@
       }
 
       th {
-        background-color: #b8dde8;
+        background-color: rgba(248, 124, 124, 0.99);
+        color: white;
       }
 
       tr:nth-child(even) {
         background-color: #f9f9f9;
       }
 
+      tr:nth-child(odd) {
+        background-color: #fff;
+      }
+
       input[type="submit"], input[type="reset"] {
-        background-color: #4c95af;
+        background-color: rgba(248, 124, 124, 0.99);
         color: white;
         padding: 10px 50px;
         margin: 5px;
         border: none;
         border-radius: 4px;
+        cursor: pointer;
         text-decoration: none;
         display: inline-block;
-        cursor: pointer;
+      }
+
+      input[type="submit"]:hover, input[type="reset"]:hover {
+        background-color: #ec0303;
       }
 
       input[type="text"], select {
@@ -69,10 +81,6 @@
         border: 1px solid #ddd;
         border-radius: 5px;
         box-sizing: border-box;
-      }
-
-      input[type="submit"]:hover, input[type="reset"]:hover{
-        background-color: #4c95af;
       }
 
       a {
@@ -85,6 +93,23 @@
         border-radius: 4px;
         border: 1px solid #ccc;
       }
+
+      a input[type="submit"] {
+        background-color: rgba(248, 124, 124, 0.99);
+        color: white;
+        padding: 10px 50px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      a input[type="submit"]:hover {
+        background-color: #ec0303;
+      }
+
     </style>
 </head>
 <body>
@@ -143,7 +168,7 @@
         </tr>
     </c:forEach>
 </table>
-<a href="reset" ><input type="submit" value="키오스크 초기화"></a>
+<a href="reset"><input type="submit" value="키오스크 초기화"></a>
 <a href="menuInsert"><input type="submit" value="메뉴 추가"></a>
 </body>
 </html>
