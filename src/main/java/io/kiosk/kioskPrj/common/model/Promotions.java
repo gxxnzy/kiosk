@@ -22,5 +22,5 @@ public class Promotions {
     private LocalDate endDate;
     private String promotionImage;
     @Column(name = "promotion_status")
-    private String promotionActive;
+    private int promotionActive;
 }
