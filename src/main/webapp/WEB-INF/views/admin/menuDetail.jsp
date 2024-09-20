@@ -28,14 +28,14 @@
 
       h2 {
         font-size: 28px;
-        color: rgba(248, 124, 124, 0.99);
+        color: rgba(2, 2, 2, 0.97);
         text-align: center;
         margin-bottom: 20px;
       }
 
       hr {
         border: none;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid rgba(248, 124, 124, 0.99);
         margin: 20px 0;
       }
 

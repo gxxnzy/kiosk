@@ -13,13 +13,26 @@
         text-align: center;
       }
 
-      h1, h2 {
-        color: rgba(248, 124, 124, 0.99);
-        text-align: center;
+      hr {
+        border: 1px solid #F87C7CFC;
+        margin-bottom: 20px;
       }
 
+      h1 {
+        text-align: center;  /* 제목을 가운데 정렬 */
+        position: relative;
+      }
+
+      h1 a {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);  /* 뒤로 가기 버튼을 h1의 중간에 수직 정렬 */
+      }
+
+
       fieldset {
-        border: 1px solid #ccc;
+        border: 1px solid rgba(166, 162, 162, 0.99);
         padding: 10px;
         border-radius: 8px;
         background-color: #fafafa;
@@ -27,7 +40,7 @@
 
       legend {
         font-weight: bold;
-        color: rgba(248, 124, 124, 0.99);
+        color: rgba(2, 2, 2, 0.97);
       }
 
       table {
@@ -58,7 +71,7 @@
         background-color: #fff;
       }
 
-      input[type="submit"], input[type="reset"] {
+      input[type="submit"], input[type="reset"], input[type="button"] {
         background-color: rgba(248, 124, 124, 0.99);
         color: white;
         padding: 10px 50px;
@@ -113,7 +126,14 @@
     </style>
 </head>
 <body>
-<h2>메뉴 조회</h2>
+<div>
+    <h1>메뉴 조회
+        <a href="adminMain">
+            <input type="button" value="뒤로가기">
+        </a>
+    </h1>
+</div>
+
 <hr>
 <br>
 <form action="searchMenu" method="post">
@@ -168,7 +188,7 @@
         </tr>
     </c:forEach>
 </table>
-<a href="reset"><input type="submit" value="키오스크 초기화"></a>
+<a href="reset"><input type="submit" value="키오스크 동기화"></a>
 <a href="menuInsert"><input type="submit" value="메뉴 추가"></a>
 </body>
 </html>

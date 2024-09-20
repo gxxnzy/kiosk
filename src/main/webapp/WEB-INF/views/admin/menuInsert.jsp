@@ -30,13 +30,13 @@
         margin-bottom: 20px;
         font-size: 28px;
         font-weight: bold;
-        color: rgba(248, 124, 124, 0.99);
+        color: rgba(2, 2, 2, 0.97);
         text-align: center;
       }
 
       hr {
         border: none;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid rgba(248, 124, 124, 0.99);
         margin: 20px 0;
       }
 
