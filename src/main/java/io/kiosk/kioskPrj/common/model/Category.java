@@ -13,6 +13,8 @@ import lombok.Data;
 @Table(name = "category")
 public class Category {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int categoryId;
     private String categoryName;
     private String categoryInfo;
 }

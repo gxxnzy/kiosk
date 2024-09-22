@@ -15,11 +15,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig {
+
     private final PrincipleDetailsService principleDetailsService;
 
     public SecurityConfig(PrincipleDetailsService principleDetailsService) {
         this.principleDetailsService = principleDetailsService;
     }
+
     @Bean
     public BCryptPasswordEncoder encodePwd() {
         return new BCryptPasswordEncoder();
@@ -31,7 +33,6 @@ public class SecurityConfig {
         http.csrf().disable();
         // Set up access control
         http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
-            .requestMatchers("/").hasRole("ADMIN")
             .requestMatchers("/kiosk/**").hasAnyRole("KIOSK", "STORE", "ADMIN")
             .requestMatchers("/store/**").hasAnyRole("STORE", "ADMIN")
             .requestMatchers("/admin/**").hasRole("ADMIN")
@@ -70,7 +71,7 @@ public class SecurityConfig {
                 response.sendRedirect("/loginForm"); // Redirect to admin login page
             } else if (uri.startsWith("/store") || uri.startsWith("/kiosk")) {
                 response.sendRedirect("/loginForm"); // Redirect to kiosk login page
-            } else{
+            } else {
                 response.sendRedirect("/loginForm");
             }
         };

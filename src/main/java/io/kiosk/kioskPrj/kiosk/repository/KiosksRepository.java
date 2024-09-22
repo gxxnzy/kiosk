@@ -13,7 +13,6 @@ public interface KiosksRepository extends JpaRepository<Kiosks, String> {
 
     public Kiosks findAllByKioskId(String kioskId);
 
-    // 특정 상점이름을 키오스크 조회
     List<Kiosks> findByStoreName(String storeName);
 
     int countByStoreName(String storeName);
