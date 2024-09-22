@@ -16,25 +16,34 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("admin/")
 public class AdminMenuController {
 
-    @Autowired
-    private MenuService menuService;
+    private final MenuService menuService;
+
+    private final CacheManager cacheManager;
+
+    private final CategoryRepository CategoryRepository;
 
     @Autowired
-    private CacheManager cacheManager;
-
-    @Autowired
-    private CategoryRepository CategoryRepository;
-
+    public AdminMenuController(MenuService menuService, CacheManager cacheManager,
+        io.kiosk.kioskPrj.kiosk.repository.CategoryRepository categoryRepository) {
+        this.menuService = menuService;
+        this.cacheManager = cacheManager;
+        CategoryRepository = categoryRepository;
+    }
 
     // 전체 메뉴 출력
     @GetMapping("menu")
     public String menu(Model model) {
 
-        List<Menu> Menus = menuService.getAllMenus();
-        model.addAttribute("Menus", Menus);
-
+        List<Menu> menus = menuService.getAllMenus();
         List<Category> categories = CategoryRepository.findAll();
-        model.addAttribute("categories", categories);
+
+        if (menus.isEmpty()) {
+            model.addAttribute("message", "등록 된 메뉴가 없습니다.");
+        } else {
+            model.addAttribute("menus", menus);
+            model.addAttribute("categories", categories);
+        }
+
         return "admin/menuForm";
     }
 
@@ -46,11 +55,16 @@ public class AdminMenuController {
         @RequestParam(name = "menuActive", required = false, defaultValue = "") Integer menuActive,
         Model model) {
 
-        List<Category> categories = CategoryRepository.findAll();
-        model.addAttribute("categories", categories);
-
         List<Menu> menus = menuService.searchMenu(menuName, categoryName, menuActive);
-        model.addAttribute("Menus", menus);
+        List<Category> categories = CategoryRepository.findAll();
+
+        if (menus.isEmpty()) {
+            model.addAttribute("message", "조건에 해당하는 메뉴가 없습니다.");
+        } else {
+            model.addAttribute("menus", menus);
+            model.addAttribute("categories", categories);
+        }
+
         return "admin/menuForm";
     }
 
@@ -60,6 +74,7 @@ public class AdminMenuController {
 
         List<Category> categories = CategoryRepository.findAll();
         model.addAttribute("categories", categories);
+
         return "admin/menuInsert";
     }
 
@@ -79,6 +94,7 @@ public class AdminMenuController {
         menu.setMenuActive(1);
         menu.setCategoryName(categoryName);
         menuService.saveMenu(menu, file);
+
         return "redirect:/admin/menu";
     }
 
@@ -87,10 +103,11 @@ public class AdminMenuController {
     public String menuDetail(@RequestParam("menuId") int menuId, Model model) {
 
         Menu menu = menuService.getById(menuId);
-        model.addAttribute("menu", menu);
-
         List<Category> categories = CategoryRepository.findAll();
+
+        model.addAttribute("menu", menu);
         model.addAttribute("categories", categories);
+
         return "admin/menuDetail";
     }
 
@@ -101,6 +118,7 @@ public class AdminMenuController {
         Menu existingMenu = menuService.getById(menu.getMenuId());
         menu.setMenuImage(existingMenu.getMenuImage());
         menuService.updateMenu(menu);
+
         return "redirect:/admin/menu";
     }
 
@@ -110,6 +128,7 @@ public class AdminMenuController {
 
         cacheManager.getCache("menusCache").clear();
         cacheManager.getCache("categoryCache").clear();
+
         return "redirect:/admin/menu";
     }
 }

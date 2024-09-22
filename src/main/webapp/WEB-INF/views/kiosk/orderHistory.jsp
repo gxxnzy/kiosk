@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %><!-- 숫자 포맷 -->
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -116,7 +117,7 @@
             <tr>
                 <td>${item[0].menuName}</td>
                 <td>${item[0].quantity}</td>
-                <td>${item[0].quantityPrice} 원</td>
+                <td><fmt:formatNumber value="${item[0].quantityPrice}" type="number"/>원</td>
 
                 <td>${fn:substring(item[1], 0, 19)}</td>
             </tr>
@@ -126,7 +127,7 @@
 
     <c:if test="${not empty orderList}">
         <div class="order-summary">
-            <p><strong>결제 예정 금액:</strong> <c:out value="${totalPrice}"/> 원</p>
+            <p><strong>결제 예정 금액:</strong> <fmt:formatNumber value="${totalPrice}" type="number"/>원</p>
         </div>
     </c:if>
 
