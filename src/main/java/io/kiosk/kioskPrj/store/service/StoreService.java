@@ -21,7 +21,9 @@ public class StoreService {
     private final KiosksRepository kiosksRepository;
     private final OrdersRepository ordersRepository;
 
-    public StoreService(OrderdetailsRepository orderdetailsRepository, StoresRepository storesRepository, KiosksRepository kiosksRepository, OrdersRepository ordersRepository) {
+    public StoreService(OrderdetailsRepository orderdetailsRepository,
+        StoresRepository storesRepository, KiosksRepository kiosksRepository,
+        OrdersRepository ordersRepository) {
         this.orderdetailsRepository = orderdetailsRepository;
         this.storesRepository = storesRepository;
         this.kiosksRepository = kiosksRepository;
@@ -37,8 +39,8 @@ public class StoreService {
     public int getTotalSalesByStoreName(String storeName) {
         List<OrderDetails> orderDetails = getOrderDetailsByStoreName(storeName);
         return orderDetails.stream()
-                .mapToInt(detail -> detail.getQuantity() * detail.getQuantityPrice())
-                .sum();
+            .mapToInt(detail -> detail.getQuantity() * detail.getQuantityPrice())
+            .sum();
     }
 
     // 모든 상점 정보 가져옴
@@ -75,10 +77,12 @@ public class StoreService {
     public List<Orders> getUnpaidOrdersByStoreName(String storeName) {
         return ordersRepository.findByStoreNameAndPayStatus(storeName, 0);
     }
+
     // 키오스크 번호와 상점 이름에 따른 주문정보
     public List<Orders> getOrdersByKioskNumAndStoreName(int kioskNum, String storeName) {
         return ordersRepository.findByKioskNumAndStoreName(kioskNum, storeName);
     }
+
     // 상점 이름과 키워드에 따라 메뉴 검색
     public List<OrderDetails> searchMenuByKeyword(String storeName, String keyword) {
         return orderdetailsRepository.findByStoreNameAndMenuNameContaining(storeName, keyword);
