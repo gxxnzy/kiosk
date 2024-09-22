@@ -172,23 +172,27 @@
     </fieldset>
 </form>
 <br>
-<table>
-    <tr>
-        <th>번호</th>
-        <th>카테고리</th>
-        <th>이름</th>
-        <th>가격</th>
-    </tr>
-    <c:forEach var="menu" items="${Menus}">
+<c:if test="${not empty message}">
+    <p>${message}</p>
+</c:if>
+<c:if test="${not empty menus}">
+    <table>
         <tr>
-            <td>${menu.menuId}</td>
-            <td>${menu.categoryName}</td>
-            <td><a href="/admin/menuDetail?menuId=${menu.menuId}">${menu.menuName}</a></td>
-            <td><fmt:formatNumber value="${menu.menuPrice}" type="number"/>원</td>
-
+            <th>번호</th>
+            <th>카테고리</th>
+            <th>이름</th>
+            <th>가격</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach var="menu" items="${menus}">
+            <tr>
+                <td>${menu.menuId}</td>
+                <td>${menu.categoryName}</td>
+                <td><a href="/admin/menuDetail?menuId=${menu.menuId}">${menu.menuName}</a></td>
+                <td><fmt:formatNumber value="${menu.menuPrice}" type="number"/>원</td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
 <a href="reset"><input type="submit" value="키오스크 동기화"></a>
 <a href="menuInsert"><input type="submit" value="메뉴 추가"></a>
 </body>

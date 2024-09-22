@@ -75,7 +75,7 @@ $(document).ready(function() {
           "<div class='menu-item'>" +
           "<img src='" + menu.menuImage + "' alt='" + menu.menuName + "' />" +
           "<h3>" + menu.menuName + "</h3>" +
-          "<p>" + menu.menuPrice + "원</p>" +
+          "<p>" + menu.menuPrice.toLocaleString() + "원</p>" +
           "<button onclick='openModal(" + menu.menuId + ")'>담기</button>" +
           "</div>"
       );
@@ -89,7 +89,7 @@ $(document).ready(function() {
     selectedMenu = allMenus.find(menu => menu.menuId === menuId);
     $("#modal-menu-name").text(selectedMenu.menuName);
     $("#modal-menu-info").text(selectedMenu.info);
-    $("#modal-menu-price").text("가격 : " + selectedMenu.menuPrice + "원");
+    $("#modal-menu-price").text("가격 : " + selectedMenu.menuPrice.toLocaleString() + "원");
     $("#modal-menu-image").attr("src", selectedMenu.menuImage);
     $("#menu-modal").show();
     isModalOpen = true; // 모달이 열렸음을 표시
@@ -118,7 +118,7 @@ $(document).ready(function() {
 
   function updateQuantityDisplay() {
     $("#quantity").text(quantity);
-    $("#modal-menu-price").text(selectedMenu.menuPrice * quantity + "원");
+    $("#modal-menu-price").text((selectedMenu.menuPrice * quantity).toLocaleString() + "원");
   }
 
   // 장바구니 관련 로직
@@ -164,7 +164,7 @@ $(document).ready(function() {
         cartList.append(
             "<div class='cart-item'>" +
             "<h3>" + item.menuName + "</h3>" +
-            "<p>가격: " + item.menuPrice + "원 (총: " + (item.menuPrice * item.quantity) + "원)</p>" +
+            "<p>가격: " + item.menuPrice.toLocaleString() + "원 (총: " + (item.menuPrice * item.quantity).toLocaleString() + "원)</p>" +
             "<button onclick='decreaseQuantity(" + item.menuId + ")'>빼기</button>" +
             "<span> 수량: " + item.quantity + " </span>" +
             "<button onclick='increaseQuantity(" + item.menuId + ")'>추가</button>" +
@@ -172,7 +172,7 @@ $(document).ready(function() {
         );
         total += item.menuPrice * item.quantity;
       });
-      cartList.append("<p>Total: " + total + "원</p>");
+      cartList.append("<p>Total: " + total.toLocaleString() + "원</p>");
       $("#cart-section").show();
     } else {
       $("#cart-section").hide();
