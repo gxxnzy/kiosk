@@ -62,6 +62,7 @@ public class KioskController {
         cacheManager.getCache("categoryCache").clear();
         return "redirect:/store/main";
     }
+
     @GetMapping("/menu")
     public String menu(Model model) {
         String longInId = SecurityContextHolder.getContext().getAuthentication().getName();
