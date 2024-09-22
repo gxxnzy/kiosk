@@ -56,42 +56,31 @@ public class KioskController {
         this.orderService = orderService;
     }
 
-    // 메뉴 데이터를 캐시에서 불러오거나 새로 조회
-    @Cacheable(value = "menusCache")
-    public List<Menu> getCachedMenus() {
-        return menuService.getActiveMenus();
-    }
-
-    // 카테고리 데이터를 캐시에서 불러오거나 새로 조회
-    @Cacheable(value = "categoryCache")
-    public List<Category> getCachedCategories() {
-        return categoryService.selectAll();
-    }
-
     @GetMapping("/reset")
     public String reset() {
         cacheManager.getCache("menusCache").clear();
         cacheManager.getCache("categoryCache").clear();
         return "redirect:/store/main";
     }
+
     @GetMapping("/menu")
     public String menu(Model model) {
         String longInId = SecurityContextHolder.getContext().getAuthentication().getName();
         Kiosks kiosks = kiosksRepository.findAllByKioskId(longInId);
         model.addAttribute("kiosk", kiosks);
-        return "kiosk/menu";  // JSP 페이지로 이동
+        return "kiosk/menu";
     }
 
     @GetMapping("/api/menus")
     @ResponseBody
     public List<Menu> getMenus() {
-        return getCachedMenus();
+        return menuService.getActiveMenus();
     }
 
     @GetMapping("/api/categories")
     @ResponseBody
     public List<Category> getCategories() {
-        return getCachedCategories();
+        return categoryService.selectAll();
     }
 
     @PostMapping("/checkout")

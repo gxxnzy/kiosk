@@ -36,7 +36,7 @@
         <span class="visually-hidden">Next</span>
     </button>
     <div class="carousel-caption">
-        <a href="menu"><button type="button" class="btn btn-outline-dark btn-lg">시작하기</button></a>
+        <a href="menu"><button type="button" class="btn btn-outline-danger btn-lg">시작하기</button></a>
     </div>
 </div>
 </body>
