@@ -88,6 +88,9 @@
       td {
         color: #333; /* 검은색 */
       }
+      a {
+        text-decoration: none;
+      }
     </style>
 </head>
 <body>
@@ -111,7 +114,7 @@
         </div>
     </c:if>
 </div>
-
+<a href="menu"><button>뒤로 가기</button></a>
 <form action="/kiosk/order" method="post">
     <button type="submit">주문 완료</button>
 </form>
