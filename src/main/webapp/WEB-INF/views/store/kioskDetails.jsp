@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -128,7 +129,7 @@
                     <tr>
                         <td><c:out value="${currentMenu}"/></td>
                         <td><c:out value="${currentQuantity}"/></td>
-                        <td><c:out value="${currentPrice}"/></td>
+                        <td><fmt:formatNumber value="${currentPrice}" type="number" groupingUsed="true"/>원</td>
                     </tr>
 
                     <!-- 처리된 메뉴를 기록 -->
@@ -142,7 +143,7 @@
         </table>
         <input type="hidden" name="kioskNum" value="${kioskNum}"/>
         <div class="total-amount">
-            <h2>총 결제 금액 : ${totalAmount}원</h2>
+            <h2>총 결제 금액 : <fmt:formatNumber value="${totalAmount}" type="number" groupingUsed="true"/>원</h2>
         </div>
         <button type="submit" class="btn-submit">결제 완료</button>
     </form>

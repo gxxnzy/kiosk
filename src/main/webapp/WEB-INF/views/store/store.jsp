@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -181,7 +182,7 @@
                         <tr>
                             <td><c:out value="${currentMenu}"/></td>
                             <td><c:out value="${currentQuantity}개"/></td>
-                            <td><c:out value="${currentPrice}원"/></td>
+                            <td><fmt:formatNumber value="${currentPrice}" type="number" groupingUsed="true"/>원</td>
                         </tr>
 
                         <!-- 처리된 메뉴 이름을 기록 -->
@@ -216,7 +217,7 @@
                 <tr>
                     <td><c:out value="${detail.menuName}"/></td>
                     <td><c:out value="${detail.quantity}개"/></td>
-                    <td><c:out value="${detail.quantityPrice}원"/></td>
+                    <td><fmt:formatNumber value="${detail.quantityPrice}" type="number" groupingUsed="true"/>원</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -226,7 +227,7 @@
     <hr>
     <div class="total-sales">
         <c:if test="${not empty totalSales}">
-            <h2>총 결제 금액 : ${totalSales}원</h2>
+            <h2>총 결제 금액 : <fmt:formatNumber value="${totalSales}" type="number" groupingUsed="true"/>원</h2>
         </c:if>
     </div>
 </div>
