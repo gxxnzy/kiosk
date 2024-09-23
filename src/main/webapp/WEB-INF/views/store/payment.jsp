@@ -9,11 +9,13 @@
         font-family: 'Arial', sans-serif;
         margin: 0;
         padding: 0;
+
         background-color: #f4f4f4;
       }
 
       header {
         background-color: rgba(248, 124, 124, 0.99); /* 헤더 색상 변경 */
+
         color: white;
         padding: 10px 20px;
         display: flex;
@@ -57,6 +59,7 @@
         border: 1px solid #ddd;
       }
 
+
       th {
         background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
         color: white;
@@ -70,12 +73,15 @@
         background-color: #e9ecef;
       }
 
+
       .btn-select, .btn-logout {
         display: inline-block;
         padding: 8px 16px;
         font-size: 14px;
         color: white;
+
         background-color: rgba(248, 124, 124, 0.99); /* 버튼 색상 변경 */
+
         border: none;
         border-radius: 3px;
         cursor: pointer;
@@ -83,6 +89,7 @@
         margin-right: 10px;
         text-align: center;
       }
+
 
       .btn-select:hover {
         background-color: #ec0303; /* 버튼 호버 색상 변경 */
@@ -103,8 +110,10 @@
         display: block;
       }
 
+
       hr {
         border: 1px solid #F87C7CFC;
+
       }
     </style>
 </head>

@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %><!-- 숫자 포맷 -->
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -7,13 +9,13 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
+        background-color: rgba(255, 255, 255, 0.97); /* 연한 파란색 배경 */
         margin: 0;
         padding: 20px;
       }
 
       h1, h2, h3 {
-        color: rgba(248, 124, 124, 0.99);
+        color: #333; /* 검은색 */
         text-align: center;
       }
 
@@ -22,7 +24,7 @@
         border: 1px solid #ddd;
         padding: 20px;
         border-radius: 8px;
-        background-color: #fff;
+        background-color: #fff; /* 흰색 배경 */
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
@@ -31,21 +33,21 @@
 
       .order-item {
         margin-bottom: 20px;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #ddd;
         padding-bottom: 10px;
       }
 
       .order-item p {
         margin: 5px 0;
-        color: #333;
+        color: #333; /* 검은색 */
       }
 
       .order-item p strong {
-        color: rgba(248, 124, 124, 0.99);
+        color: #c3bef0; /* 연한 보라색 */
       }
 
       button {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* 연한 보라색 */
         color: white;
         border: none;
         padding: 10px 20px;
@@ -60,7 +62,7 @@
       }
 
       button:hover {
-        background-color: #ec0303;
+        background-color: #afc5ff; /* 더 연한 보라색 */
       }
 
       table {
@@ -79,12 +81,12 @@
       }
 
       th {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* 연한 보라색 */
         color: white;
       }
 
       td {
-        color: #333;
+        color: #333; /* 검은색 */
       }
     </style>
 </head>
@@ -97,15 +99,15 @@
     <c:forEach var="item" items="${cartItems}">
         <div class="order-item">
             <p><strong>메뉴 이름:</strong> <c:out value="${item.menuName}"/></p> <!-- 메뉴 이름 -->
-            <p><strong>가격:</strong> <c:out value="${item.menuPrice}"/>원</p> <!-- 단가 -->
+            <p><strong>가격:</strong> <fmt:formatNumber value="${item.menuPrice}" type="number"/>원</p> <!-- 단가 -->
             <p><strong>수량:</strong> <c:out value="${item.quantity}"/></p> <!-- 수량 -->
-            <p><strong>총 가격:</strong> <c:out value="${item.menuPrice * item.quantity}"/>원</p> <!-- 총 가격 -->
+            <p><strong>총 가격:</strong> <fmt:formatNumber value="${item.menuPrice * item.quantity}" type="number"/>원</p> <!-- 총 가격 -->
         </div>
     </c:forEach>
 
     <c:if test="${not empty cartItems}">
         <div class="order-summary">
-            <p><strong>결제 금액:</strong> <c:out value="${totalAmount}"/> 원</p> <!-- 총 결제 금액 -->
+            <p><strong>결제 금액:</strong> <fmt:formatNumber value="${totalAmount}" type="number"/>원</p> <!-- 총 결제 금액 -->
         </div>
     </c:if>
 </div>

@@ -12,11 +12,13 @@
         font-family: 'Arial', sans-serif;
         margin: 0;
         padding: 0;
+
         background-color: #f4f4f4;
       }
 
       header {
         background-color: rgba(248, 124, 124, 0.99); /* 헤더 색상 변경 */
+
         color: white;
         padding: 10px 20px;
         text-align: center;
@@ -51,6 +53,7 @@
         border: 1px solid #ddd;
       }
 
+
       th {
         background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
         color: white;
@@ -64,6 +67,7 @@
         background-color: #e9ecef;
       }
 
+
       .total-amount {
         text-align: right;
         margin-top: 20px;
@@ -74,7 +78,9 @@
         padding: 10px 20px;
         font-size: 16px;
         color: white;
+
         background-color: rgba(248, 124, 124, 0.99); /* 버튼 색상 변경 */
+
         border: none;
         border-radius: 3px;
         cursor: pointer;
@@ -85,6 +91,7 @@
         bottom: 20px;
         right: 20px;
       }
+
 
       .btn-submit:hover {
         background-color: #ec0303; /* 버튼 호버 색상 변경 */

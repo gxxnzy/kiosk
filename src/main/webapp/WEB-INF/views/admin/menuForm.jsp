@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%><!-- JSTL -->
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!-- JSTL -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!-- 숫자 포맷 -->
 
 <html>
 <head>
@@ -9,38 +12,39 @@
         font-family: Arial, sans-serif;
         margin: 20px;
         padding: 0;
-        background-color: #f9f9f9;
+        background-color: #ffffff; /* 흰색 배경 */
         text-align: center;
+        color: #333; /* 전체 글자 색상: 어두운 회색 */
       }
 
       hr {
-        border: 1px solid #F87C7CFC;
+        border: 1px solid #c3bef0; /* 연한 보라색 */
         margin-bottom: 20px;
       }
 
       h1 {
-        text-align: center;  /* 제목을 가운데 정렬 */
+        text-align: center;
         position: relative;
+        color: #333; /* 제목 색상: 검은색 */
       }
 
       h1 a {
         position: absolute;
         right: 0;
         top: 50%;
-        transform: translateY(-50%);  /* 뒤로 가기 버튼을 h1의 중간에 수직 정렬 */
+        transform: translateY(-50%);
       }
 
-
       fieldset {
-        border: 1px solid rgba(166, 162, 162, 0.99);
+        border: 1px solid #cadefc; /* 연한 파란색 */
         padding: 10px;
         border-radius: 8px;
-        background-color: #fafafa;
+        background-color: #ffffff; /* 흰색 배경 */
       }
 
       legend {
         font-weight: bold;
-        color: rgba(2, 2, 2, 0.97);
+        color: #333; /* 레전드 색상: 검은색 */
       }
 
       table {
@@ -50,7 +54,7 @@
       }
 
       table, th, td {
-        border: 1px solid #ccc;
+        border: 1px solid #ddd; /* 연한 회색 */
       }
 
       th, td {
@@ -59,21 +63,21 @@
       }
 
       th {
-        background-color: rgba(248, 124, 124, 0.99);
-        color: white;
+        background-color: #c3bef0; /* 연한 보라색 */
+        color: #333; /* 테이블 헤더 글자 색상: 검은색 */
       }
 
       tr:nth-child(even) {
-        background-color: #f9f9f9;
+        background-color: #f9f9f9; /* 연한 회색 */
       }
 
       tr:nth-child(odd) {
-        background-color: #fff;
+        background-color: #ffffff; /* 흰색 */
       }
 
       input[type="submit"], input[type="reset"], input[type="button"] {
-        background-color: rgba(248, 124, 124, 0.99);
-        color: white;
+        background-color: #cca8e9; /* 연한 보라색 */
+        color: #ffffff; /* 버튼 글자 색상: 흰색 */
         padding: 10px 50px;
         margin: 5px;
         border: none;
@@ -84,7 +88,7 @@
       }
 
       input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
-        background-color: #ec0303;
+        background-color: #c3bef0; /* 연한 보라색 */
       }
 
       input[type="text"], select {
@@ -98,7 +102,7 @@
 
       a {
         text-decoration: none;
-        color: black;
+        color: #333; /* 링크 색상: 검은색 */
       }
 
       select {
@@ -108,8 +112,8 @@
       }
 
       a input[type="submit"] {
-        background-color: rgba(248, 124, 124, 0.99);
-        color: white;
+        background-color: #cca8e9; /* 연한 보라색 */
+        color: #ffffff; /* 버튼 글자 색상: 흰색 */
         padding: 10px 50px;
         margin: 5px;
         border: none;
@@ -120,7 +124,7 @@
       }
 
       a input[type="submit"]:hover {
-        background-color: #ec0303;
+        background-color: #c3bef0; /* 연한 보라색 */
       }
 
     </style>
@@ -171,22 +175,27 @@
     </fieldset>
 </form>
 <br>
-<table>
-    <tr>
-        <th>번호</th>
-        <th>카테고리</th>
-        <th>이름</th>
-        <th>가격</th>
-    </tr>
-    <c:forEach var="menu" items="${Menus}">
+<c:if test="${not empty message}">
+    <p>${message}</p>
+</c:if>
+<c:if test="${not empty menus}">
+    <table>
         <tr>
-            <td>${menu.menuId}</td>
-            <td>${menu.categoryName}</td>
-            <td><a href="/admin/menuDetail?menuId=${menu.menuId}">${menu.menuName}</a></td>
-            <td>${menu.menuPrice}원</td>
+            <th>번호</th>
+            <th>카테고리</th>
+            <th>이름</th>
+            <th>가격</th>
         </tr>
-    </c:forEach>
-</table>
+        <c:forEach var="menu" items="${menus}">
+            <tr>
+                <td>${menu.menuId}</td>
+                <td>${menu.categoryName}</td>
+                <td><a href="/admin/menuDetail?menuId=${menu.menuId}">${menu.menuName}</a></td>
+                <td><fmt:formatNumber value="${menu.menuPrice}" type="number"/>원</td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
 <a href="reset"><input type="submit" value="키오스크 동기화"></a>
 <a href="menuInsert"><input type="submit" value="메뉴 추가"></a>
 </body>

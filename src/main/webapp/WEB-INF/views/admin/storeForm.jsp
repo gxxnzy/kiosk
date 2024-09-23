@@ -12,12 +12,99 @@
     <title>Title</title>
     <style>
       body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f9f9f9;
         text-align: center;
       }
 
+      hr {
+        border: 1px solid #F87C7CFC;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        position: relative;
+      }
+
+      h1 a {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      fieldset {
+        border: 1px solid rgba(166, 162, 162, 0.99);
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #fafafa;
+      }
+
+      legend {
+        font-weight: bold;
+        color: rgba(2, 2, 2, 0.97);
+      }
+
       table {
-        margin: 0 auto;
+        width: 100%;
         border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      table, th, td {
+        border: 1px solid #ccc;
+      }
+
+      th, td {
+        padding: 10px;
+        text-align: center;
+      }
+
+      th {
+        background-color: rgba(248, 124, 124, 0.99);
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #fff;
+      }
+
+      input[type="submit"], input[type="reset"], input[type="button"], button {
+        background-color: rgba(248, 124, 124, 0.99);
+        color: white;
+        padding: 10px 50px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover, button:hover {
+        background-color: #ec0303;
+      }
+
+      input[type="text"], select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      select {
+        padding: 5px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
       }
     </style>
     <!-- jQuery-->
