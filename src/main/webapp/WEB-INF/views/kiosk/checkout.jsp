@@ -9,13 +9,13 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
+        background-color: rgba(255, 255, 255, 0.97); /* 연한 파란색 배경 */
         margin: 0;
         padding: 20px;
       }
 
       h1, h2, h3 {
-        color: rgba(248, 124, 124, 0.99);
+        color: #333; /* 검은색 */
         text-align: center;
       }
 
@@ -24,7 +24,7 @@
         border: 1px solid #ddd;
         padding: 20px;
         border-radius: 8px;
-        background-color: #fff;
+        background-color: #fff; /* 흰색 배경 */
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
@@ -33,21 +33,21 @@
 
       .order-item {
         margin-bottom: 20px;
-        border-bottom: 1px solid #ccc;
+        border-bottom: 1px solid #ddd;
         padding-bottom: 10px;
       }
 
       .order-item p {
         margin: 5px 0;
-        color: #333;
+        color: #333; /* 검은색 */
       }
 
       .order-item p strong {
-        color: rgba(248, 124, 124, 0.99);
+        color: #c3bef0; /* 연한 보라색 */
       }
 
       button {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* 연한 보라색 */
         color: white;
         border: none;
         padding: 10px 20px;
@@ -62,7 +62,7 @@
       }
 
       button:hover {
-        background-color: #ec0303;
+        background-color: #afc5ff; /* 더 연한 보라색 */
       }
 
       table {
@@ -81,12 +81,12 @@
       }
 
       th {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* 연한 보라색 */
         color: white;
       }
 
       td {
-        color: #333;
+        color: #333; /* 검은색 */
       }
     </style>
 </head>

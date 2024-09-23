@@ -6,121 +6,121 @@
 <head>
     <title>Store Sales</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-        header {
-            background-color: rgba(248, 124, 124, 0.99); /* 헤더 색상 변경 */
-            color: white;
-            padding: 10px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        header h1 {
-            margin: 0;
-            font-size: 24px;
-        }
-        header .nav-links {
-            color: white;
-            text-decoration: none;
-            font-size: 16px;
-            margin-right: 20px;
-        }
-        .container {
-            width: 80%;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: relative;
-            min-height: 400px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
-            color: white;
-        }
-        tbody tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tbody tr:hover {
-            background-color: #e9ecef;
-        }
+      body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4; /* 연한 회색 배경 */
+      }
+      header {
+        background-color: #c3bef0; /* 연한 보라색 헤더 */
+        color: white;
+        padding: 10px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      header h1 {
+        margin: 0;
+        font-size: 24px;
+      }
+      header .nav-links {
+        color: white;
+        text-decoration: none;
+        font-size: 16px;
+        margin-right: 20px;
+      }
+      .container {
+        width: 80%;
+        margin: 20px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        min-height: 400px;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+      }
+      th, td {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+      th {
+        background-color: #c3bef0; /* 연한 보라색 테이블 헤더 */
+        color: white;
+      }
+      tbody tr:nth-child(even) {
+        background-color: #f9f9f9; /* 연한 회색 */
+      }
+      tbody tr:hover {
+        background-color: #e0dff2; /* 연한 보라색 호버 효과 */
+      }
 
-        .btn-logout {
-            background-color: rgba(248, 124, 124, 0.99); /* 로그아웃 버튼도 통일 */
-            color: white;
-            padding: 8px 16px;
-            font-size: 14px;
-            border-radius: 3px;
-            text-align: center;
-            text-decoration: none;
-            margin-left: 10px;
-            cursor: pointer;
-        }
+      .btn-logout {
+        background-color: #c3bef0; /* 연한 보라색 */
+        color: white;
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 3px;
+        text-align: center;
+        text-decoration: none;
+        margin-left: 10px;
+        cursor: pointer;
+      }
 
-        .btn-logout:hover {
-            background-color: #ec0303; /* 로그아웃 버튼 호버 색상 변경 */
-        }
+      .btn-logout:hover {
+        background-color: #afc5ff; /* 더 연한 보라색 */
+      }
 
-        .search-form {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: flex-end;
-        }
-        .search-form input[type="text"] {
-            padding: 8px;
-            font-size: 14px;
-            border: 1px solid #ddd;
-            border-radius: 3px;
-            margin-right: 10px;
-        }
-        .search-form input[type="submit"] {
-            padding: 8px 16px;
-            font-size: 14px;
-            color: white;
-            background-color: rgba(248, 124, 124, 0.99); /* 검색 버튼 색상 변경 */
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-        }
-        .search-form input[type="submit"]:hover {
-            background-color: #ec0303; /* 검색 버튼 호버 색상 변경 */
-        }
-        .total-sales {
-            text-align: right;
-            margin-top: 20px;
-        }
-        .no-results {
-            color: #dc3545; /* Red color for error message */
-            text-align: center;
-            font-size: 18px;
-            margin-top: 20px;
-        }
-        .store-name {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            display: block;
-        }
-        hr {
-            border : 1px solid #F87C7CFC;
-        }
+      .search-form {
+        margin-bottom: 20px;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .search-form input[type="text"] {
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ddd;
+        border-radius: 3px;
+        margin-right: 10px;
+      }
+      .search-form input[type="submit"] {
+        padding: 8px 16px;
+        font-size: 14px;
+        color: white;
+        background-color: #c3bef0; /* 연한 보라색 */
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+      }
+      .search-form input[type="submit"]:hover {
+        background-color: #afc5ff; /* 더 연한 보라색 */
+      }
+      .total-sales {
+        text-align: right;
+        margin-top: 20px;
+      }
+      .no-results {
+        color: #dc3545; /* 빨간색 오류 메시지 */
+        text-align: center;
+        font-size: 18px;
+        margin-top: 20px;
+      }
+      .store-name {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+      }
+      hr {
+        border: 1px solid #c3bef0; /* 연한 보라색 HR */
+      }
     </style>
 </head>
 <body>

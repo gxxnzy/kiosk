@@ -4,21 +4,21 @@
     <title>관리자 페이지</title>
     <style>
       body {
-        background-color: #f0f0f0;
+        background-color: #fff; /* 흰색 배경 */
         font-family: Arial, sans-serif;
-        color: #a83c3c;
+        color: #333; /* 검은색 텍스트 */
         text-align: center;
         margin: 0;
         padding: 20px;
       }
 
       h1 {
-        color: rgba(2, 2, 2, 0.97);
+        color: rgba(2, 2, 2, 0.97); /* 연한 보라색 */
         margin-bottom: 20px;
       }
 
       hr {
-        border: 1px solid #F87C7CFC;
+        border: 1px solid #c3bef0; /* 연한 보라색 */
         margin-bottom: 20px;
       }
 
@@ -29,7 +29,7 @@
       }
 
       a input[type="submit"] {
-        background-color: #F87C7CFC;
+        background-color: #c3bef0; /* 연한 보라색 */
         color: white;
         padding: 12px 20px;
         border: none;
@@ -40,7 +40,7 @@
       }
 
       a input[type="submit"]:hover {
-        background-color: #ec0303;
+        background-color: #afc5ff; /* 더 연한 보라색 */
       }
 
       a input[type="submit"]:active {
