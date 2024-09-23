@@ -142,7 +142,7 @@
 
 
 <h1>프로모션 리스트</h1>
-<a href="javascript:history.back()" class="back-button">뒤로가기</a> <!-- 뒤로가기 버튼 추가 -->
+<a href="adminMain" class="back-button">뒤로가기</a> <!-- 뒤로가기 버튼 추가 -->
 
 <form action="searchAdList" method="post">
     <fieldset>
