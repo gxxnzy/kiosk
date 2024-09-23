@@ -9,10 +9,13 @@
         font-family: 'Arial', sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4; /* 연한 회색 배경 */
+
+        background-color: #f4f4f4;
       }
+
       header {
-        background-color: #c3bef0; /* 연한 보라색 헤더 */
+        background-color: rgba(248, 124, 124, 0.99); /* 헤더 색상 변경 */
+
         color: white;
         padding: 10px 20px;
         display: flex;
@@ -20,16 +23,19 @@
         align-items: center;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
+
       header h1 {
         margin: 0;
         font-size: 24px;
       }
+
       header .nav-links {
         color: white;
         text-decoration: none;
         font-size: 16px;
         margin-right: 20px;
       }
+
       .container {
         width: 80%;
         margin: 20px auto;
@@ -40,32 +46,42 @@
         position: relative;
         min-height: 400px;
       }
+
       table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
       }
+
       th, td {
         padding: 15px;
         text-align: left;
         border: 1px solid #ddd;
       }
+
+
       th {
-        background-color: #c3bef0; /* 연한 보라색 테이블 헤더 */
+        background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
         color: white;
       }
+
       tbody tr:nth-child(even) {
-        background-color: #f9f9f9; /* 연한 회색 */
+        background-color: #f9f9f9;
       }
+
       tbody tr:hover {
-        background-color: #e0dff2; /* 연한 보라색 호버 효과 */
+        background-color: #e9ecef;
       }
+
+
       .btn-select, .btn-logout {
         display: inline-block;
         padding: 8px 16px;
         font-size: 14px;
         color: white;
-        background-color: #c3bef0; /* 연한 보라색 버튼 */
+
+        background-color: rgba(248, 124, 124, 0.99); /* 버튼 색상 변경 */
+
         border: none;
         border-radius: 3px;
         cursor: pointer;
@@ -73,17 +89,31 @@
         margin-right: 10px;
         text-align: center;
       }
-      .btn-select:hover, .btn-logout:hover {
-        background-color: #afc5ff; /* 더 연한 보라색 */
+
+
+      .btn-select:hover {
+        background-color: #ec0303; /* 버튼 호버 색상 변경 */
       }
+
+      .btn-logout {
+        background-color: rgba(248, 124, 124, 0.99); /* 로그아웃 버튼도 통일 */
+      }
+
+      .btn-logout:hover {
+        background-color: #ec0303; /* 로그아웃 버튼 호버 색상 변경 */
+      }
+
       .store-name {
         font-size: 18px;
         font-weight: bold;
         margin-bottom: 10px;
         display: block;
       }
+
+
       hr {
-        border: 1px solid #c3bef0; /* 연한 보라색 HR */
+        border: 1px solid #F87C7CFC;
+
       }
     </style>
 </head>
@@ -115,7 +145,8 @@
                 <tr>
                     <td><c:out value="${kioskNum}"/></td>
                     <td>
-                        <a href="<c:url value='/store/kioskDetails?kioskNum=${kioskNum}&storeName=${selectedStore}'/>" class="btn-select">상세 보기</a>
+                        <a href="<c:url value='/store/kioskDetails?kioskNum=${kioskNum}&storeName=${selectedStore}'/>"
+                           class="btn-select">상세 보기</a>
                     </td>
                 </tr>
             </c:forEach>

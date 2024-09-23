@@ -2,11 +2,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<!-- 추가된 fmt 태그 라이브러리 -->
 <!DOCTYPE html>
 <html>
 <head>
     <title>Store Sales</title>
-    <style>
+<style>
       body {
         font-family: 'Arial', sans-serif;
         margin: 0;
@@ -139,8 +140,8 @@
 
     <!-- 검색 폼 추가 -->
     <form action="/store/search" method="get" class="search-form">
-        <input type="text" name="keyword" placeholder="메뉴 검색..." />
-        <input type="submit" value="검색" />
+        <input type="text" name="keyword" placeholder="메뉴 검색..."/>
+        <input type="submit" value="검색"/>
     </form>
 
     <hr>
@@ -158,23 +159,25 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:set var="processedMenus" value="" />
-                <c:set var="currentMenu" value="" />
-                <c:set var="currentQuantity" value="0" />
-                <c:set var="currentPrice" value="0" />
+                <c:set var="processedMenus" value=""/>
+                <c:set var="currentMenu" value=""/>
+                <c:set var="currentQuantity" value="0"/>
+                <c:set var="currentPrice" value="0"/>
 
                 <c:forEach var="result" items="${searchResults}">
                     <c:if test="${not fn:contains(processedMenus, result.menuName)}">
                         <!-- 메뉴 이름, 수량, 가격 초기화 -->
-                        <c:set var="currentMenu" value="${result.menuName}" />
-                        <c:set var="currentQuantity" value="0" />
-                        <c:set var="currentPrice" value="0" />
+                        <c:set var="currentMenu" value="${result.menuName}"/>
+                        <c:set var="currentQuantity" value="0"/>
+                        <c:set var="currentPrice" value="0"/>
 
                         <!-- 동일한 메뉴의 수량과 가격을 누적 -->
                         <c:forEach var="sameResult" items="${searchResults}">
                             <c:if test="${sameResult.menuName == currentMenu}">
-                                <c:set var="currentQuantity" value="${currentQuantity + sameResult.quantity}" />
-                                <c:set var="currentPrice" value="${currentPrice + sameResult.quantityPrice}" />
+                                <c:set var="currentQuantity"
+                                       value="${currentQuantity + sameResult.quantity}"/>
+                                <c:set var="currentPrice"
+                                       value="${currentPrice + sameResult.quantityPrice}"/>
                             </c:if>
                         </c:forEach>
 
@@ -182,11 +185,11 @@
                         <tr>
                             <td><c:out value="${currentMenu}"/></td>
                             <td><c:out value="${currentQuantity}개"/></td>
-                            <td><fmt:formatNumber value="${currentPrice}" type="number" groupingUsed="true"/>원</td>
+                            <td><fmt:formatNumber value="${currentPrice}" type="number"/>원</td>
                         </tr>
 
                         <!-- 처리된 메뉴 이름을 기록 -->
-                        <c:set var="processedMenus" value="${processedMenus},${currentMenu}" />
+                        <c:set var="processedMenus" value="${processedMenus},${currentMenu}"/>
                     </c:if>
                 </c:forEach>
                 </tbody>
@@ -217,7 +220,7 @@
                 <tr>
                     <td><c:out value="${detail.menuName}"/></td>
                     <td><c:out value="${detail.quantity}개"/></td>
-                    <td><fmt:formatNumber value="${detail.quantityPrice}" type="number" groupingUsed="true"/>원</td>
+                    <td><fmt:formatNumber value="${detail.quantityPrice}" type="number"/>원</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -227,7 +230,7 @@
     <hr>
     <div class="total-sales">
         <c:if test="${not empty totalSales}">
-            <h2>총 결제 금액 : <fmt:formatNumber value="${totalSales}" type="number" groupingUsed="true"/>원</h2>
+            <h2>총 결제 금액 : <fmt:formatNumber value="${totalSales}" type="number"/>원</h2>
         </c:if>
     </div>
 </div>

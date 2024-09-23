@@ -13,6 +13,7 @@ public interface KiosksRepository extends JpaRepository<Kiosks, String> {
 
     public Kiosks findAllByKioskId(String kioskId);
 
+
     List<Kiosks> findByStoreName(String storeName);
 
     int countByStoreName(String storeName);
