@@ -126,7 +126,7 @@
 </head>
 <body>
 
-<h1>Store List</h1>
+<h1>매장 리스트</h1>
 
 <form action="searchStoreList" method="post">
     <fieldset>
