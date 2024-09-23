@@ -62,7 +62,10 @@ public class AdminMenuController {
             model.addAttribute("message", "조건에 해당하는 메뉴가 없습니다.");
         } else {
             model.addAttribute("menus", menus);
+            model.addAttribute("menuName", menuName);
+            model.addAttribute("menuActive", menuActive);
             model.addAttribute("categories", categories);
+            model.addAttribute("categoryName", categoryName);
         }
 
         return "admin/menuForm";
