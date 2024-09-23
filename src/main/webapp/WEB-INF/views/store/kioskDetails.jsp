@@ -12,24 +12,19 @@
         font-family: 'Arial', sans-serif;
         margin: 0;
         padding: 0;
-
-        background-color: #f4f4f4;
+        background-color: #f4f4f4; /* 연한 회색 배경 */
       }
-
       header {
-        background-color: rgba(248, 124, 124, 0.99); /* 헤더 색상 변경 */
-
+        background-color: #c3bef0; /* 연한 보라색 헤더 */
         color: white;
         padding: 10px 20px;
         text-align: center;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
       }
-
       header h1 {
         margin: 0;
         font-size: 24px;
       }
-
       .container {
         width: 80%;
         margin: 20px auto;
@@ -40,47 +35,36 @@
         position: relative;
         min-height: 400px;
       }
-
       table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
       }
-
       th, td {
         padding: 15px;
         text-align: left;
         border: 1px solid #ddd;
       }
-
-
       th {
-        background-color: rgba(248, 124, 124, 0.99); /* 테이블 헤더 색상 변경 */
+        background-color: #c3bef0; /* 연한 보라색 테이블 헤더 */
         color: white;
       }
-
       tbody tr:nth-child(even) {
-        background-color: #f9f9f9;
+        background-color: #f9f9f9; /* 연한 회색 */
       }
-
       tbody tr:hover {
-        background-color: #e9ecef;
+        background-color: #e0dff2; /* 연한 보라색 호버 효과 */
       }
-
-
       .total-amount {
         text-align: right;
         margin-top: 20px;
       }
-
       .btn-submit {
         display: block;
         padding: 10px 20px;
         font-size: 16px;
         color: white;
-
-        background-color: rgba(248, 124, 124, 0.99); /* 버튼 색상 변경 */
-
+        background-color: #c3bef0; /* 연한 보라색 버튼 */
         border: none;
         border-radius: 3px;
         cursor: pointer;
@@ -91,12 +75,9 @@
         bottom: 20px;
         right: 20px;
       }
-
-
       .btn-submit:hover {
-        background-color: #ec0303; /* 버튼 호버 색상 변경 */
+        background-color: #afc5ff; /* 더 연한 보라색 호버 색상 */
       }
-
       .store-name {
         color: black; /* 현재 지점 글씨 색을 검은색으로 설정 */
         font-weight: bold;
