@@ -6,55 +6,56 @@
     <style>
       body {
         text-align: center;
-        background-color: #f9f9f9; /* 배경색 */
+        background-color: #f4f4f9; /* Light purple background */
         font-family: Arial, sans-serif;
       }
 
       h1 {
         margin-top: 20px;
+        color: #333; /* Darker text color */
       }
 
       .container {
         display: flex;
-        justify-content: space-around; /* 양쪽 정렬 */
+        justify-content: space-around; /* Space around content */
         margin: 20px;
       }
 
       .details, .kiosk-status {
-        width: 45%; /* 너비 조정 */
+        width: 45%; /* Adjust width */
         padding: 20px;
-        border: 2px solid #ddd; /* 경계선 */
+        border: 2px solid #ddd; /* Border color */
         border-radius: 10px;
-        background-color: #fff; /* 배경색 흰색 */
+        background-color: #ffffff; /* White background */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       }
 
       table {
-        width: 100%; /* 테이블 너비 조정 */
+        width: 100%; /* Table width */
         border-collapse: collapse;
         margin: 20px auto;
       }
 
       th, td {
         padding: 10px;
-        border: 1px solid #ddd; /* 셀 테두리 */
+        border: 1px solid #ddd; /* Cell border */
         text-align: left;
       }
 
       th {
-        background-color: rgba(248, 124, 124, 0.99);
-        color: white;
+        background-color: #d3c0eb; /* Light purple table header */
+        color: #333; /* Header text color */
       }
 
       .button-group {
         display: flex;
         justify-content: center;
-        gap: 10px; /* 버튼 간격 */
+        gap: 10px; /* Button gap */
         margin-top: 20px;
       }
 
       .button {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* Medium purple button */
         color: white;
         padding: 10px 20px;
         border: none;
@@ -63,12 +64,12 @@
       }
 
       .button:hover {
-        background-color: #ec0303;
+        background-color: #9e8cba; /* Darker purple on hover */
       }
 
       .back-button {
         padding: 10px 20px;
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* Sky blue button */
         color: white;
         border: none;
         border-radius: 5px;
@@ -76,7 +77,7 @@
       }
 
       .back-button:hover {
-        background-color: #ec0303;
+        background-color: #b0e0e6; /* Lighter sky blue on hover */
       }
     </style>
     <title>매장 상세</title>

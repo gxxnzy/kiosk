@@ -5,7 +5,7 @@
   <title>광고 추가</title>
   <style>
     body {
-      background-color: #f0f0f0;
+      background-color: #f4f4f9; /* Light grayish purple background */
       font-family: Arial, sans-serif;
       display: flex;
       justify-content: center;
@@ -16,26 +16,26 @@
     }
 
     .container {
-      background-color: #fff;
+      background-color: #ffffff; /* White background */
       padding: 40px;
       border-radius: 10px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       width: 600px;
       max-width: 100%;
-      border-top: 8px solid rgba(248, 124, 124, 0.99);
+      border-top: 8px solid #c3bef0; /* Light purple top border */
     }
 
     h2 {
       margin-bottom: 20px;
       font-size: 28px;
       font-weight: bold;
-      color: rgba(2, 2, 2, 0.97);
+      color: rgba(2, 2, 2, 0.97); /* Light purple heading */
       text-align: center;
     }
 
     hr {
       border: none;
-      border-bottom: 1px solid rgba(248, 124, 124, 0.99);
+      border-bottom: 1px solid #c3bef0; /* Light purple divider line */
       margin: 20px 0;
     }
 
@@ -84,25 +84,25 @@
     }
 
     input[type="submit"] {
-      background-color: rgba(248, 124, 124, 0.99);
+      background-color: #c3bef0; /* Light purple button background */
       color: white;
     }
 
     input[type="button"] {
-      background-color: #f4f4f4;
+      background-color: #cadefc; /* Light gray button background */
       color: #333;
     }
 
     input[type="submit"]:hover {
-      background-color: #ec0303;
+      background-color: #b3a1e2; /* Slightly darker light purple on hover */
     }
 
     input[type="button"]:hover {
-      background-color: #e0e0e0;
+      background-color: #e0e0e0; /* Lighter gray hover background */
     }
 
     label {
-      color: #bb2528;
+      color: rgba(2, 2, 2, 0.97); /* Muted purple for labels */
     }
   </style>
 </head>

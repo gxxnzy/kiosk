@@ -6,7 +6,7 @@
     <title>지점 수정</title>
     <style>
       body {
-        background-color: #f0f0f0;
+        background-color: #f4f4f9; /* 연한 보라색 배경 */
         font-family: Arial, sans-serif;
         display: flex;
         justify-content: center;
@@ -23,20 +23,20 @@
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 600px;
         max-width: 100%;
-        border-top: 8px solid rgba(248, 124, 124, 0.99);
+        border-top: 8px solid #d8b8e4; /* 연한 보라색 */
       }
 
       h2 {
         margin-bottom: 20px;
         font-size: 28px;
         font-weight: bold;
-        color: rgba(2, 2, 2, 0.97);
+        color: rgba(2, 2, 2, 0.97); /* 연한 보라색 제목 */
         text-align: center;
       }
 
       hr {
         border: none;
-        border-bottom: 1px solid rgba(248, 124, 124, 0.99);
+        border-bottom: 1px solid #d8b8e4; /* 연한 보라색 */
         margin: 20px 0;
       }
 
@@ -85,25 +85,25 @@
       }
 
       input[type="submit"] {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* 연한 보라색 */
         color: white;
       }
 
       input[type="button"] {
-        background-color: #f4f4f4;
+        background-color: #cadefc; /* 하늘색 */
         color: #333;
       }
 
       input[type="submit"]:hover {
-        background-color: #ec0303;
+        background-color: #b39bc1; /* 더 진한 보라색 */
       }
 
       input[type="button"]:hover {
-        background-color: #e0e0e0;
+        background-color: #b39bc1; /* 더 연한 하늘색 */
       }
 
       label {
-        color: #bb2528;
+        color: rgba(2, 2, 2, 0.97); /* 연한 보라색 레이블 */
       }
     </style>
 </head>
