@@ -181,14 +181,12 @@
 <c:if test="${not empty menus}">
     <table>
         <tr>
-            <th>번호</th>
             <th>카테고리</th>
             <th>이름</th>
             <th>가격</th>
         </tr>
         <c:forEach var="menu" items="${menus}">
             <tr>
-                <td>${menu.menuId}</td>
                 <td>${menu.categoryName}</td>
                 <td><a href="/admin/menuDetail?menuId=${menu.menuId}">${menu.menuName}</a></td>
                 <td><fmt:formatNumber value="${menu.menuPrice}" type="number"/>원</td>
