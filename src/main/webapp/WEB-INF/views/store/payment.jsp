@@ -9,7 +9,7 @@
         font-family: 'Arial', sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4; /* 연한 회색 배경 */
+        background: linear-gradient(to right, #defcf9, #cadefc); /* 부드러운 그라데이션 배경 */
       }
       header {
         background-color: #c3bef0; /* 연한 보라색 헤더 */
@@ -19,24 +19,39 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-bottom: 2px solid #afc5ff;
       }
       header h1 {
         margin: 0;
-        font-size: 24px;
+        font-size: 28px;
+        font-weight: bold;
       }
-      header .nav-links {
+      .btn-select, .btn-logout {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 14px;
         color: white;
+        background-color: #c3bef0;
+        border: none;
+        border-radius: 50px; /* 둥근 버튼 */
+        cursor: pointer;
         text-decoration: none;
-        font-size: 16px;
-        margin-right: 20px;
+        margin-right: 10px;
+        text-align: center;
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .btn-select:hover, .btn-logout:hover {
+        background-color: #afc5ff;
+        box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
       }
       .container {
-        width: 80%;
+        width: 90%;
         margin: 20px auto;
         background: white;
         padding: 20px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         position: relative;
         min-height: 400px;
       }
@@ -44,6 +59,8 @@
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
+        border-radius: 10px;
+        overflow: hidden;
       }
       th, td {
         padding: 15px;
@@ -51,39 +68,46 @@
         border: 1px solid #ddd;
       }
       th {
-        background-color: #c3bef0; /* 연한 보라색 테이블 헤더 */
+        background-color: #afc5ff;
         color: white;
+        position: sticky;
+        top: 0; /* 테이블 헤더 고정 */
       }
       tbody tr:nth-child(even) {
-        background-color: #f9f9f9; /* 연한 회색 */
+        background-color: #f9f9f9;
       }
       tbody tr:hover {
-        background-color: #e0dff2; /* 연한 보라색 호버 효과 */
-      }
-      .btn-select, .btn-logout {
-        display: inline-block;
-        padding: 8px 16px;
-        font-size: 14px;
-        color: white;
-        background-color: #c3bef0; /* 연한 보라색 버튼 */
-        border: none;
-        border-radius: 3px;
+        background-color: #e0dff2;
         cursor: pointer;
-        text-decoration: none;
-        margin-right: 10px;
-        text-align: center;
-      }
-      .btn-select:hover, .btn-logout:hover {
-        background-color: #afc5ff; /* 더 연한 보라색 */
+        transition: background-color 0.3s ease;
       }
       .store-name {
-        font-size: 18px;
+        font-size: 20px;
         font-weight: bold;
         margin-bottom: 10px;
         display: block;
+        color: #333;
       }
       hr {
-        border: 1px solid #c3bef0; /* 연한 보라색 HR */
+        border: 1px solid #afc5ff;
+      }
+      /* 반응형 디자인 */
+      @media (max-width: 768px) {
+        .container {
+          width: 95%;
+          padding: 10px;
+        }
+        table, th, td {
+          font-size: 14px;
+          padding: 10px;
+        }
+        header h1 {
+          font-size: 22px;
+        }
+        .btn-select, .btn-logout {
+          padding: 8px 12px;
+          font-size: 12px;
+        }
       }
     </style>
 </head>
