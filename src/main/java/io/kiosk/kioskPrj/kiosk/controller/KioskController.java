@@ -34,8 +34,6 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @RequestMapping("/kiosk")
 public class KioskController {
-
-    private final CacheManager cacheManager;
     private final MenuService menuService;
     private final ObjectMapper objectMapper;
     private final CategoryService categoryService;
@@ -43,24 +41,16 @@ public class KioskController {
     private final PromotionsRepository promotionsRepository;
     private final OrderService orderService;
 
-    public KioskController(CacheManager cacheManager, MenuService menuService,
+    public KioskController(MenuService menuService,
         ObjectMapper objectMapper, CategoryService categoryService,
         KiosksRepository kiosksRepository, PromotionsRepository promotionsRepository,
         OrderService orderService) {
-        this.cacheManager = cacheManager;
         this.menuService = menuService;
         this.objectMapper = objectMapper;
         this.categoryService = categoryService;
         this.kiosksRepository = kiosksRepository;
         this.promotionsRepository = promotionsRepository;
         this.orderService = orderService;
-    }
-
-    @GetMapping("/reset")
-    public String reset() {
-        cacheManager.getCache("menusCache").clear();
-        cacheManager.getCache("categoryCache").clear();
-        return "redirect:/store/main";
     }
 
     @GetMapping("/menu")
