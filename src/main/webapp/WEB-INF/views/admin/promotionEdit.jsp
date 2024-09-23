@@ -22,7 +22,7 @@
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       width: 600px;
       max-width: 100%;
-      border-top: 8px solid rgba(248, 124, 124, 0.99);
+      border-top: 8px solid #c3bef0; /* Light purple border-top */
     }
 
     h1 {
@@ -35,7 +35,7 @@
 
     hr {
       border: none;
-      border-bottom: 1px solid rgba(248, 124, 124, 0.99);
+      border-bottom: 1px solid #c3bef0; /* Light purple hr */
       margin: 20px 0;
     }
 
@@ -85,25 +85,25 @@
     }
 
     input[type="submit"] {
-      background-color: rgba(248, 124, 124, 0.99);
+      background-color: #c3bef0; /* Light purple button */
       color: white;
     }
 
     input[type="button"] {
-      background-color: #f4f4f4;
+      background-color: #cadefc; /* Light gray button for cancel */
       color: #333;
     }
 
     input[type="submit"]:hover {
-      background-color: #ec0303;
+      background-color: #b3a1e2; /* Darker light purple on hover */
     }
 
     input[type="button"]:hover {
-      background-color: #e0e0e0;
+      background-color: #d0d0d0; /* Slightly darker gray on hover */
     }
 
     label {
-      color: #bb2528;
+      color: rgba(2, 2, 2, 0.97); /* Dark red label color */
     }
   </style>
 </head>
@@ -128,7 +128,7 @@
         <td><input type="date" name="endDate" id="endDate" value="${promotion.endDate}" required></td>
       </tr>
       <tr>
-        <td>현재 이미지:</td>
+        <td><label>현재 이미지:</label></td>
         <td>
           <c:if test="${not empty promotion.promotionImage}">
             <img src="${promotion.promotionImage}" alt="Promotion Image" width="150" height="120">
