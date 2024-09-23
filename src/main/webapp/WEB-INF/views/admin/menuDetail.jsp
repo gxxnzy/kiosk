@@ -143,11 +143,6 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="menuId">번호</label></td>
-                <td><input type="text" name="menuId" id="menuId" value="${menu.menuId}" readonly>
-                </td>
-            </tr>
-            <tr>
                 <td><label for="menuName">이름</label></td>
                 <td><input type="text" name="menuName" id="menuName" value="${menu.menuName}"></td>
             </tr>
@@ -170,6 +165,7 @@
                 <td><textarea name="info" id="info">${menu.info}</textarea></td>
             </tr>
         </table>
+            <input type="hidden" name="menuId" id="menuId" value="${menu.menuId}" readonly>
         <div class="button-container">
             <input type="submit" value="수정">
             <input type="button" value="취소" onclick="window.location.href='menu'">

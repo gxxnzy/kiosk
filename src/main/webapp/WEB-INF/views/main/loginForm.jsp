@@ -90,7 +90,7 @@
 <body>
 
 <div id="header">
-    <h1>아웃Back</h1>
+    <h1>성식당</h1>
 </div>
 
 <div class="content">
