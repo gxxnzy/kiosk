@@ -1,12 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%><!-- JSTL -->
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<!-- JSTL -->
 
 <html>
 <head>
     <title>메뉴 상세보기</title>
     <style>
       body {
-        background-color: #f0f0f0;
+        background-color: #ffffff; /* 흰색 배경 */
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
@@ -17,25 +18,25 @@
       }
 
       .container {
-        background-color: #fff;
+        background-color: #fff; /* 흰색 배경 */
         padding: 40px;
         border-radius: 10px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         width: 600px;
         max-width: 100%;
-        border-top: 8px solid rgba(248, 124, 124, 0.99);
+        border-top: 8px solid #c3bef0; /* 연한 보라색 */
       }
 
       h2 {
         font-size: 28px;
-        color: rgba(2, 2, 2, 0.97);
+        color: #333; /* 검은색 */
         text-align: center;
         margin-bottom: 20px;
       }
 
       hr {
         border: none;
-        border-bottom: 1px solid rgba(248, 124, 124, 0.99);
+        border-bottom: 1px solid #c3bef0; /* 연한 보라색 */
         margin: 20px 0;
       }
 
@@ -48,21 +49,24 @@
       th, td {
         padding: 15px;
         text-align: left;
+        border: 1px solid #ddd; /* 연한 회색 테두리 */
       }
 
       td:first-child {
         width: 30%;
         font-weight: bold;
-        color: #555;
+        color: #555; /* 어두운 회색 */
+        background-color: #f9f9f9; /* 연한 회색 배경 */
       }
 
       input[type="text"], input[type="file"], input[type="number"], textarea, select {
         width: 100%;
         padding: 12px;
         margin-bottom: 15px;
-        border: 1px solid #ddd;
+        border: 1px solid #ddd; /* 연한 회색 테두리 */
         border-radius: 5px;
         box-sizing: border-box;
+        background-color: #f9f9f9; /* 연한 회색 배경 */
       }
 
       .button-container {
@@ -83,21 +87,21 @@
       }
 
       input[type="submit"] {
-        background-color: rgba(248, 124, 124, 0.99);
-        color: white;
+        background-color: #c3bef0; /* 연한 보라색 */
+        color: #333; /* 검은색 */
       }
 
       input[type="button"] {
-        background-color: #f4f4f4;
-        color: #333;
+        background-color: #cadefc; /* 더 연한 보라색 */
+        color: #333; /* 검은색 */
       }
 
       input[type="submit"]:hover {
-        background-color: #ec0303;
+        background-color: #b0a8f0; /* 더 진한 보라색 */
       }
 
       input[type="button"]:hover {
-        background-color: #e0e0e0;
+        background-color: #c3bef0; /* 연한 보라색 */
       }
 
       /* 이미지 스타일링 */
@@ -110,11 +114,11 @@
 
       /* 추가된 스타일 */
       select, textarea, input[type="number"], input[type="text"] {
-        background-color: #f9f9f9;
+        background-color: #f9f9f9; /* 연한 회색 배경 */
       }
 
       label {
-        color: #bb2528;
+        color: #333; /* 검은색 */
       }
     </style>
 </head>
@@ -140,7 +144,8 @@
             </tr>
             <tr>
                 <td><label for="menuId">번호</label></td>
-                <td><input type="text" name="menuId" id="menuId" value="${menu.menuId}" readonly></td>
+                <td><input type="text" name="menuId" id="menuId" value="${menu.menuId}" readonly>
+                </td>
             </tr>
             <tr>
                 <td><label for="menuName">이름</label></td>
@@ -148,7 +153,8 @@
             </tr>
             <tr>
                 <td><label for="menuPrice">가격</label></td>
-                <td><input type="number" name="menuPrice" id="menuPrice" value="${menu.menuPrice}" /></td>
+                <td><input type="number" name="menuPrice" id="menuPrice" value="${menu.menuPrice}"/>
+                </td>
             </tr>
             <tr>
                 <td><label for="menuActive">판매 여부</label></td>
