@@ -4,9 +4,9 @@
     <title>회원가입</title>
     <style>
       body {
-        background-color: #f0f0f0;
+        background-color: rgba(248, 245, 245, 0.97); /* 연한 하늘색 */
         font-family: Arial, sans-serif;
-        color: #a83c3c;
+        color: #333; /* 검은색 */
         text-align: center;
         margin: 0;
         padding: 0;
@@ -18,7 +18,7 @@
 
       form {
         background-color: white;
-        border: 2px solid #F87C7CFC;
+        border: 2px solid #c3bef0; /* 연한 보라색 */
         padding: 20px;
         width: 320px;
         border-radius: 10px;
@@ -29,14 +29,14 @@
         width: 100%;
         padding: 12px;
         margin: 10px 0;
-        border: 1px solid #F87C7CFC;
+        border: 1px solid #c3bef0; /* 연한 보라색 */
         border-radius: 5px;
         box-sizing: border-box;
         font-size: 16px;
       }
 
       button {
-        background-color: #F87C7CFC;
+        background-color: #c3bef0; /* 연한 보라색 */
         color: white;
         padding: 12px 20px;
         border: none;
@@ -47,11 +47,11 @@
       }
 
       button:hover {
-        background-color: #ec0303;
+        background-color: #afc5ff; /* 더 연한 보라색 */
       }
 
       h1 {
-        color: #F87C7CFC;
+        color: #c3bef0; /* 연한 보라색 */
         margin-bottom: 20px;
       }
     </style>
