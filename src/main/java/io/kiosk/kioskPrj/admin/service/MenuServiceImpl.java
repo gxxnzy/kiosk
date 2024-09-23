@@ -2,7 +2,6 @@ package io.kiosk.kioskPrj.admin.service;
 
 import io.kiosk.kioskPrj.admin.repository.AdminMenuRepository;
 import io.kiosk.kioskPrj.common.model.Menu;
-import io.kiosk.kioskPrj.kiosk.repository.MenuRepository;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -146,14 +146,14 @@
             <tr>
                 <th>이름</th>
                 <td>
-                    <input type="text" name="menuName">
+                    <input type="text" name="menuName", id="menuName" value="${menuName}">
                 </td>
                 <th>카테고리</th>
                 <td>
                     <select name="category">
-                        <option value="">--전체--</option>
+                        <option value="" ${categoryName == '' ? 'selected' : ''}>--전체--</option>
                         <c:forEach var="category" items="${categories}">
-                            <option value="${category.categoryName}">${category.categoryName}</option>
+                            <option value="${category.categoryName}" ${category.categoryName == categoryName ? 'selected' : ''}>${category.categoryName}</option>
                         </c:forEach>
                     </select>
                 </td>
@@ -162,9 +162,9 @@
                 <th>판매 여부</th>
                 <td>
                     <select name="menuActive">
-                        <option value="">--전체--</option>
-                        <option value="1">판매</option>
-                        <option value="0">미판매</option>
+                        <option value="" ${menuActive == '' ? 'selected' : ''}>--전체--</option>
+                        <option value="1" ${menuActive == '1' ? 'selected' : ''}>판매</option>
+                        <option value="0" ${menuActive == '0' ? 'selected' : ''}>미판매</option>
                     </select>
                 <td colspan="2" style="text-align: center">
                     <input type="submit" value="검색">
