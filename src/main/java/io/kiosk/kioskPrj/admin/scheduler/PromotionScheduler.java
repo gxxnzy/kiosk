@@ -15,7 +15,7 @@ public class PromotionScheduler {
     @Autowired
     private PromotionRepository promotionRepository;
 
-    @Scheduled(cron = "0 0 0 * * ?") // 매 시간마다 실행
+    @Scheduled(cron = "0 */1 * * * ?") // 매 시간마다 실행
     public void updatePromotionStatus() {
         List<Promotions> promotions = promotionRepository.findAll();
         LocalDate today = LocalDate.now();

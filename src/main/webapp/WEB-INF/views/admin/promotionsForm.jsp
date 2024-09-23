@@ -1,9 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: gd
-  Date: 2024. 9. 19.
-  Time: 오전 11:23
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
@@ -19,13 +13,14 @@
       }
 
       hr {
-        border: 1px solid #F87C7CFC;
+        border: 1px solid #c3bef0; /* Light purple hr */
         margin-bottom: 20px;
       }
 
       h1 {
         text-align: center;
         position: relative;
+        color: rgba(2, 2, 2, 0.97); /* Light purple heading */
       }
 
       h1 a {
@@ -63,7 +58,7 @@
       }
 
       th {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* Light purple table header */
         color: white;
       }
 
@@ -76,7 +71,7 @@
       }
 
       input[type="submit"], input[type="reset"], input[type="button"] {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* Light purple button */
         color: white;
         padding: 10px 50px;
         margin: 5px;
@@ -86,7 +81,7 @@
       }
 
       input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
-        background-color: #ec0303;
+        background-color: #b3a1e2; /* Slightly darker light purple on hover */
       }
 
       input[type="text"], select, input[type="date"] {
@@ -104,7 +99,7 @@
       }
 
       a input[type="submit"] {
-        background-color: rgba(248, 124, 124, 0.99);
+        background-color: #c3bef0; /* Light purple button */
         color: white;
         padding: 10px 50px;
         margin: 5px;
@@ -114,13 +109,13 @@
       }
 
       a input[type="submit"]:hover {
-        background-color: #ec0303;
+        background-color: #b3a1e2; /* Slightly darker light purple on hover */
       }
 
       td img {
-        width: 100px; /* 원하는 너비 */
-        height: 100px; /* 원하는 높이 */
-        object-fit: cover; /* 비율을 유지하며 잘림 */
+        width: 100px; /* Desired width */
+        height: 100px; /* Desired height */
+        object-fit: cover; /* Maintain aspect ratio */
       }
 
     </style>
@@ -212,7 +207,7 @@
             <td>
                 <form action="editPromotion" method="get">
                     <input type="hidden" name="promotionId" value="${promotion.promotionId}">
-                    <button type="submit">수정</button>
+                    <button type="submit" style="background-color: #c3bef0; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer;">수정</button>
                 </form>
             </td>
         </tr>
