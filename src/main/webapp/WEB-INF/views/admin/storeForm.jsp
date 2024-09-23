@@ -32,6 +32,23 @@
         text-decoration: none;
       }
 
+      .back-button {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        background-color: #c3bef0;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .back-button:hover {
+        background-color: #b3a1e2;
+      }
+
       fieldset {
         border: 1px solid #c3bef0; /* 연한 보라색 테두리 */
         padding: 10px;
@@ -117,7 +134,6 @@
       // ==================================================
       $(document).ready(function() {
         $("#init").click(function() {
-          //alert("init()");
           $("#storeName").val("");
           $("#storeStatus").val("");
           $("#sortOrder").val("asc");
@@ -129,6 +145,7 @@
 <body>
 
 <h1>매장 리스트</h1>
+<a href="javascript:history.back()" class="back-button">뒤로가기</a> <!-- 뒤로가기 버튼 추가 -->
 
 <form action="searchStoreList" method="post">
     <fieldset>

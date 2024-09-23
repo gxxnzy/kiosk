@@ -98,18 +98,21 @@
         color: black;
       }
 
-      a input[type="submit"] {
-        background-color: #c3bef0; /* Light purple button */
+      .back-button {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+        background-color: #c3bef0;
         color: white;
-        padding: 10px 50px;
-        margin: 5px;
+        padding: 10px 20px;
         border: none;
         border-radius: 4px;
         cursor: pointer;
+        text-decoration: none;
       }
 
-      a input[type="submit"]:hover {
-        background-color: #b3a1e2; /* Slightly darker light purple on hover */
+      .back-button:hover {
+        background-color: #b3a1e2;
       }
 
       td img {
@@ -137,7 +140,9 @@
 </head>
 <body>
 
+
 <h1>프로모션 리스트</h1>
+<a href="javascript:history.back()" class="back-button">뒤로가기</a> <!-- 뒤로가기 버튼 추가 -->
 
 <form action="searchAdList" method="post">
     <fieldset>
