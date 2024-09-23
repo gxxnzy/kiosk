@@ -117,6 +117,12 @@
         background-color: #ec0303;
       }
 
+      td img {
+        width: 100px; /* 원하는 너비 */
+        height: 100px; /* 원하는 높이 */
+        object-fit: cover; /* 비율을 유지하며 잘림 */
+      }
+
     </style>
 
     <!-- jQuery -->
@@ -136,7 +142,7 @@
 </head>
 <body>
 
-<h1>Promotions List</h1>
+<h1>프로모션 리스트</h1>
 
 <form action="searchAdList" method="post">
     <fieldset>
