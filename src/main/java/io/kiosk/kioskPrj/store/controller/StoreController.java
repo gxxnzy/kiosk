@@ -35,32 +35,34 @@ public class StoreController {
         Store store = storeService.getStoreById(storeId); // 스토어 아이디로 해당 스토어 정보 가져오기
         if (store != null) {
             // 결제 완료 상태가 된 주문 상세 정보 가져오기
-            List<OrderDetails> paidOrderDetails = storeService.getOrderDetailsByStoreName(store.getStoreName())
-                    .stream()
-                    .filter(detail -> detail.getOrder().getPayStatus() == 1) // 결제 완료 상태
-                    .collect(Collectors.toList());
+            List<OrderDetails> paidOrderDetails = storeService.getOrderDetailsByStoreName(
+                    store.getStoreName())
+                .stream()
+                .filter(detail -> detail.getOrder().getPayStatus() == 1) // 결제 완료 상태
+                .collect(Collectors.toList());
 
             // 메뉴 이름에 따라 수량과 가격을 합산
             List<OrderDetails> consolidatedDetails = paidOrderDetails.stream()
-                    .collect(Collectors.groupingBy(OrderDetails::getMenuName))
-                    .entrySet().stream()
-                    .map(entry -> {
-                        String menuName = entry.getKey();
-                        List<OrderDetails> details = entry.getValue();
-                        int totalQuantity = details.stream().mapToInt(OrderDetails::getQuantity).sum();
-                        int totalPrice = details.stream().mapToInt(OrderDetails::getQuantityPrice).sum();
-                        OrderDetails consolidated = new OrderDetails();
-                        consolidated.setMenuName(menuName);
-                        consolidated.setQuantity(totalQuantity);
-                        consolidated.setQuantityPrice(totalPrice);
-                        return consolidated;
-                    })
-                    .collect(Collectors.toList());
+                .collect(Collectors.groupingBy(OrderDetails::getMenuName))
+                .entrySet().stream()
+                .map(entry -> {
+                    String menuName = entry.getKey();
+                    List<OrderDetails> details = entry.getValue();
+                    int totalQuantity = details.stream().mapToInt(OrderDetails::getQuantity).sum();
+                    int totalPrice = details.stream().mapToInt(OrderDetails::getQuantityPrice)
+                        .sum();
+                    OrderDetails consolidated = new OrderDetails();
+                    consolidated.setMenuName(menuName);
+                    consolidated.setQuantity(totalQuantity);
+                    consolidated.setQuantityPrice(totalPrice);
+                    return consolidated;
+                })
+                .collect(Collectors.toList());
 
             // 총 결제 금액 계산
             int totalPaidSales = consolidatedDetails.stream()
-                    .mapToInt(OrderDetails::getQuantityPrice)
-                    .sum();
+                .mapToInt(OrderDetails::getQuantityPrice)
+                .sum();
 
             model.addAttribute("orderDetails", consolidatedDetails); // 합산된 주문 상세 정보 모델 추가
             model.addAttribute("totalSales", totalPaidSales); // 총 매출
@@ -101,13 +103,14 @@ public class StoreController {
             List<Kiosks> kiosksList = storeService.getKiosksByStoreName(store.getStoreName());
 
             // 결제 완료 상태가 아닌 주문만 가져오기
-            List<Orders> unpaidOrders = storeService.getUnpaidOrdersByStoreName(store.getStoreName());
+            List<Orders> unpaidOrders = storeService.getUnpaidOrdersByStoreName(
+                store.getStoreName());
 
             // 키오스크 번호 중복 제거
             List<Integer> uniqueKioskNums = unpaidOrders.stream()
-                    .map(Orders::getKiosksNum)
-                    .distinct()
-                    .collect(Collectors.toList());
+                .map(Orders::getKiosksNum)
+                .distinct()
+                .collect(Collectors.toList());
 
             model.addAttribute("kiosksList", kiosksList);
             model.addAttribute("unpaidOrders", uniqueKioskNums); // 중복 제거된 키오스크 번호만 추가
@@ -119,20 +122,20 @@ public class StoreController {
 
     @GetMapping("/kioskDetails")
     public String getKioskDetails(@RequestParam("kioskNum") int kioskNum,
-                                  @RequestParam("storeName") String storeName,
-                                  Model model) {
+        @RequestParam("storeName") String storeName,
+        Model model) {
         // 해당 키오스크 번호와 스토어 이름에 대한 주문을 가져옵니다.
         List<Orders> orders = storeService.getOrdersByKioskNumAndStoreName(kioskNum, storeName);
 
         // 주문 ID를 기준으로 상세 정보를 조회하고, 결제 상태가 0인 것만 필터링합니다.
         List<OrderDetails> orderDetailsList = orders.stream()
-                .flatMap(order -> storeService.getOrderDetailsByOrderId(order.getOrderId()).stream())
-                .filter(detail -> detail.getOrder().getPayStatus() == 0) // 결제 상태가 0인 것만 필터링
-                .collect(Collectors.toList());
+            .flatMap(order -> storeService.getOrderDetailsByOrderId(order.getOrderId()).stream())
+            .filter(detail -> detail.getOrder().getPayStatus() == 0) // 결제 상태가 0인 것만 필터링
+            .collect(Collectors.toList());
 
         int totalAmount = orderDetailsList.stream()
-                .mapToInt(OrderDetails::getQuantityPrice)
-                .sum(); // 총 결제 금액 계산
+            .mapToInt(OrderDetails::getQuantityPrice)
+            .sum(); // 총 결제 금액 계산
 
         model.addAttribute("orderDetailsList", orderDetailsList);
         model.addAttribute("kioskNum", kioskNum);
@@ -143,7 +146,8 @@ public class StoreController {
     }
 
     @PostMapping("/updatePaymentStatus")
-    public String updatePaymentStatus(@RequestParam("orderIds") List<Integer> orderIds, Model model) {
+    public String updatePaymentStatus(@RequestParam("orderIds") List<Integer> orderIds,
+        Model model) {
         storeService.updatePaymentStatusForOrders(orderIds);
         return "redirect:/store/payment";
     }
@@ -158,7 +162,8 @@ public class StoreController {
             if (keyword == null || keyword.trim().isEmpty()) {
                 model.addAttribute("error", "검색어를 입력해주세요.");
             } else {
-                List<OrderDetails> searchResults = storeService.searchMenuByKeyword(store.getStoreName(), keyword);
+                List<OrderDetails> searchResults = storeService.searchMenuByKeyword(
+                    store.getStoreName(), keyword);
                 model.addAttribute("searchResults", searchResults);
             }
             model.addAttribute("selectedStore", store.getStoreName());
