@@ -11,21 +11,114 @@
     <title>Promotions List</title>
     <style>
       body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+        padding: 0;
+        background-color: #f9f9f9;
         text-align: center;
       }
 
-      table {
-        margin: 0 auto;
-        border-collapse: collapse;
+      hr {
+        border: 1px solid #F87C7CFC;
+        margin-bottom: 20px;
       }
 
-      /* 이미지 크기를 동일하게 고정 */
-      img {
-        width: 150px;  /* 고정 너비 */
-        height: 120px; /* 고정 높이 */
-        object-fit: cover; /* 이미지를 고정된 크기에 맞춰 자름 */
+      h1 {
+        text-align: center;
+        position: relative;
       }
+
+      h1 a {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      fieldset {
+        border: 1px solid rgba(166, 162, 162, 0.99);
+        padding: 10px;
+        border-radius: 8px;
+        background-color: #fafafa;
+      }
+
+      legend {
+        font-weight: bold;
+        color: rgba(2, 2, 2, 0.97);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      table, th, td {
+        border: 1px solid #ccc;
+      }
+
+      th, td {
+        padding: 10px;
+        text-align: center;
+      }
+
+      th {
+        background-color: rgba(248, 124, 124, 0.99);
+        color: white;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      tr:nth-child(odd) {
+        background-color: #fff;
+      }
+
+      input[type="submit"], input[type="reset"], input[type="button"] {
+        background-color: rgba(248, 124, 124, 0.99);
+        color: white;
+        padding: 10px 50px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover, input[type="reset"]:hover, input[type="button"]:hover {
+        background-color: #ec0303;
+      }
+
+      input[type="text"], select, input[type="date"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+      }
+
+      a {
+        text-decoration: none;
+        color: black;
+      }
+
+      a input[type="submit"] {
+        background-color: rgba(248, 124, 124, 0.99);
+        color: white;
+        padding: 10px 50px;
+        margin: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      a input[type="submit"]:hover {
+        background-color: #ec0303;
+      }
+
     </style>
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script>
@@ -121,7 +214,7 @@
     </tbody>
 </table>
 <form action="createPromotion" method="get">
-    <button type="submit" class="button">광고 추가</button>
+    <input type="submit" value="광고 추가">
 </form>
 
 </body>
