@@ -69,7 +69,7 @@ public class AdminStoreController {
         store.setStoreStatus("영업중");
 
         User user = new User();
-        user.setUsername(store.getStoreName()); // storeName이 username이 됨
+        user.setUsername(store.getStoreId()); // storeId가 username이 됨
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(password);
