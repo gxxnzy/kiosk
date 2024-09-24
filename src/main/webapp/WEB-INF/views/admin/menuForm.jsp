@@ -1,8 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<!-- JSTL -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!-- 숫자 포맷 -->
+<%@ taglib prefix="c" uri="jakarta.tags.core" %><!-- JSTL -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> <!-- 숫자 포맷 -->
 
 <html>
 <head>
