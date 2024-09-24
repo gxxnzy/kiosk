@@ -32,7 +32,7 @@ public class StoreController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String storeId = authentication.getName();
 
-        Store store = storeService.getStoreById(storeId); // 스토어 아이디로 해당 스토어 정보 가져오기
+        Store store = storeService.getStoreById(storeId);
         if (store != null) {
             // 결제 완료 상태가 된 주문 상세 정보 가져오기
             List<OrderDetails> paidOrderDetails = storeService.getOrderDetailsByStoreName(
@@ -171,4 +171,5 @@ public class StoreController {
 
         return "store/store";
     }
+
 }
