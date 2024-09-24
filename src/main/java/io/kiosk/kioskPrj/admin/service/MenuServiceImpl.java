@@ -38,7 +38,6 @@ public class MenuServiceImpl implements MenuService {
         } catch (IOException e) {
             System.out.println("이미지 업로드 실패 : " + e.getMessage());
         }
-
     }
 
     // 조건 검색

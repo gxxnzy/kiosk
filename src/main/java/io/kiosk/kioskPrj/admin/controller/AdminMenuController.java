@@ -1,6 +1,6 @@
 package io.kiosk.kioskPrj.admin.controller;
 
-import io.kiosk.kioskPrj.admin.service.MenuService;
+import io.kiosk.kioskPrj.admin.service.MenuServiceImpl;
 import io.kiosk.kioskPrj.common.model.Category;
 import io.kiosk.kioskPrj.common.model.Menu;
 import io.kiosk.kioskPrj.kiosk.repository.CategoryRepository;
@@ -16,16 +16,16 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("admin/")
 public class AdminMenuController {
 
-    private final MenuService menuService;
+    private final MenuServiceImpl menuServiceImpl;
 
     private final CacheManager cacheManager;
 
     private final CategoryRepository CategoryRepository;
 
     @Autowired
-    public AdminMenuController(MenuService menuService, CacheManager cacheManager,
+    public AdminMenuController(MenuServiceImpl menuServiceImpl, CacheManager cacheManager,
         io.kiosk.kioskPrj.kiosk.repository.CategoryRepository categoryRepository) {
-        this.menuService = menuService;
+        this.menuServiceImpl = menuServiceImpl;
         this.cacheManager = cacheManager;
         CategoryRepository = categoryRepository;
     }
@@ -34,7 +34,7 @@ public class AdminMenuController {
     @GetMapping("menu")
     public String menu(Model model) {
 
-        List<Menu> menus = menuService.getAllMenus();
+        List<Menu> menus = menuServiceImpl.getAllMenus();
         List<Category> categories = CategoryRepository.findAll();
 
         if (menus.isEmpty()) {
@@ -55,7 +55,7 @@ public class AdminMenuController {
         @RequestParam(name = "menuActive", required = false, defaultValue = "") Integer menuActive,
         Model model) {
 
-        List<Menu> menus = menuService.searchMenu(menuName, categoryName, menuActive);
+        List<Menu> menus = menuServiceImpl.searchMenu(menuName, categoryName, menuActive);
         List<Category> categories = CategoryRepository.findAll();
 
         if (menus.isEmpty()) {
@@ -96,7 +96,7 @@ public class AdminMenuController {
         menu.setInfo(info);
         menu.setMenuActive(1);
         menu.setCategoryName(categoryName);
-        menuService.saveMenu(menu, file);
+        menuServiceImpl.saveMenu(menu, file);
 
         return "redirect:/admin/menu";
     }
@@ -105,7 +105,7 @@ public class AdminMenuController {
     @GetMapping("menuDetail")
     public String menuDetail(@RequestParam("menuId") int menuId, Model model) {
 
-        Menu menu = menuService.getById(menuId);
+        Menu menu = menuServiceImpl.getById(menuId);
         List<Category> categories = CategoryRepository.findAll();
 
         model.addAttribute("menu", menu);
@@ -118,9 +118,9 @@ public class AdminMenuController {
     @PostMapping("updateMenu")
     public String updateMenu(@ModelAttribute Menu menu) {
 
-        Menu existingMenu = menuService.getById(menu.getMenuId());
+        Menu existingMenu = menuServiceImpl.getById(menu.getMenuId());
         menu.setMenuImage(existingMenu.getMenuImage());
-        menuService.updateMenu(menu);
+        menuServiceImpl.updateMenu(menu);
 
         return "redirect:/admin/menu";
     }
